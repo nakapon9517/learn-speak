@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       maxWidth: 360,
-      backgroundColor: theme.palette.background.paper,
+      // backgroundColor: theme.palette.background.paper,
       display: "block",
     },
     nested: {
@@ -44,11 +44,6 @@ const SideBar: React.FC = () => {
       <List
         component="nav"
         aria-labelledby="nested-list-subheader"
-        // subheader={
-        //   <ListSubheader id="nested-list-subheader">
-        //     Nested List Items
-        //   </ListSubheader>
-        // }
         className={classes.root}
       >
         <ListItem button>

@@ -14,11 +14,19 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     sidebar: {
       width: "30%",
-      height: "100%",
+      // height: "100vh",
+      // minHeight: "100vh",
+      border: "1px solid gray",
+      borderRadius: "10px",
+      margin: "5px",
     },
     body: {
       width: "100%",
-      height: "100%",
+      margin: "5px 5px 5px 0px",
+      // height: "100%",
+      // minHeight: "100vh",
+      border: "1px solid gray",
+      borderRadius: "10px",
     },
     foot: {
       height: "10px",
@@ -34,10 +42,10 @@ const Speak: React.FC = () => {
     <div>
       <Header />
       <div className={classes.flex}>
-        <Paper elevation={3} className={classes.sidebar}>
+        <Paper className={classes.sidebar}>
           <SideBar />
         </Paper>
-        <Paper elevation={3} className={classes.body}>
+        <Paper className={classes.body}>
           <Body />
         </Paper>
       </div>
