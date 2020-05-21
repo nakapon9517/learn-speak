@@ -5,9 +5,9 @@ import { operations, selectors } from "../../state/speak";
 import Component from "../pages/Speak";
 
 const mapStateToProps = (state: AppState) => ({
-  speak: {
-    ...state.state.folders,
-    speak: selectors.getVisibleFolders(state.state.folders, state.state.check),
+  folders: {
+    ...state.speak.folders,
+    // speak: selectors.getVisibleFolders(state.speak.folders, state.speak.check),
   },
 });
 

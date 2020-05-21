@@ -1,16 +1,24 @@
 import { Reducer } from "redux";
-import { Folder, File } from "speak";
+import { Folders, File } from "speak";
 import { Actions, ActionTypes } from "./actions";
 import cuid from "cuid";
 
 export type State = {
-  folders: Folder[];
-  check: boolean;
+  folders: Folders[];
+  // check: boolean;
 };
 
 export const initialState: State = {
-  folders: [],
-  check: false,
+  folders: [
+    {
+      id: "1",
+      name: "a",
+      text: "b",
+      opened: false,
+      file: { id: "2", name: "c", text: "d", listening: false },
+    },
+  ],
+  // check: false,
 };
 
 const reducer: Reducer<State, Actions> = (state = initialState, action) => {

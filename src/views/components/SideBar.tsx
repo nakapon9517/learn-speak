@@ -1,4 +1,5 @@
 import React from "react";
+import { Folders } from "speak";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -25,7 +26,13 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const SideBar: React.FC = () => {
+interface OwnProps {
+  folders: Folders[];
+}
+
+type Props = OwnProps;
+
+const SideBar: React.FC<Props> = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleClick = () => {

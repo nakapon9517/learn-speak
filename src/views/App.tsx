@@ -1,12 +1,12 @@
 import React from "react";
 import "./App.css";
-import Speak from "./pages/Speak";
+import Speak from "./containers/Speak";
 
 const App: React.FC = () => {
   return (
-    <div className="App">
+    <React.Fragment>
       <Speak />
-    </div>
+    </React.Fragment>
   );
 };
 

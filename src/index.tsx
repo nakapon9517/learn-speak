@@ -4,7 +4,9 @@ import "./index.css";
 import App from "./views/App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
-import store from "./store";
+import configureStore from "./state/store";
+
+const store = configureStore({});
 
 ReactDOM.render(
   <React.StrictMode>
