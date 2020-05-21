@@ -1,7 +1,15 @@
-declare module "todo" {
-  export interface Todo {
+declare module "speak" {
+  export interface Folder {
     id: string;
+    name: string;
     text: string;
-    completed: boolean;
+    opened: boolean;
+    file: File;
+  }
+  export interface File {
+    id: string;
+    name: string;
+    text: string;
+    listening: boolean;
   }
 }

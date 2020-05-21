@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  makeStyles,
-  Theme,
-  createStyles,
-  // fade,
-} from "@material-ui/core/styles";
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -32,9 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const SideBar: React.FC = () => {
   const classes = useStyles();
-
   const [open, setOpen] = React.useState(true);
-
   const handleClick = () => {
     setOpen(!open);
   };

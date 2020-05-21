@@ -6,10 +6,10 @@ import {
   // fade,
 } from "@material-ui/core/styles";
 
-import Twitter from "@material-ui/icons/Twitter";
-import Instagram from "@material-ui/icons/Instagram";
-import GitHub from "@material-ui/icons/GitHub";
-import MailOutline from "@material-ui/icons/MailOutline";
+import TwitterIcon from "@material-ui/icons/Twitter";
+import InstagramIcon from "@material-ui/icons/Instagram";
+import GitHubIcon from "@material-ui/icons/GitHub";
+import MailOutlineIcon from "@material-ui/icons/MailOutline";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,25 +24,25 @@ const Footer: React.FC = () => {
 
   return (
     <div className={classes.root}>
-      <Twitter
+      <TwitterIcon
         color="action"
         onClick={() => {
           alert("a");
         }}
       />
-      <Instagram
+      <InstagramIcon
         color="action"
         onClick={() => {
           alert("b");
         }}
       />
-      <GitHub
+      <GitHubIcon
         color="action"
         onClick={() => {
           alert("c");
         }}
       />
-      <MailOutline
+      <MailOutlineIcon
         color="action"
         onClick={() => {
           alert("d");

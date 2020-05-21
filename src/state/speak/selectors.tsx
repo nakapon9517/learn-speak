@@ -1,3 +1,8 @@
-const a = () => {};
+import { Folder, File } from "speak";
 
-export default a;
+const getVisibleFolders = (folder: Folder[], checked: boolean) =>
+  checked ? folder.filter((v) => !v.opened) : folder;
+
+export default {
+  getVisibleFolders,
+};

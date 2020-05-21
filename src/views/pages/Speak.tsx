@@ -14,19 +14,13 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     sidebar: {
       width: "30%",
-      // height: "100vh",
-      // minHeight: "100vh",
-      border: "1px solid gray",
-      borderRadius: "10px",
+      border: "0.8px solid gray",
       margin: "5px",
     },
     body: {
       width: "100%",
       margin: "5px 5px 5px 0px",
-      // height: "100%",
-      // minHeight: "100vh",
-      border: "1px solid gray",
-      borderRadius: "10px",
+      border: "0.8px solid gray",
     },
     foot: {
       height: "10px",
@@ -36,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Speak: React.FC = () => {
+const Speak: React.FC = (Props) => {
   const classes = useStyles();
   return (
     <div>
