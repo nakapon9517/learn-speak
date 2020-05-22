@@ -1,5 +1,5 @@
 declare module "speak" {
-  export interface Folders {
+  export interface Fold {
     id: string;
     name: string;
     text: string;

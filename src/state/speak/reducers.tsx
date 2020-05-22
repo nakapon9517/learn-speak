@@ -1,10 +1,10 @@
 import { Reducer } from "redux";
-import { Folders, File } from "speak";
+import { Fold } from "speak";
 import { Actions, ActionTypes } from "./actions";
 import cuid from "cuid";
 
 export type State = {
-  folders: Folders[];
+  folders: Fold[];
   // check: boolean;
 };
 

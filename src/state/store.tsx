@@ -1,5 +1,6 @@
 import { Store } from "redux";
-import { createStore, applyMiddleware, combineReducers, compose } from "redux";
+import { createStore, combineReducers } from "redux";
+// import { createStore, applyMiddleware, combineReducers, compose } from "redux";
 // import reducer, { State } from "./speak/reducers";
 // import thunk from "redux-thunk";
 import speak from "./speak";
@@ -28,13 +29,23 @@ const rootReducer = combineReducers({
 });
 
 export default function configureStore(
-  initialState = {}
+  initialState = {
+    folders: [
+      {
+        id: "1",
+        name: "a",
+        text: "b",
+        opened: false,
+        file: { id: "2", name: "c", text: "d", listening: false },
+      },
+    ],
+  }
   // history: History
 ): Store {
   // const middleWares = [thunk, routerMiddleware(history)];
   return createStore(
-    rootReducer,
-    initialState
+    rootReducer
+    // initialState
     // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
     // applyMiddleware(...middleWares)
   );

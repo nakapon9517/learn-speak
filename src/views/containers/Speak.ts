@@ -1,14 +1,16 @@
 import { connect } from "react-redux";
 
 import { AppState } from "../../state/store";
-import { operations, selectors } from "../../state/speak";
+import { operations } from "../../state/speak";
 import Component from "../pages/Speak";
+import { Fold } from "speak";
 
 const mapStateToProps = (state: AppState) => ({
-  folders: {
-    ...state.speak.folders,
-    // speak: selectors.getVisibleFolders(state.speak.folders, state.speak.check),
-  },
+  // folders: {
+  //   ...state.speak.folders,
+  //   // speak: selectors.getVisibleFolders(state.speak.folders, state.speak.check),
+  // },
+  folders: [],
 });
 
 const mapDispatchToProps = {

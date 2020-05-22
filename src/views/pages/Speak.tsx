@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Folders } from "speak";
+import { Fold } from "speak";
 // import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import { withStyles, WithStyles, StyleRules } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -31,32 +31,16 @@ const styles = (): StyleRules => ({
 });
 
 type Props = WithStyles<typeof styles> & {
-  folders: Folders[];
-  folderAdd: () => void;
-  folderDel: () => void;
-  fileAdd: () => void;
-  fileDel: () => void;
-  musicStart: () => void;
-  musicStop: () => void;
-  musicEnd: () => void;
+  folders: Fold[];
 };
 
-const Speak: FC<Props> = ({
-  classes,
-  folderAdd,
-  folderDel,
-  fileAdd,
-  fileDel,
-  musicStart,
-  musicStop,
-  musicEnd,
-  folders,
-}) => {
+const Speak: FC<Props> = ({ classes, folders }) => {
   return (
     <div>
       <Header />
       <div className={classes.flex}>
         <Paper className={classes.sidebar}>
+          {"b" + folders}
           <SideBar folders={folders} />
         </Paper>
         <Paper className={classes.body}>
