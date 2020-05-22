@@ -15,7 +15,7 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import Folder from "@material-ui/icons/Folder";
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import NavigateNext from "@material-ui/icons/NavigateNext";
 
 const styles = (theme: Theme): StyleRules => ({
   root: {
@@ -35,13 +35,12 @@ interface OwnProps {
 
 type Props = WithStyles<typeof styles> & OwnProps;
 
-const SideBar: FC<Props> = ({ classes, folders }) => {
+const SideBar: FC<Props> = ({ classes, folders, clickFolder }) => {
   const [openBox, setOpenBox] = React.useState(true);
 
   // let open = false;
   const clickBox = () => {
     setOpenBox(!openBox);
-    // clickFolder();
   };
 
   return (
@@ -69,21 +68,16 @@ const SideBar: FC<Props> = ({ classes, folders }) => {
                   button
                   style={{ marginLeft: "20px" }}
                   onClick={() => {
-                    // clickFolder(folder.id, folder.opened);
+                    clickFolder(folder.id, folder.opened);
                   }}
                 >
                   <ListItemIcon>
                     <Folder />
                   </ListItemIcon>
-                  <text style={{ fontSize: "20px" }}>{folder.name}</text>
-                  {folder.opened ? (
-                    <ArrowForwardIosIcon
-                      // fontSize="small"
-                      style={{ marginLeft: "30px", fontSize: "15px" }}
-                    />
-                  ) : (
-                    ""
-                  )}
+                  <ListItemText style={{ fontSize: "20px" }}>
+                    {folder.name}
+                  </ListItemText>
+                  {folder.opened ? <NavigateNext /> : ""}
                 </ListItem>
               </div>
             ))}

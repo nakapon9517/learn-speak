@@ -1,5 +1,5 @@
+import { Dispatch } from "redux";
 import { connect } from "react-redux";
-
 import { AppState } from "../../state/store";
 import { operations } from "../../state/speak";
 import Component from "../pages/Speak";
@@ -21,15 +21,33 @@ const mapStateToProps = (state: AppState) => ({
   ],
 });
 
-const mapDispatchToProps = {
-  clickFolder: operations.clickFolder,
-  folderAdd: operations.folderAdd,
-  folderDel: operations.folderDel,
-  fileAdd: operations.fileAdd,
-  fileDel: operations.fileDel,
-  musicStart: operations.musicStart,
-  musicStop: operations.musicStop,
-  musicEnd: operations.musicEnd,
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    clickFolder(id: string, opened: boolean) {
+      dispatch(operations.clickFolder(id, opened));
+    },
+    folderAdd() {
+      dispatch(operations.folderAdd());
+    },
+    folderDel() {
+      dispatch(operations.folderDel());
+    },
+    fileAdd() {
+      dispatch(operations.fileAdd());
+    },
+    fileDel() {
+      dispatch(operations.fileDel());
+    },
+    musicStart() {
+      dispatch(operations.musicStart());
+    },
+    musicStop() {
+      dispatch(operations.musicStop());
+    },
+    musicEnd() {
+      dispatch(operations.musicEnd());
+    },
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Component);

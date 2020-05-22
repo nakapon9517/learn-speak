@@ -6,7 +6,7 @@ import { withStyles, StyleRules } from "@material-ui/core/styles";
 
 const styles = (): StyleRules => ({});
 
-const App: FC = ({}) => {
+const App: FC = () => {
   return (
     <React.Fragment>
       <SpeakContainer />

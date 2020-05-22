@@ -38,7 +38,14 @@ const Body: React.FC = () => {
 
   return (
     <div>
-      <div style={{ textAlign: "right" }}>
+      <div style={{ textAlign: "left", marginLeft: "16px" }}>
+        <Checkbox
+          edge="start"
+          // checked={checked.indexOf(value) !== -1}
+          tabIndex={-1}
+          disableRipple
+          // inputProps={{ "aria-labelledby": labelId }}
+        />
         <Fab
           color="primary"
           aria-label="add"
@@ -48,7 +55,7 @@ const Body: React.FC = () => {
           <AddIcon />
         </Fab>
       </div>
-      <List className={classes.root}>
+      <List component="nav" className={classes.root}>
         {[0, 1, 2, 3].map((value) => {
           const labelId = `checkbox-list-label-${value}`;
           return (
