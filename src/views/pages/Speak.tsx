@@ -14,7 +14,7 @@ const styles = (): StyleRules => ({
     display: "flex",
   },
   sidebar: {
-    width: "30%",
+    width: "40%",
     border: "0.8px solid gray",
     margin: "5px",
   },
@@ -32,16 +32,16 @@ const styles = (): StyleRules => ({
 
 type Props = WithStyles<typeof styles> & {
   folders: Fold[];
+  clickFolder: (id: string, opened: boolean) => void;
 };
 
-const Speak: FC<Props> = ({ classes, folders }) => {
+const Speak: FC<Props> = ({ classes, folders, clickFolder }) => {
   return (
     <div>
       <Header />
       <div className={classes.flex}>
         <Paper className={classes.sidebar}>
-          {"b" + folders}
-          <SideBar folders={folders} />
+          <SideBar folders={folders} clickFolder={clickFolder} />
         </Paper>
         <Paper className={classes.body}>
           <Body />

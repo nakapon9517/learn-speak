@@ -4,7 +4,7 @@ declare module "speak" {
     name: string;
     text: string;
     opened: boolean;
-    file: File;
+    file: File[];
   }
   export interface File {
     id: string;

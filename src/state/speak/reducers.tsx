@@ -3,28 +3,66 @@ import { Fold } from "speak";
 import { Actions, ActionTypes } from "./actions";
 import cuid from "cuid";
 
-export type State = {
+export type SpeakState = {
   folders: Fold[];
   // check: boolean;
 };
 
-export const initialState: State = {
+export const initialState: SpeakState = {
   folders: [
     {
       id: "1",
-      name: "a",
-      text: "b",
+      name: "HY & ORANGE RANGE",
+      text: "A",
+      opened: true,
+      file: [
+        { id: "1", name: "NAO", text: "AA", listening: false },
+        { id: "2", name: "366日", text: "BB", listening: false },
+        { id: "3", name: "隆福丸", text: "CC", listening: false },
+        { id: "4", name: "ビタミン", text: "DD", listening: false },
+      ],
+    },
+    {
+      id: "2",
+      name: "Official髭男dism",
+      text: "B",
       opened: false,
-      file: { id: "2", name: "c", text: "d", listening: false },
+      file: [
+        { id: "1", name: "Pretender", text: "AA", listening: false },
+        { id: "2", name: "I LOVE...", text: "BB", listening: false },
+        { id: "3", name: "Stand By You", text: "CC", listening: false },
+      ],
+    },
+    {
+      id: "3",
+      name: "YOASOBI",
+      text: "C",
+      opened: false,
+      file: [
+        { id: "1", name: "夜に歩く", text: "AA", listening: false },
+        { id: "2", name: "夜に早歩く", text: "BB", listening: false },
+        { id: "3", name: "夜に走る", text: "CC", listening: false },
+        { id: "4", name: "夜にコケる", text: "DD", listening: false },
+        { id: "5", name: "夜に駆ける", text: "EE", listening: false },
+      ],
     },
   ],
-  // check: false,
 };
 
-const reducer: Reducer<State, Actions> = (state = initialState, action) => {
+const speakReducer: Reducer<SpeakState, Actions> = (
+  state = initialState,
+  action
+) => {
   switch (action.type) {
+    case ActionTypes.CLICK_FOLDER: {
+      // alert(action);
+      // alert(cuid());
+      alert("aaaaaaaa");
+    }
     case ActionTypes.FOLDER_ADD: {
-      alert(cuid());
+      // alert(action);
+      // alert(cuid());
+      alert("aaaaaaaa");
     }
 
     case ActionTypes.FOLDER_DEL: {
@@ -55,4 +93,4 @@ const reducer: Reducer<State, Actions> = (state = initialState, action) => {
   }
 };
 
-export default reducer;
+export default speakReducer;

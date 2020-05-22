@@ -1,6 +1,8 @@
 import { ActionType } from "redux-actions-type";
 
 export const ActionTypes = {
+  CLICK_FOLDER: "speak/CLICK_FOLDER",
+
   FOLDER_ADD: "speak/FOLDER_ADD",
   FOLDER_DEL: "speak/FOLDER_DEL",
 
@@ -13,6 +15,12 @@ export const ActionTypes = {
 } as const;
 
 const actions = {
+  clickFolder(id: string, opened: boolean) {
+    return {
+      type: ActionTypes.CLICK_FOLDER,
+      payload: { id, opened },
+    };
+  },
   folderAdd() {
     return {
       type: ActionTypes.FOLDER_ADD,

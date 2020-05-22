@@ -3,17 +3,26 @@ import { connect } from "react-redux";
 import { AppState } from "../../state/store";
 import { operations } from "../../state/speak";
 import Component from "../pages/Speak";
-import { Fold } from "speak";
 
 const mapStateToProps = (state: AppState) => ({
-  // folders: {
-  //   ...state.speak.folders,
-  //   // speak: selectors.getVisibleFolders(state.speak.folders, state.speak.check),
-  // },
-  folders: [],
+  folders: [
+    ...state.speak.folders,
+    // {
+    //   id: "2",
+    //   name: "Official髭男dism",
+    //   text: "B",
+    //   opened: false,
+    //   file: [
+    //     { id: "1", name: "Pretender", text: "AA", listening: false },
+    //     { id: "2", name: "I LOVE...", text: "BB", listening: false },
+    //     { id: "3", name: "Stand By You", text: "CC", listening: false },
+    //   ],
+    // },
+  ],
 });
 
 const mapDispatchToProps = {
+  clickFolder: operations.clickFolder,
   folderAdd: operations.folderAdd,
   folderDel: operations.folderDel,
   fileAdd: operations.fileAdd,
