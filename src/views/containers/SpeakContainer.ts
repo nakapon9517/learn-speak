@@ -19,12 +19,16 @@ const mapStateToProps = (state: AppState) => ({
     //   ],
     // },
   ],
+  files: [...state.speak.files],
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     clickFolder(id: string, opened: boolean) {
       dispatch(operations.clickFolder(id, opened));
+    },
+    clickFile(folderId: number, fileId: number, checked: boolean) {
+      dispatch(operations.clickFile(folderId, fileId, checked));
     },
     folderAdd() {
       dispatch(operations.folderAdd());

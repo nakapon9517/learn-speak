@@ -1,5 +1,11 @@
-import React from "react";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import React, { FC } from "react";
+import { Fold, File } from "speak";
+import {
+  withStyles,
+  WithStyles,
+  StyleRules,
+  Theme,
+} from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -12,39 +18,47 @@ import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
+import Spinner from "react-spinkit";
+// import Speech from "react-speech";
+import { speak } from "./voice";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      backgroundColor: theme.palette.background.paper,
-      display: "block",
-    },
-  })
-);
+const styles = (theme: Theme): StyleRules => ({
+  root: {
+    backgroundColor: theme.palette.background.paper,
+    display: "block",
+  },
+});
 
-const Body: React.FC = () => {
-  const classes = useStyles();
-  const [checked, setChecked] = React.useState([0]);
-  const handleToggle = (value: number) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-    setChecked(newChecked);
-  };
+interface OwnProps {
+  folders: Fold[];
+  files: File[];
+  clickFile: (folderId: number, fileId: number, checked: boolean) => void;
+  // startSound: (folderId:number, fileId: number, ) => void;
+}
+
+type Props = WithStyles<typeof styles> & OwnProps;
+
+const Body: FC<Props> = ({ classes, folders, files, clickFile }) => {
+  const [text, setText] = React.useState("おはようございます。");
+  const targetFoldersId = folders
+    .filter((fold) => fold.opened)
+    .map((fold) => fold.folderId);
+  const targetFiles = files.filter(
+    (file) => targetFoldersId.indexOf(file.folderId) !== -1
+  );
 
   return (
     <div>
       <div style={{ textAlign: "left", marginLeft: "16px" }}>
+        <div>
+          <input onChange={(e) => setText(e.target.value)} value={text} />
+          <button onClick={() => speak(text)}>speak</button>
+        </div>
         <Checkbox
           edge="start"
           // checked={checked.indexOf(value) !== -1}
           tabIndex={-1}
           disableRipple
-          // inputProps={{ "aria-labelledby": labelId }}
         />
         <Fab
           color="primary"
@@ -56,39 +70,58 @@ const Body: React.FC = () => {
         </Fab>
       </div>
       <List component="nav" className={classes.root}>
-        {[0, 1, 2, 3].map((value) => {
-          const labelId = `checkbox-list-label-${value}`;
-          return (
+        {targetFiles.map((file) => (
+          <div key={String(file.folderId) + "-" + String(file.fileId)}>
             <ListItem
-              key={value}
+              key={file.fileId}
               role={undefined}
               dense
               button
-              onClick={handleToggle(value)}
+              onClick={() => {
+                clickFile(file.folderId, file.fileId, file.checked);
+              }}
             >
               <ListItemIcon>
                 <Checkbox
                   edge="start"
-                  checked={checked.indexOf(value) !== -1}
+                  checked={file.checked}
                   tabIndex={-1}
                   disableRipple
-                  inputProps={{ "aria-labelledby": labelId }}
+                  inputProps={{
+                    "aria-labelledby": `checkbox-list-label-${file.fileId}`,
+                  }}
                 />
               </ListItemIcon>
-              <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+              <ListItemText
+                id={`checkbox-list-name-${file.fileId}`}
+                primary={file.name}
+              />
+              <ListItemText
+                id={`checkbox-list-text-${file.fileId}`}
+                primary={file.text}
+              />
               <ListItemSecondaryAction>
-                <IconButton edge="end" aria-label="comments">
-                  <MusicNote />
+                <IconButton edge="end">
+                  <MusicNote
+                    onClick={() => {
+                      speak(file.text);
+                    }}
+                  />
                   <DeleteIcon />
                   <EditIcon />
+                  {file.listening ? (
+                    <Spinner name="line-scale" color="gray" />
+                  ) : (
+                    ""
+                  )}
                 </IconButton>
               </ListItemSecondaryAction>
             </ListItem>
-          );
-        })}
+          </div>
+        ))}
       </List>
     </div>
   );
 };
 
-export default Body;
+export default withStyles(styles)(Body);

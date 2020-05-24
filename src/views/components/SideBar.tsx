@@ -23,9 +23,6 @@ const styles = (theme: Theme): StyleRules => ({
     // backgroundColor: theme.palette.background.paper,
     display: "block",
   },
-  nest: {
-    paddingLeft: theme.spacing(4),
-  },
 });
 
 interface OwnProps {
@@ -37,8 +34,6 @@ type Props = WithStyles<typeof styles> & OwnProps;
 
 const SideBar: FC<Props> = ({ classes, folders, clickFolder }) => {
   const [openBox, setOpenBox] = React.useState(true);
-
-  // let open = false;
   const clickBox = () => {
     setOpenBox(!openBox);
   };
@@ -61,14 +56,14 @@ const SideBar: FC<Props> = ({ classes, folders, clickFolder }) => {
           <List component="div" disablePadding>
             {folders.map((folder) => (
               <div
-                key={folder.id}
+                key={folder.folderId}
                 style={folder.opened ? { backgroundColor: "#c6e4ff" } : {}}
               >
                 <ListItem
                   button
                   style={{ marginLeft: "20px" }}
                   onClick={() => {
-                    clickFolder(folder.id, folder.opened);
+                    clickFolder(folder.folderId, folder.opened);
                   }}
                 >
                   <ListItemIcon>

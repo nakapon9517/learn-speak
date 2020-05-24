@@ -81,7 +81,7 @@ const Header: React.FC = () => {
   const classes = useStyles();
   return (
     <div>
-      <AppBar position="static">
+      <AppBar position="static" color="secondary">
         <Toolbar>
           <IconButton
             edge="start"

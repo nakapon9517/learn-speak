@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Fold } from "speak";
+import { Fold, File } from "speak";
 // import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import { withStyles, WithStyles, StyleRules } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -15,11 +15,15 @@ const styles = (): StyleRules => ({
   },
   sidebar: {
     width: "40%",
+    height: "100%",
+    minHeight: "calc(100vh - 150px)",
     border: "0.8px solid gray",
     margin: "5px",
   },
   body: {
     width: "100%",
+    height: "100%",
+    minHeight: "calc(100vh - 150px)",
     margin: "5px 5px 5px 0px",
     border: "0.8px solid gray",
   },
@@ -32,10 +36,18 @@ const styles = (): StyleRules => ({
 
 type Props = WithStyles<typeof styles> & {
   folders: Fold[];
+  files: File[];
   clickFolder: (id: string, opened: boolean) => void;
+  clickFile: (folderId: number, fileId: number, checked: boolean) => void;
 };
 
-const Speak: FC<Props> = ({ classes, folders, clickFolder }) => {
+const Speak: FC<Props> = ({
+  classes,
+  folders,
+  files,
+  clickFolder,
+  clickFile,
+}) => {
   return (
     <div>
       <Header />
@@ -44,7 +56,7 @@ const Speak: FC<Props> = ({ classes, folders, clickFolder }) => {
           <SideBar folders={folders} clickFolder={clickFolder} />
         </Paper>
         <Paper className={classes.body}>
-          <Body />
+          <Body folders={folders} files={files} clickFile={clickFile} />
         </Paper>
       </div>
       <div className={classes.foot}>
