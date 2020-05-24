@@ -39,6 +39,7 @@ type Props = WithStyles<typeof styles> & {
   files: File[];
   clickFolder: (id: string, opened: boolean) => void;
   clickFile: (folderId: number, fileId: number, checked: boolean) => void;
+  clickAll: (checked: boolean) => void;
 };
 
 const Speak: FC<Props> = ({
@@ -47,6 +48,7 @@ const Speak: FC<Props> = ({
   files,
   clickFolder,
   clickFile,
+  clickAll,
 }) => {
   return (
     <div>
@@ -56,7 +58,12 @@ const Speak: FC<Props> = ({
           <SideBar folders={folders} clickFolder={clickFolder} />
         </Paper>
         <Paper className={classes.body}>
-          <Body folders={folders} files={files} clickFile={clickFile} />
+          <Body
+            folders={folders}
+            files={files}
+            clickFile={clickFile}
+            clickAll={clickAll}
+          />
         </Paper>
       </div>
       <div className={classes.foot}>

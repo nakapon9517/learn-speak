@@ -3,6 +3,7 @@ import { ActionType } from "redux-actions-type";
 export const ActionTypes = {
   CLICK_FOLDER: "speak/CLICK_FOLDER",
   CLICK_FILE: "speak/CLICK_FILE",
+  CLICK_ALL: "speak/CLICK_ALL",
 
   FOLDER_ADD: "speak/FOLDER_ADD",
   FOLDER_DEL: "speak/FOLDER_DEL",
@@ -26,6 +27,12 @@ const actions = {
     return {
       type: ActionTypes.CLICK_FILE,
       payload: { folderId, fileId, checked },
+    };
+  },
+  clickAll(checked: boolean) {
+    return {
+      type: ActionTypes.CLICK_ALL,
+      payload: { checked },
     };
   },
   folderAdd() {

@@ -43,7 +43,7 @@ export const initialState: SpeakState = {
       folderId: 1,
       fileId: 2,
       name: "366日",
-      text: "BB",
+      text: "明日はつけ麺食べたい",
       checked: true,
       listening: false,
     },
@@ -146,12 +146,34 @@ const speakReducer: Reducer<SpeakState, Actions> = (
       };
     }
     case ActionTypes.CLICK_FILE: {
+      // チェック対象ファイル
       const target = state.files.filter(
         (file) =>
           file.folderId === action.payload.folderId &&
           file.fileId === action.payload.fileId
       );
       target[0].checked = !action.payload.checked;
+      return {
+        ...state,
+      };
+    }
+    case ActionTypes.CLICK_ALL: {
+      // チェック対象フォルダ
+      const targetFolders = state.folders.filter(
+        (fold) => fold.opened === true
+      );
+      // チェック対象ファイル
+      const targetFoldId = [
+        targetFolders.map((fold) => {
+          return fold.folderId;
+        }),
+      ];
+      state.files.map((file) => {
+        if (targetFoldId[0].includes(file.folderId)) {
+          file.checked = action.payload.checked;
+        }
+      });
+
       return {
         ...state,
       };

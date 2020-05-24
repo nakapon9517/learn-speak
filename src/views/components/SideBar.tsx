@@ -16,6 +16,8 @@ import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import Folder from "@material-ui/icons/Folder";
 import NavigateNext from "@material-ui/icons/NavigateNext";
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/Add";
 
 const styles = (theme: Theme): StyleRules => ({
   root: {
@@ -78,6 +80,16 @@ const SideBar: FC<Props> = ({ classes, folders, clickFolder }) => {
             ))}
           </List>
         </Collapse>
+        <div style={{ textAlign: "right" }}>
+          <Fab
+            color="primary"
+            aria-label="add"
+            size="small"
+            style={{ margin: "10px" }}
+          >
+            <AddIcon />
+          </Fab>
+        </div>
       </List>
     </div>
   );

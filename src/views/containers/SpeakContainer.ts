@@ -30,6 +30,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     clickFile(folderId: number, fileId: number, checked: boolean) {
       dispatch(operations.clickFile(folderId, fileId, checked));
     },
+    clickAll(checked: boolean) {
+      dispatch(operations.clickAll(checked));
+    },
     folderAdd() {
       dispatch(operations.folderAdd());
     },
