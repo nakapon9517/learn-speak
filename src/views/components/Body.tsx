@@ -17,6 +17,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import MusicNote from "@material-ui/icons/MusicNote";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
+import PlayCircleOutline from "@material-ui/icons/PlayCircleOutline";
 import Spinner from "react-spinkit";
 import { speak } from "./voice";
 
@@ -24,17 +25,29 @@ const styles = (theme: Theme): StyleRules => ({
   root: {
     backgroundColor: theme.palette.background.paper,
     display: "block",
-    paddingLeft: "10px",
     paddingRight: "10px",
   },
   list: {
     // position: "relative",
+    marginLeft: "10px",
     borderBottom: "solid 3px #cce4ff",
   },
+  title: {
+    width: "30%",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  },
+  text: {
+    width: "40%",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  },
   iconButtonGroup: {
-    width: "20%",
-    margin: "0px auto",
+    width: "16%",
     textAlign: "right",
+    display: "inline-block",
   },
   iconButton: {
     // width: "25%",
@@ -62,25 +75,41 @@ const Body: FC<Props> = ({ classes, folders, files, clickFile, clickAll }) => {
 
   return (
     <div>
-      <div style={{ textAlign: "left", marginLeft: "26px" }}>
+      <div
+        style={{
+          width: "90%",
+          marginLeft: "26px",
+          display: "inline",
+        }}
+      >
         <Checkbox
           edge="start"
           checked={allCheck}
           tabIndex={-1}
-          disableRipple
           onClick={() => {
             const check = !allCheck;
             setAllCheck(check);
             clickAll(check);
           }}
         />
-        <span style={{ marginLeft: "20px" }}>Title</span>
-        <span style={{ marginLeft: "130px" }}>Content</span>
-        <span style={{ marginLeft: "130px" }}>
-          <Button variant="contained" color="secondary" size="small">
-            再生
-          </Button>
-        </span>
+      </div>
+      <div
+        style={{
+          width: "90%",
+          marginLeft: "2px",
+          display: "inline",
+          textAlign: "right",
+        }}
+      >
+        <Button
+          variant="contained"
+          color="secondary"
+          size="small"
+          // style={{ width: "100px" }}
+          endIcon={<PlayCircleOutline />}
+        >
+          Play
+        </Button>
       </div>
       <List component="nav" className={classes.root}>
         {targetFiles.map((file) => (
@@ -112,12 +141,14 @@ const Body: FC<Props> = ({ classes, folders, files, clickFile, clickAll }) => {
               <ListItemText
                 id={`checkbox-list-name-${file.fileId}`}
                 primary={file.name}
+                className={classes.title}
               />
               <ListItemText
                 id={`checkbox-list-text-${file.fileId}`}
                 primary={file.text}
+                className={classes.text}
               />
-              <ListItemSecondaryAction className={classes.iconButtonGroup}>
+              <div className={classes.iconButtonGroup}>
                 <IconButton
                   edge="end"
                   size="small"
@@ -175,7 +206,7 @@ const Body: FC<Props> = ({ classes, folders, files, clickFile, clickAll }) => {
                 >
                   <EditIcon />
                 </IconButton>
-              </ListItemSecondaryAction>
+              </div>
             </ListItem>
           </div>
         ))}

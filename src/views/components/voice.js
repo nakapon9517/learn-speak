@@ -4,7 +4,7 @@ export const speak = (text) => {
     return;
   }
 
-  var voices = window.speechSynthesis.getVoices();
+  // var voices = window.speechSynthesis.getVoices();
 
   let options = new SpeechSynthesisUtterance(text);
   options.lang = "ja-JP";

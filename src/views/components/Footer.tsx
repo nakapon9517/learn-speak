@@ -9,7 +9,6 @@ import {
 import TwitterIcon from "@material-ui/icons/Twitter";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import GitHubIcon from "@material-ui/icons/GitHub";
-import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -42,12 +41,6 @@ const Footer: React.FC = () => {
         color="action"
         onClick={() => {
           alert("c");
-        }}
-      />
-      <MailOutlineIcon
-        color="action"
-        onClick={() => {
-          alert("d");
         }}
       />
     </div>

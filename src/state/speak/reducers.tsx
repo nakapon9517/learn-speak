@@ -13,19 +13,19 @@ export const initialState: SpeakState = {
   folders: [
     {
       folderId: 1,
-      name: "HY & ORANGE RANGE",
+      name: "I LOVE RA-MEN",
       text: "A",
       opened: true,
     },
     {
       folderId: 2,
-      name: "Official髭男dism",
+      name: "髭男 IS LIFE",
       text: "B",
       opened: true,
     },
     {
       folderId: 3,
-      name: "YOASOBI",
+      name: "YOASOBI MO IIYONE!",
       text: "C",
       opened: false,
     },
@@ -34,7 +34,7 @@ export const initialState: SpeakState = {
     {
       folderId: 1,
       fileId: 1,
-      name: "NAO",
+      name: "魚介とんこつ最強説",
       text: "AA",
       checked: true,
       listening: true,
@@ -42,7 +42,7 @@ export const initialState: SpeakState = {
     {
       folderId: 1,
       fileId: 2,
-      name: "366日",
+      name: "あああああああああああああああいいいいいいいいいいいいいい",
       text: "明日はつけ麺食べたい",
       checked: true,
       listening: false,
@@ -50,15 +50,15 @@ export const initialState: SpeakState = {
     {
       folderId: 1,
       fileId: 3,
-      name: "隆福丸",
-      text: "CC",
+      name: "明後日は豚骨ラーメン食べたい",
+      text: "012345678901234567890123456789012345678901234567890123456789",
       checked: false,
       listening: true,
     },
     {
       folderId: 1,
       fileId: 4,
-      name: "ビタミン",
+      name: "しょうゆ・塩・豚骨・鶏・酸辣湯麺",
       text: "DD",
       checked: false,
       listening: false,
