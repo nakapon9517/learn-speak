@@ -1,7 +1,9 @@
 import { ActionType } from "redux-actions-type";
 
 export const ActionTypes = {
+  CHANGE_SEARCH: "speak/CHANGE_SEARCH",
   CLICK_FOLDER: "speak/CLICK_FOLDER",
+  CLICK_PLAY: "speak/CLICK_PLAY",
   CLICK_FILE: "speak/CLICK_FILE",
   CLICK_ALL: "speak/CLICK_ALL",
 
@@ -17,10 +19,22 @@ export const ActionTypes = {
 } as const;
 
 const actions = {
+  changeSearch(text: string) {
+    return {
+      type: ActionTypes.CHANGE_SEARCH,
+      payload: { text },
+    };
+  },
   clickFolder(id: string, opened: boolean) {
     return {
       type: ActionTypes.CLICK_FOLDER,
       payload: { id, opened },
+    };
+  },
+  clickPlay(folderId: number, fileId: number, playBefore: boolean) {
+    return {
+      type: ActionTypes.CLICK_PLAY,
+      payload: { folderId, fileId, playBefore },
     };
   },
   clickFile(folderId: number, fileId: number, checked: boolean) {

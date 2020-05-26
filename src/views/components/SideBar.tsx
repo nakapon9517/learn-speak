@@ -15,7 +15,7 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import Folder from "@material-ui/icons/Folder";
-import NavigateNext from "@material-ui/icons/NavigateNext";
+// import NavigateNext from "@material-ui/icons/NavigateNext";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 
@@ -24,6 +24,9 @@ const styles = (theme: Theme): StyleRules => ({
     maxWidth: 360,
     // backgroundColor: theme.palette.background.paper,
     display: "block",
+  },
+  listText: {
+    fontSize: "0.2em",
   },
 });
 
@@ -71,10 +74,11 @@ const SideBar: FC<Props> = ({ classes, folders, clickFolder }) => {
                   <ListItemIcon>
                     <Folder />
                   </ListItemIcon>
-                  <ListItemText style={{ fontSize: "20px" }}>
-                    {folder.name}
-                  </ListItemText>
-                  {folder.opened ? <NavigateNext /> : ""}
+                  <ListItemText
+                    className={classes.listText}
+                    primary={folder.name}
+                  ></ListItemText>
+                  {/* {folder.opened ? <NavigateNext /> : ""} */}
                 </ListItem>
               </div>
             ))}

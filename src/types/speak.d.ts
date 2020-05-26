@@ -12,5 +12,6 @@ declare module "speak" {
     text: string;
     checked: boolean;
     listening: boolean;
+    indicate: boolean;
   }
 }

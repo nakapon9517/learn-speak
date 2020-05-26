@@ -24,8 +24,14 @@ const mapStateToProps = (state: AppState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
+    changeSearch(text: string) {
+      dispatch(operations.changeSearch(text));
+    },
     clickFolder(id: string, opened: boolean) {
       dispatch(operations.clickFolder(id, opened));
+    },
+    clickPlay(folderId: number, fileId: number, playBefore: boolean) {
+      dispatch(operations.clickPlay(folderId, fileId, playBefore));
     },
     clickFile(folderId: number, fileId: number, checked: boolean) {
       dispatch(operations.clickFile(folderId, fileId, checked));

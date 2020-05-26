@@ -1,15 +1,18 @@
-export const speak = (text) => {
-  if (!"SpeechSynthesisUtterance" in window) {
+export async function execute(text) {
+  if ("SpeechSynthesisUtterance" in window) {
+    var voices = window.speechSynthesis.getVoices();
+
+    let options = new SpeechSynthesisUtterance(text);
+    // options.lang = "ja-JP";
+    options.lang = "en-GB";
+    options.voice = voices[1];
+    options.rate = 1.0;
+    options.pitch = 1.0;
+
+    await window.speechSynthesis.speak(options);
+    return true;
+  } else {
     alert("Speech synthesis(音声合成) APIには未対応です.");
-    return;
+    return false;
   }
-
-  // var voices = window.speechSynthesis.getVoices();
-
-  let options = new SpeechSynthesisUtterance(text);
-  options.lang = "ja-JP";
-  // options.voice = voices[7];
-  options.rate = 1.5;
-  options.pitch = 0.3;
-  window.speechSynthesis.speak(options);
-};
+}

@@ -12,14 +12,13 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import IconButton from "@material-ui/core/IconButton";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import Checkbox from "@material-ui/core/Checkbox";
 import MusicNote from "@material-ui/icons/MusicNote";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import PlayCircleOutline from "@material-ui/icons/PlayCircleOutline";
 import Spinner from "react-spinkit";
-import { speak } from "./voice";
+import { execute } from "./voice";
 
 const styles = (theme: Theme): StyleRules => ({
   root: {
@@ -58,20 +57,45 @@ const styles = (theme: Theme): StyleRules => ({
 interface OwnProps {
   folders: Fold[];
   files: File[];
+  clickPlay: (folderId: number, fileId: number, playBefore: boolean) => void;
   clickFile: (folderId: number, fileId: number, checked: boolean) => void;
   clickAll: (checked: boolean) => void;
 }
 
 type Props = WithStyles<typeof styles> & OwnProps;
 
-const Body: FC<Props> = ({ classes, folders, files, clickFile, clickAll }) => {
+const Body: FC<Props> = ({
+  classes,
+  folders,
+  files,
+  clickPlay,
+  clickFile,
+  clickAll,
+}) => {
   const [allCheck, setAllCheck] = React.useState(false);
+
   const targetFoldersId = folders
     .filter((fold) => fold.opened)
     .map((fold) => fold.folderId);
   const targetFiles = files.filter(
-    (file) => targetFoldersId.indexOf(file.folderId) !== -1
+    (file) => targetFoldersId.indexOf(file.folderId) !== -1 && file.indicate
   );
+
+  const handlerSpeak = (folderId: number, fileId: number, text: string) => {
+    if (folderId === 0 || fileId === 0) {
+      files
+        .filter((file) => file.checked)
+        .forEach((file) => {
+          execute(file.text);
+        });
+    } else {
+      (async () => {
+        const res = await execute(text);
+        console.log(res);
+      })();
+    }
+    clickPlay(1, 1, false);
+  };
 
   return (
     <div>
@@ -107,6 +131,9 @@ const Body: FC<Props> = ({ classes, folders, files, clickFile, clickAll }) => {
           size="small"
           // style={{ width: "100px" }}
           endIcon={<PlayCircleOutline />}
+          onClick={() => {
+            handlerSpeak(0, 0, "aa");
+          }}
         >
           Play
         </Button>
@@ -153,9 +180,6 @@ const Body: FC<Props> = ({ classes, folders, files, clickFile, clickAll }) => {
                   edge="end"
                   size="small"
                   className={classes.iconButton}
-                  onClick={() => {
-                    speak(file.text);
-                  }}
                 >
                   {file.listening ? (
                     <Spinner
@@ -173,7 +197,7 @@ const Body: FC<Props> = ({ classes, folders, files, clickFile, clickAll }) => {
                   size="small"
                   className={classes.iconButton}
                   onClick={() => {
-                    speak(file.text);
+                    handlerSpeak(file.folderId, file.fileId, file.text);
                   }}
                 >
                   <MusicNote />
@@ -183,7 +207,7 @@ const Body: FC<Props> = ({ classes, folders, files, clickFile, clickAll }) => {
                   size="small"
                   className={classes.iconButton}
                   onClick={() => {
-                    speak(file.text);
+                    // handlerSpeak(file.text);
                   }}
                 ></IconButton>
                 <IconButton
@@ -191,7 +215,7 @@ const Body: FC<Props> = ({ classes, folders, files, clickFile, clickAll }) => {
                   size="small"
                   className={classes.iconButton}
                   onClick={() => {
-                    speak(file.text);
+                    // handlerSpeak(file.text);
                   }}
                 >
                   <DeleteIcon />
@@ -201,7 +225,7 @@ const Body: FC<Props> = ({ classes, folders, files, clickFile, clickAll }) => {
                   size="small"
                   className={classes.iconButton}
                   onClick={() => {
-                    speak(file.text);
+                    // handlerSpeak(file.text);
                   }}
                 >
                   <EditIcon />

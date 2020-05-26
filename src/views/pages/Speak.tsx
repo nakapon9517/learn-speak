@@ -37,7 +37,9 @@ const styles = (): StyleRules => ({
 type Props = WithStyles<typeof styles> & {
   folders: Fold[];
   files: File[];
+  changeSearch: (text: string) => void;
   clickFolder: (id: string, opened: boolean) => void;
+  clickPlay: (folderId: number, fileId: number, playBefore: boolean) => void;
   clickFile: (folderId: number, fileId: number, checked: boolean) => void;
   clickAll: (checked: boolean) => void;
 };
@@ -46,13 +48,15 @@ const Speak: FC<Props> = ({
   classes,
   folders,
   files,
+  changeSearch,
   clickFolder,
+  clickPlay,
   clickFile,
   clickAll,
 }) => {
   return (
     <div>
-      <Header />
+      <Header changeSearch={changeSearch} />
       <div className={classes.flex}>
         <Paper className={classes.sidebar}>
           <SideBar folders={folders} clickFolder={clickFolder} />
@@ -61,6 +65,7 @@ const Speak: FC<Props> = ({
           <Body
             folders={folders}
             files={files}
+            clickPlay={clickPlay}
             clickFile={clickFile}
             clickAll={clickAll}
           />

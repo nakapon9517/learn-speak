@@ -1,7 +1,6 @@
 import { Reducer } from "redux";
 import { Fold, File } from "speak";
 import { Actions, ActionTypes } from "./actions";
-// import cuid from "cuid";
 
 export type SpeakState = {
   folders: Fold[];
@@ -13,19 +12,19 @@ export const initialState: SpeakState = {
   folders: [
     {
       folderId: 1,
-      name: "I LOVE RA-MEN",
+      name: "果物",
       text: "A",
       opened: true,
     },
     {
       folderId: 2,
-      name: "髭男 IS LIFE",
+      name: "こってり系",
       text: "B",
       opened: true,
     },
     {
       folderId: 3,
-      name: "YOASOBI MO IIYONE!",
+      name: "飲み物",
       text: "C",
       opened: false,
     },
@@ -34,98 +33,110 @@ export const initialState: SpeakState = {
     {
       folderId: 1,
       fileId: 1,
-      name: "魚介とんこつ最強説",
-      text: "AA",
-      checked: true,
-      listening: true,
+      name: "りんご",
+      text: "apple",
+      checked: false,
+      listening: false,
+      indicate: true,
     },
     {
       folderId: 1,
       fileId: 2,
-      name: "あああああああああああああああいいいいいいいいいいいいいい",
-      text: "明日はつけ麺食べたい",
-      checked: true,
+      name: "ぶどう",
+      text: "grape",
+      checked: false,
       listening: false,
+      indicate: true,
     },
     {
       folderId: 1,
       fileId: 3,
-      name: "明後日は豚骨ラーメン食べたい",
-      text: "012345678901234567890123456789012345678901234567890123456789",
+      name: "シャンパン",
+      text: "Champagne",
       checked: false,
-      listening: true,
+      listening: false,
+      indicate: true,
     },
     {
       folderId: 1,
       fileId: 4,
-      name: "しょうゆ・塩・豚骨・鶏・酸辣湯麺",
-      text: "DD",
+      name: "しょうゆ",
+      text: "Soy sauce",
       checked: false,
       listening: false,
+      indicate: true,
     },
     {
       folderId: 2,
       fileId: 1,
-      name: "Pretender",
-      text: "AA",
+      name: "塩",
+      text: "salt",
       checked: false,
       listening: false,
+      indicate: true,
     },
     {
       folderId: 2,
       fileId: 2,
-      name: "I LOVE...",
-      text: "BB",
+      name: "豚骨",
+      text: "pork bone",
       checked: false,
-      listening: true,
+      listening: false,
+      indicate: true,
     },
     {
       folderId: 2,
       fileId: 3,
-      name: "Stand By You",
-      text: "CC",
+      name: "鶏",
+      text: "chicken",
       checked: false,
       listening: false,
+      indicate: true,
     },
     {
       folderId: 3,
       fileId: 1,
-      name: "夜に歩く",
-      text: "AA",
+      name: "酸辣湯麺",
+      text: "hot and sour noodles",
       checked: false,
-      listening: true,
+      listening: false,
+      indicate: true,
     },
     {
       folderId: 3,
       fileId: 2,
-      name: "夜に早歩く",
-      text: "BB",
+      name: "トンカツ",
+      text: "pork cutlet",
       checked: false,
       listening: false,
+      indicate: true,
     },
     {
       folderId: 3,
       fileId: 3,
-      name: "夜に走る",
-      text: "CC",
+      name: "ラーメン",
+      text: "ramen",
       checked: false,
       listening: false,
+      indicate: true,
     },
     {
       folderId: 3,
       fileId: 4,
-      name: "夜にコケる",
-      text: "DD",
+      name: "日本酒",
+      text: "Japanese sake",
       checked: false,
-      listening: true,
+      listening: false,
+      indicate: true,
     },
     {
       folderId: 3,
       fileId: 5,
-      name: "夜に駆ける",
-      text: "EE",
+      name: "ワイン",
+      text: "Wine",
       checked: false,
       listening: false,
+      indicate: true,
     },
   ],
 };
@@ -135,12 +146,48 @@ const speakReducer: Reducer<SpeakState, Actions> = (
   action
 ) => {
   switch (action.type) {
+    case ActionTypes.CHANGE_SEARCH: {
+      if (action.payload.text) {
+        state.files
+          .filter((file) => file.text.includes(action.payload.text))
+          .forEach((file) => {
+            file.indicate = false;
+          });
+      } else {
+        state.files.forEach((file) => {
+          file.indicate = true;
+        });
+      }
+      return {
+        ...state,
+      };
+    }
     case ActionTypes.CLICK_FOLDER: {
-      state.folders.map((folder) => {
+      state.folders.forEach((folder) => {
         if (folder.folderId === action.payload.id) {
           folder.opened = !folder.opened;
         }
       });
+      return {
+        ...state,
+      };
+    }
+    case ActionTypes.CLICK_PLAY: {
+      const folderId = action.payload.folderId;
+      const fileId = action.payload.folderId;
+      const playBefore = action.payload.playBefore;
+      // console.log(playBefore);
+
+      if (folderId && fileId) {
+        // 単独
+        state.files
+          .filter(
+            (file) => file.folderId === folderId && file.fileId === fileId
+          )
+          .forEach((file) => {
+            file.listening = playBefore;
+          });
+      }
       return {
         ...state,
       };
@@ -168,7 +215,7 @@ const speakReducer: Reducer<SpeakState, Actions> = (
           return fold.folderId;
         }),
       ];
-      state.files.map((file) => {
+      state.files.forEach((file) => {
         if (targetFoldId[0].includes(file.folderId)) {
           file.checked = action.payload.checked;
         }

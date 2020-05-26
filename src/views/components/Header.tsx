@@ -1,9 +1,12 @@
-import React from "react";
+import React, { FC } from "react";
 import {
   makeStyles,
-  Theme,
   createStyles,
   fade,
+  withStyles,
+  WithStyles,
+  StyleRules,
+  Theme,
 } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -13,72 +16,75 @@ import InputBase from "@material-ui/core/InputBase";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      width: "100%",
-      maxWidth: 360,
-      backgroundColor: theme.palette.background.paper,
-      flexGrow: 1,
+const styles = (theme: Theme): StyleRules => ({
+  root: {
+    width: "100%",
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+    flexGrow: 1,
+  },
+  nested: {
+    paddingLeft: theme.spacing(4),
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+    display: "none",
+    textAlign: "left",
+    [theme.breakpoints.up("sm")]: {
+      display: "block",
     },
-    nested: {
-      paddingLeft: theme.spacing(4),
+  },
+  search: {
+    position: "relative",
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    "&:hover": {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
     },
-    menuButton: {
-      marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing(1),
+      width: "auto",
     },
-    title: {
-      flexGrow: 1,
-      display: "none",
-      textAlign: "left",
-      [theme.breakpoints.up("sm")]: {
-        display: "block",
+  },
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  inputRoot: {
+    color: "inherit",
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      width: "12ch",
+      "&:focus": {
+        width: "20ch",
       },
     },
-    search: {
-      position: "relative",
-      borderRadius: theme.shape.borderRadius,
-      backgroundColor: fade(theme.palette.common.white, 0.15),
-      "&:hover": {
-        backgroundColor: fade(theme.palette.common.white, 0.25),
-      },
-      marginLeft: 0,
-      width: "100%",
-      [theme.breakpoints.up("sm")]: {
-        marginLeft: theme.spacing(1),
-        width: "auto",
-      },
-    },
-    searchIcon: {
-      padding: theme.spacing(0, 2),
-      height: "100%",
-      position: "absolute",
-      pointerEvents: "none",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-    },
-    inputRoot: {
-      color: "inherit",
-    },
-    inputInput: {
-      padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-      transition: theme.transitions.create("width"),
-      width: "100%",
-      [theme.breakpoints.up("sm")]: {
-        width: "12ch",
-        "&:focus": {
-          width: "20ch",
-        },
-      },
-    },
-  })
-);
+  },
+});
 
-const Header: React.FC = () => {
-  const classes = useStyles();
+interface OwnProps {
+  changeSearch: (text: string) => void;
+}
+
+type Props = WithStyles<typeof styles> & OwnProps;
+
+const Header: FC<Props> = ({ classes, changeSearch }) => {
   return (
     <div>
       <AppBar position="static" color="primary">
@@ -105,6 +111,10 @@ const Header: React.FC = () => {
                 input: classes.inputInput,
               }}
               inputProps={{ "aria-label": "search" }}
+              onChange={(event) => {
+                changeSearch(event.target.value);
+                // console.log();
+              }}
             />
           </div>
         </Toolbar>
@@ -113,4 +123,4 @@ const Header: React.FC = () => {
   );
 };
 
-export default Header;
+export default withStyles(styles)(Header);

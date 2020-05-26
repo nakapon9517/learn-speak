@@ -1,7 +1,9 @@
 import actions from "./actions";
 
 export default {
+  changeSearch: actions.changeSearch,
   clickFolder: actions.clickFolder,
+  clickPlay: actions.clickPlay,
   clickFile: actions.clickFile,
   clickAll: actions.clickAll,
   folderAdd: actions.folderAdd,
