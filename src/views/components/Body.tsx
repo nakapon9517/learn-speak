@@ -83,15 +83,17 @@ const Body: FC<Props> = ({
 
   const handlerSpeak = (folderId: number, fileId: number, text: string) => {
     if (folderId === 0 || fileId === 0) {
-      files
-        .filter((file) => file.checked)
-        .forEach((file) => {
+      const targetFiles = files.filter((file) => file.checked);
+      if (targetFiles.length > 0) {
+        targetFiles.forEach((file) => {
           execute(file.text);
         });
+      } else {
+        alert("Not Check");
+      }
     } else {
       (async () => {
         const res = await execute(text);
-        console.log(res);
       })();
     }
     clickPlay(1, 1, false);

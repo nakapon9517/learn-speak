@@ -10,6 +10,7 @@ import TwitterIcon from "@material-ui/icons/Twitter";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { url } from "inspector";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,11 +25,13 @@ const Footer: React.FC = () => {
 
   return (
     <div className={classes.root}>
-      <CircularProgress style={{ fontSize: "30px" }} />
+      {/* <CircularProgress style={{ fontSize: "30px" }} /> */}
       <TwitterIcon
         color="action"
         onClick={() => {
-          alert("a");
+          if (window.confirm("Twitterを開きます。\nよろしいでしょうか？")) {
+            document.location.href = "https://twitter.com/nakapooooon";
+          }
         }}
       />
       <InstagramIcon
@@ -40,7 +43,11 @@ const Footer: React.FC = () => {
       <GitHubIcon
         color="action"
         onClick={() => {
-          alert("c");
+          if (
+            window.confirm("GitHubのページへ遷移します。\nよろしいでしょうか？")
+          ) {
+            document.location.href = "https://github.com/nakapon9517";
+          }
         }}
       />
     </div>

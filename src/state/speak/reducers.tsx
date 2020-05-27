@@ -176,8 +176,6 @@ const speakReducer: Reducer<SpeakState, Actions> = (
       const folderId = action.payload.folderId;
       const fileId = action.payload.folderId;
       const playBefore = action.payload.playBefore;
-      // console.log(playBefore);
-
       if (folderId && fileId) {
         // 単独
         state.files

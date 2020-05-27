@@ -18,6 +18,19 @@ import Folder from "@material-ui/icons/Folder";
 // import NavigateNext from "@material-ui/icons/NavigateNext";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Slide from "@material-ui/core/Slide";
+import { TransitionProps } from "@material-ui/core/transitions";
+import TextField from "@material-ui/core/TextField";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
+import CheckCircleOutline from "@material-ui/icons/DoneOutlineOutlined";
 
 const styles = (theme: Theme): StyleRules => ({
   root: {
@@ -28,6 +41,18 @@ const styles = (theme: Theme): StyleRules => ({
   listText: {
     fontSize: "0.2em",
   },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 300,
+    display: "inline-block",
+  },
+});
+
+const Transition = React.forwardRef(function Transition(
+  props: TransitionProps & { children?: React.ReactElement<any, any> },
+  ref: React.Ref<unknown>
+) {
+  return <Slide direction="down" ref={ref} {...props} />;
 });
 
 interface OwnProps {
@@ -39,8 +64,17 @@ type Props = WithStyles<typeof styles> & OwnProps;
 
 const SideBar: FC<Props> = ({ classes, folders, clickFolder }) => {
   const [openBox, setOpenBox] = React.useState(true);
+  const [openModal, setOpenModal] = React.useState(false);
   const clickBox = () => {
     setOpenBox(!openBox);
+  };
+
+  const handleClickOpen = () => {
+    setOpenModal(true);
+  };
+
+  const handleClose = () => {
+    setOpenModal(false);
   };
 
   return (
@@ -90,11 +124,57 @@ const SideBar: FC<Props> = ({ classes, folders, clickFolder }) => {
             aria-label="add"
             size="small"
             style={{ margin: "10px" }}
+            onClick={handleClickOpen}
           >
             <AddIcon />
           </Fab>
         </div>
       </List>
+      <Dialog
+        open={openModal}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle id="alert-dialog-slide-title">
+          {"Add Music Box"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            <FormControl style={{ marginRight: "20px" }}>
+              <TextField
+                id="standard-basic"
+                label="name"
+                style={{ marginBottom: "50px" }}
+              />
+            </FormControl>
+            <FormControl style={{ width: "150px" }}>
+              <InputLabel id="demo-simple-select-label">Category</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={10}
+              >
+                <MenuItem value={10}>Ten</MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem>
+              </Select>
+            </FormControl>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Fab
+            color="secondary"
+            aria-label="add"
+            size="medium"
+            // onClick={handleClickOpen}
+          >
+            <CheckCircleOutline />
+          </Fab>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

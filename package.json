@@ -17,6 +17,7 @@
     "@types/react-scroll": "^1.5.5",
     "@types/react-spinkit": "^3.0.6",
     "@types/redux-actions": "^2.6.1",
+    "@types/redux-localstorage": "^1.0.8",
     "cuid": "^2.1.8",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -27,6 +28,7 @@
     "react-speech-recognition": "^2.0.4",
     "react-spinkit": "^3.0.0",
     "redux-actions-type": "^1.0.0",
+    "redux-localstorage": "^0.4.1",
     "speak-tts": "^2.0.8",
     "typescript": "^3.7.5"
   },
