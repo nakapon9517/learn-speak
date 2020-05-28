@@ -42,6 +42,7 @@ type Props = WithStyles<typeof styles> & {
   clickPlay: (folderId: number, fileId: number, playBefore: boolean) => void;
   clickFile: (folderId: number, fileId: number, checked: boolean) => void;
   clickAll: (checked: boolean) => void;
+  folderAdd: (id: number, name: string) => void;
 };
 
 const Speak: FC<Props> = ({
@@ -53,13 +54,18 @@ const Speak: FC<Props> = ({
   clickPlay,
   clickFile,
   clickAll,
+  folderAdd,
 }) => {
   return (
     <div>
       <Header changeSearch={changeSearch} />
       <div className={classes.flex}>
         <Paper className={classes.sidebar}>
-          <SideBar folders={folders} clickFolder={clickFolder} />
+          <SideBar
+            folders={folders}
+            clickFolder={clickFolder}
+            folderAdd={folderAdd}
+          />
         </Paper>
         <Paper className={classes.body}>
           <Body

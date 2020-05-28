@@ -94,9 +94,10 @@ const Body: FC<Props> = ({
     } else {
       (async () => {
         const res = await execute(text);
+        console.log(res);
       })();
     }
-    clickPlay(1, 1, false);
+    // clickPlay(1, 1, false);
   };
 
   return (

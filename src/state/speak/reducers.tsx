@@ -13,19 +13,16 @@ export const initialState: SpeakState = {
     {
       folderId: 1,
       name: "果物",
-      text: "A",
       opened: true,
     },
     {
       folderId: 2,
       name: "こってり系",
-      text: "B",
       opened: true,
     },
     {
       folderId: 3,
       name: "飲み物",
-      text: "C",
       opened: false,
     },
   ],
@@ -224,9 +221,14 @@ const speakReducer: Reducer<SpeakState, Actions> = (
       };
     }
     case ActionTypes.FOLDER_ADD: {
-      alert("aaaaaaaa");
+      const newFolders: Fold = {
+        folderId: action.payload.id,
+        name: action.payload.name,
+        opened: false,
+      };
       return {
         ...state,
+        folders: [...state.folders, newFolders],
       };
     }
 

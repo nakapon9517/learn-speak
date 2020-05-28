@@ -5,20 +5,7 @@ import { operations } from "../../state/speak";
 import Component from "../pages/Speak";
 
 const mapStateToProps = (state: AppState) => ({
-  folders: [
-    ...state.speak.folders,
-    // {
-    //   id: "2",
-    //   name: "Official髭男dism",
-    //   text: "B",
-    //   opened: false,
-    //   file: [
-    //     { id: "1", name: "Pretender", text: "AA", listening: false },
-    //     { id: "2", name: "I LOVE...", text: "BB", listening: false },
-    //     { id: "3", name: "Stand By You", text: "CC", listening: false },
-    //   ],
-    // },
-  ],
+  folders: [...state.speak.folders],
   files: [...state.speak.files],
 });
 
@@ -39,8 +26,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     clickAll(checked: boolean) {
       dispatch(operations.clickAll(checked));
     },
-    folderAdd() {
-      dispatch(operations.folderAdd());
+    folderAdd(id: number, name: string) {
+      dispatch(operations.folderAdd(id, name));
     },
     folderDel() {
       dispatch(operations.folderDel());

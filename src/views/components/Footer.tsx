@@ -9,8 +9,8 @@ import {
 import TwitterIcon from "@material-ui/icons/Twitter";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import GitHubIcon from "@material-ui/icons/GitHub";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import { url } from "inspector";
+// import CircularProgress from "@material-ui/core/CircularProgress";
+// import { url } from "inspector";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

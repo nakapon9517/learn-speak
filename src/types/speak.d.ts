@@ -2,7 +2,6 @@ declare module "speak" {
   export interface Fold {
     folderId: int;
     name: string;
-    text: string;
     opened: boolean;
   }
   export interface File {

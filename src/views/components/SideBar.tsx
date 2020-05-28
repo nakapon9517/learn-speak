@@ -58,13 +58,15 @@ const Transition = React.forwardRef(function Transition(
 interface OwnProps {
   folders: Fold[];
   clickFolder: (id: string, opened: boolean) => void;
+  folderAdd: (id: number, name: string) => void;
 }
 
 type Props = WithStyles<typeof styles> & OwnProps;
 
-const SideBar: FC<Props> = ({ classes, folders, clickFolder }) => {
+const SideBar: FC<Props> = ({ classes, folders, clickFolder, folderAdd }) => {
   const [openBox, setOpenBox] = React.useState(true);
   const [openModal, setOpenModal] = React.useState(false);
+  const [folderName, setFolderName] = React.useState("");
   const clickBox = () => {
     setOpenBox(!openBox);
   };
@@ -75,6 +77,14 @@ const SideBar: FC<Props> = ({ classes, folders, clickFolder }) => {
 
   const handleClose = () => {
     setOpenModal(false);
+  };
+
+  const handleAddFold = (name: string) => {
+    if (!name || name === "") {
+      alert("name is required");
+    } else {
+      folderAdd(folders.length, name);
+    }
   };
 
   return (
@@ -147,7 +157,11 @@ const SideBar: FC<Props> = ({ classes, folders, clickFolder }) => {
               <TextField
                 id="standard-basic"
                 label="name"
-                style={{ marginBottom: "50px" }}
+                style={{ marginBottom: "36px" }}
+                required={true}
+                onChange={(event) => {
+                  setFolderName(event.target.value);
+                }}
               />
             </FormControl>
             <FormControl style={{ width: "150px" }}>
@@ -157,9 +171,9 @@ const SideBar: FC<Props> = ({ classes, folders, clickFolder }) => {
                 id="demo-simple-select"
                 value={10}
               >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                <MenuItem value={10}>Category1</MenuItem>
+                <MenuItem value={20}>Category2</MenuItem>
+                <MenuItem value={30}>Category3</MenuItem>
               </Select>
             </FormControl>
           </DialogContentText>
@@ -169,7 +183,9 @@ const SideBar: FC<Props> = ({ classes, folders, clickFolder }) => {
             color="secondary"
             aria-label="add"
             size="medium"
-            // onClick={handleClickOpen}
+            onClick={() => {
+              handleAddFold(folderName);
+            }}
           >
             <CheckCircleOutline />
           </Fab>

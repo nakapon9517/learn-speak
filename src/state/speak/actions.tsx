@@ -49,9 +49,10 @@ const actions = {
       payload: { checked },
     };
   },
-  folderAdd() {
+  folderAdd(id: number, name: string) {
     return {
       type: ActionTypes.FOLDER_ADD,
+      payload: { id, name },
     };
   },
   folderDel() {
