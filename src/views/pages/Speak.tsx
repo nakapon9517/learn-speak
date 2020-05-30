@@ -1,16 +1,24 @@
 import React, { FC } from "react";
 import { Fold, File } from "speak";
-// import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import { withStyles, WithStyles, StyleRules } from "@material-ui/core/styles";
+import {
+  withStyles,
+  WithStyles,
+  StyleRules,
+  Theme,
+  createMuiTheme,
+  MuiThemeProvider,
+  ThemeProvider,
+} from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Header from "../components/Header";
 import SideBar from "../components/SideBar";
 import Body from "../components/Body";
 import Footer from "../components/Footer";
+// import { theme } from "./theme";
 
 const styles = (): StyleRules => ({
   flex: {
-    // backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.background.default,
     display: "flex",
   },
   sidebar: {
@@ -45,6 +53,12 @@ type Props = WithStyles<typeof styles> & {
   folderAdd: (name: string, category: string) => void;
 };
 
+const theme = createMuiTheme({
+  palette: {
+    type: "dark",
+  },
+});
+
 const Speak: FC<Props> = ({
   classes,
   folders,
@@ -58,28 +72,32 @@ const Speak: FC<Props> = ({
 }) => {
   return (
     <React.Fragment>
-      <Header changeSearch={changeSearch} />
-      <div className={classes.flex}>
-        <Paper className={classes.sidebar}>
-          <SideBar
-            folders={folders}
-            clickFolder={clickFolder}
-            folderAdd={folderAdd}
-          />
-        </Paper>
-        <Paper className={classes.body}>
-          <Body
-            folders={folders}
-            files={files}
-            clickPlay={clickPlay}
-            clickFile={clickFile}
-            clickAll={clickAll}
-          />
-        </Paper>
-      </div>
-      <div className={classes.foot}>
-        <Footer />
-      </div>
+      <ThemeProvider theme={theme}>
+        <MuiThemeProvider theme={theme}>
+          <Header changeSearch={changeSearch} />
+          <div className={classes.flex}>
+            <Paper className={classes.sidebar}>
+              <SideBar
+                folders={folders}
+                clickFolder={clickFolder}
+                folderAdd={folderAdd}
+              />
+            </Paper>
+            <Paper className={classes.body}>
+              <Body
+                folders={folders}
+                files={files}
+                clickPlay={clickPlay}
+                clickFile={clickFile}
+                clickAll={clickAll}
+              />
+            </Paper>
+          </div>
+          {/* <div className={classes.foot}>
+            <Footer />
+          </div> */}
+        </MuiThemeProvider>
+      </ThemeProvider>
     </React.Fragment>
   );
 };

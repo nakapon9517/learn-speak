@@ -21,6 +21,7 @@ import Input from "@material-ui/core/Input";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
+import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 
@@ -79,9 +80,8 @@ const SideBar: FC<Props> = ({ classes, folders, clickFolder, folderAdd }) => {
     <React.Fragment>
       <FormControl
         style={{
-          marginTop: "12px",
+          width: "100%",
           marginLeft: "20px",
-          marginRight: "20px",
           display: "inline-block",
         }}
       >
@@ -90,13 +90,8 @@ const SideBar: FC<Props> = ({ classes, folders, clickFolder, folderAdd }) => {
         </InputLabel>
         <Input
           id="input-with-icon-adornment"
+          style={{ width: "240px" }}
           value={folderName}
-          // startAdornment={
-          //   <InputAdornment
-          //     position="start"
-          //     disablePointerEvents={true}
-          //   ></InputAdornment>
-          // }
           endAdornment={
             <span style={{ display: "inline" }}>
               <Select
@@ -128,7 +123,7 @@ const SideBar: FC<Props> = ({ classes, folders, clickFolder, folderAdd }) => {
           }}
         />
         <Fab
-          color="inherit"
+          color="default"
           aria-label="add"
           size="small"
           style={{ margin: "10px" }}
@@ -157,16 +152,11 @@ const SideBar: FC<Props> = ({ classes, folders, clickFolder, folderAdd }) => {
           {openBox ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={openBox} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
+          <List component="div" disablePadding style={{ marginLeft: "16px" }}>
             {folders.map((folder, index) => (
               <React.Fragment key={folder.folderId + folder.name}>
                 <ListItem
                   button
-                  style={
-                    folder.opened
-                      ? { backgroundColor: "#c6e4ff", marginLeft: "20px" }
-                      : { marginLeft: "20px" }
-                  }
                   onClick={() => {
                     clickFolder(folder.folderId, folder.opened);
                   }}
@@ -176,6 +166,7 @@ const SideBar: FC<Props> = ({ classes, folders, clickFolder, folderAdd }) => {
                     className={classes.listText}
                     primary={folder.name}
                   ></ListItemText>
+                  {folder.opened ? <KeyboardArrowRight /> : ""}
                 </ListItem>
               </React.Fragment>
             ))}

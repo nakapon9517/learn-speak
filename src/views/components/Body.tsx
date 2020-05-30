@@ -29,7 +29,6 @@ const styles = (theme: Theme): StyleRules => ({
     paddingRight: "10px",
   },
   list: {
-    // position: "relative",
     marginLeft: "10px",
     borderBottom: "solid 1px #cce4ff",
   },
@@ -121,9 +120,10 @@ const Body: FC<Props> = ({
     <React.Fragment>
       <div
         style={{
-          width: "90%",
+          width: "94%",
+          // minHeight: "88px",
           marginLeft: "26px",
-          display: "inline",
+          display: "inline-block",
         }}
       >
         <Checkbox
@@ -136,27 +136,32 @@ const Body: FC<Props> = ({
             clickAll(check);
           }}
         />
-        <Button
-          variant="contained"
-          color="secondary"
-          size="small"
-          // style={{ width: "100px" }}
-          endIcon={<PlayCircleOutline />}
-          onClick={() => {
-            handlerSpeak(0, 0, "", "");
+        <div
+          style={{
+            float: "right",
           }}
         >
-          Play
-        </Button>
-        <Fab
-          color="default"
-          aria-label="add"
-          size="small"
-          style={{ margin: "10px" }}
-          onClick={() => {}}
-        >
-          <AddIcon />
-        </Fab>
+          <Button
+            variant="contained"
+            color="secondary"
+            size="small"
+            endIcon={<PlayCircleOutline />}
+            onClick={() => {
+              handlerSpeak(0, 0, "", "");
+            }}
+          >
+            Play
+          </Button>
+          <Fab
+            color="default"
+            aria-label="add"
+            size="small"
+            style={{ margin: "10px" }}
+            onClick={() => {}}
+          >
+            <AddIcon />
+          </Fab>
+        </div>
       </div>
       <List component="nav" className={classes.root}>
         {targetFiles.map((file, index) => (

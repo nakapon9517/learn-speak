@@ -90,94 +90,90 @@ type Props = WithStyles<typeof styles> & OwnProps;
 
 const Header: FC<Props> = ({ classes, changeSearch }) => {
   return (
-    <div>
-      <AppBar position="static" color="primary">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
-            Learn-Speak
-          </Typography>
-          <Fab
-            color="primary"
-            aria-label="Open Twitter"
-            size="small"
-            onClick={() => {}}
-          >
-            <TwitterIcon
-              color="action"
-              onClick={() => {
-                if (
-                  window.confirm("Twitterを開きます。\nよろしいでしょうか？")
-                ) {
-                  document.location.href = "https://twitter.com/nakapooooon";
-                }
-              }}
-            />
-          </Fab>
-          <Fab
-            color="primary"
-            aria-label="Open Instagram"
-            size="small"
-            onClick={() => {}}
-          >
-            <InstagramIcon
-              color="action"
-              onClick={() => {
-                if (
-                  window.confirm("Instagramを開きます。\nよろしいでしょうか？")
-                ) {
-                  alert("b");
-                  // document.location.href = "https://twitter.com/nakapooooon";
-                }
-              }}
-            />
-          </Fab>
-          <Fab
-            color="primary"
-            aria-label="Open GitHub"
-            size="small"
-            onClick={() => {}}
-          >
-            <GitHubIcon
-              color="action"
-              onClick={() => {
-                if (
-                  window.confirm(
-                    "GitHubのページへ遷移します。\nよろしいでしょうか？"
-                  )
-                ) {
-                  document.location.href = "https://github.com/nakapon9517";
-                }
-              }}
-            />
-          </Fab>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ "aria-label": "search" }}
-              onChange={(event) => {
-                changeSearch(event.target.value);
-                // console.log();
-              }}
-            />
+    <AppBar position="static">
+      <Toolbar>
+        <IconButton
+          edge="start"
+          className={classes.menuButton}
+          color="inherit"
+          aria-label="open drawer"
+        >
+          <MenuIcon />
+        </IconButton>
+        <Typography className={classes.title} variant="h6" noWrap>
+          Learn-Speak
+        </Typography>
+        <Fab
+          color="primary"
+          aria-label="Open Twitter"
+          size="small"
+          onClick={() => {}}
+        >
+          <TwitterIcon
+            color="action"
+            onClick={() => {
+              if (window.confirm("Twitterを開きます。\nよろしいでしょうか？")) {
+                document.location.href = "https://twitter.com/nakapooooon";
+              }
+            }}
+          />
+        </Fab>
+        <Fab
+          color="primary"
+          aria-label="Open Instagram"
+          size="small"
+          onClick={() => {}}
+        >
+          <InstagramIcon
+            color="action"
+            onClick={() => {
+              if (
+                window.confirm("Instagramを開きます。\nよろしいでしょうか？")
+              ) {
+                alert("b");
+                // document.location.href = "https://twitter.com/nakapooooon";
+              }
+            }}
+          />
+        </Fab>
+        <Fab
+          color="primary"
+          aria-label="Open GitHub"
+          size="small"
+          onClick={() => {}}
+        >
+          <GitHubIcon
+            color="action"
+            onClick={() => {
+              if (
+                window.confirm(
+                  "GitHubのページへ遷移します。\nよろしいでしょうか？"
+                )
+              ) {
+                document.location.href = "https://github.com/nakapon9517";
+              }
+            }}
+          />
+        </Fab>
+        <div className={classes.search}>
+          <div className={classes.searchIcon}>
+            <SearchIcon />
           </div>
-        </Toolbar>
-      </AppBar>
-    </div>
+          <InputBase
+            placeholder="Search…"
+            classes={{
+              root: classes.inputRoot,
+              input: classes.inputInput,
+            }}
+            inputProps={{ "aria-label": "search" }}
+            onChange={(event) => {
+              changeSearch(event.target.value);
+              // console.log();
+            }}
+          />
+        </div>
+      </Toolbar>
+    </AppBar>
   );
 };
 

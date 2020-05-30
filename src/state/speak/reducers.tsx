@@ -5,7 +5,6 @@ import { Actions, ActionTypes } from "./actions";
 export type SpeakState = {
   folders: Fold[];
   files: File[];
-  // check: boolean;
 };
 
 export const initialState: SpeakState = {
