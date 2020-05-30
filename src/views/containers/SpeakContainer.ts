@@ -26,8 +26,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     clickAll(checked: boolean) {
       dispatch(operations.clickAll(checked));
     },
-    folderAdd(id: number, name: string) {
-      dispatch(operations.folderAdd(id, name));
+    folderAdd(name: string, category: string) {
+      dispatch(operations.folderAdd(name, category));
     },
     folderDel() {
       dispatch(operations.folderDel());

@@ -49,10 +49,10 @@ const actions = {
       payload: { checked },
     };
   },
-  folderAdd(id: number, name: string) {
+  folderAdd(name: string, category: string) {
     return {
       type: ActionTypes.FOLDER_ADD,
-      payload: { id, name },
+      payload: { name, category },
     };
   },
   folderDel() {

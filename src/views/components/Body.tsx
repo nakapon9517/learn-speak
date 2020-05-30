@@ -17,8 +17,9 @@ import MusicNote from "@material-ui/icons/MusicNote";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import PlayCircleOutline from "@material-ui/icons/PlayCircleOutline";
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/Add";
 import Spinner from "react-spinkit";
-import Grow from "@material-ui/core/Grow";
 import { execute } from "./voice";
 
 const styles = (theme: Theme): StyleRules => ({
@@ -135,15 +136,6 @@ const Body: FC<Props> = ({
             clickAll(check);
           }}
         />
-      </div>
-      <div
-        style={{
-          width: "90%",
-          marginLeft: "2px",
-          display: "inline",
-          textAlign: "right",
-        }}
-      >
         <Button
           variant="contained"
           color="secondary"
@@ -156,6 +148,15 @@ const Body: FC<Props> = ({
         >
           Play
         </Button>
+        <Fab
+          color="default"
+          aria-label="add"
+          size="small"
+          style={{ margin: "10px" }}
+          onClick={() => {}}
+        >
+          <AddIcon />
+        </Fab>
       </div>
       <List component="nav" className={classes.root}>
         {targetFiles.map((file, index) => (
@@ -163,105 +164,100 @@ const Body: FC<Props> = ({
             key={String(file.folderId) + "-" + String(file.fileId)}
             className={classes.list}
           >
-            <Grow
-              in={true}
+            <ListItem
+              key={file.fileId}
+              role={undefined}
               style={{ transformOrigin: "0 0 0" }}
-              {...(true ? { timeout: index * 50 + 300 } : {})}
+              dense
+              button
+              onClick={() => {
+                clickFile(file.folderId, file.fileId, file.checked);
+              }}
             >
-              <ListItem
-                key={file.fileId}
-                role={undefined}
-                dense
-                button
-                onClick={() => {
-                  clickFile(file.folderId, file.fileId, file.checked);
-                }}
-              >
-                <ListItemIcon>
-                  <Checkbox
-                    edge="start"
-                    checked={file.checked}
-                    tabIndex={-1}
-                    disableRipple
-                    inputProps={{
-                      "aria-labelledby": `checkbox-list-label-${file.fileId}`,
-                    }}
-                    color="primary"
-                  />
-                </ListItemIcon>
-                <ListItemText
-                  id={`checkbox-list-name-${file.fileId}`}
-                  primary={file.name}
-                  className={classes.title}
+              <ListItemIcon>
+                <Checkbox
+                  edge="start"
+                  checked={file.checked}
+                  tabIndex={-1}
+                  disableRipple
+                  inputProps={{
+                    "aria-labelledby": `checkbox-list-label-${file.fileId}`,
+                  }}
+                  color="primary"
                 />
-                <ListItemText
-                  id={`checkbox-list-text-${file.fileId}`}
-                  primary={file.text}
-                  className={classes.text}
-                />
-                <div className={classes.iconButtonGroup}>
-                  <IconButton
-                    edge="end"
-                    size="small"
-                    className={classes.iconButton}
-                  >
-                    {file.listening ? (
-                      <Spinner
-                        name="line-scale"
-                        color="gray"
-                        fadeIn="none"
-                        className={classes.iconButton}
-                      />
-                    ) : (
-                      ""
-                    )}
-                  </IconButton>
-                  <IconButton
-                    edge="end"
-                    size="small"
-                    className={classes.iconButton}
-                    onClick={() => {
-                      handlerSpeak(
-                        file.folderId,
-                        file.fileId,
-                        file.name,
-                        file.text
-                      );
-                    }}
-                  >
-                    <MusicNote />
-                  </IconButton>
-                  <IconButton
-                    edge="end"
-                    size="small"
-                    className={classes.iconButton}
-                    onClick={() => {
-                      // handlerSpeak(file.text);
-                    }}
-                  ></IconButton>
-                  <IconButton
-                    edge="end"
-                    size="small"
-                    className={classes.iconButton}
-                    onClick={() => {
-                      // handlerSpeak(file.text);
-                    }}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                  <IconButton
-                    edge="end"
-                    size="small"
-                    className={classes.iconButton}
-                    onClick={() => {
-                      // handlerSpeak(file.text);
-                    }}
-                  >
-                    <EditIcon />
-                  </IconButton>
-                </div>
-              </ListItem>
-            </Grow>
+              </ListItemIcon>
+              <ListItemText
+                id={`checkbox-list-name-${file.fileId}`}
+                primary={file.name}
+                className={classes.title}
+              />
+              <ListItemText
+                id={`checkbox-list-text-${file.fileId}`}
+                primary={file.text}
+                className={classes.text}
+              />
+              <div className={classes.iconButtonGroup}>
+                <IconButton
+                  edge="end"
+                  size="small"
+                  className={classes.iconButton}
+                >
+                  {file.listening ? (
+                    <Spinner
+                      name="line-scale"
+                      color="gray"
+                      fadeIn="none"
+                      className={classes.iconButton}
+                    />
+                  ) : (
+                    ""
+                  )}
+                </IconButton>
+                <IconButton
+                  edge="end"
+                  size="small"
+                  className={classes.iconButton}
+                  onClick={() => {
+                    handlerSpeak(
+                      file.folderId,
+                      file.fileId,
+                      file.name,
+                      file.text
+                    );
+                  }}
+                >
+                  <MusicNote />
+                </IconButton>
+                <IconButton
+                  edge="end"
+                  size="small"
+                  className={classes.iconButton}
+                  onClick={() => {
+                    // handlerSpeak(file.text);
+                  }}
+                ></IconButton>
+                <IconButton
+                  edge="end"
+                  size="small"
+                  className={classes.iconButton}
+                  onClick={() => {
+                    // handlerSpeak(file.text);
+                  }}
+                >
+                  <DeleteIcon />
+                </IconButton>
+                <IconButton
+                  edge="end"
+                  size="small"
+                  className={classes.iconButton}
+                  onClick={() => {
+                    // handlerSpeak(file.text);
+                  }}
+                >
+                  <EditIcon />
+                </IconButton>
+              </div>
+            </ListItem>
           </div>
         ))}
       </List>

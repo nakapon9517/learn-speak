@@ -14,16 +14,43 @@ export const initialState: SpeakState = {
       folderId: 1,
       name: "果物",
       opened: true,
+      count: 0,
+      category: "inherit",
     },
     {
       folderId: 2,
       name: "こってり系",
       opened: true,
+      count: 0,
+      category: "action",
     },
     {
       folderId: 3,
       name: "飲み物",
       opened: false,
+      count: 0,
+      category: "disabled",
+    },
+    {
+      folderId: 4,
+      name: "パスタ",
+      opened: false,
+      count: 0,
+      category: "primary",
+    },
+    {
+      folderId: 5,
+      name: "ラーメン",
+      opened: false,
+      count: 0,
+      category: "secondary",
+    },
+    {
+      folderId: 6,
+      name: "国名",
+      opened: false,
+      count: 0,
+      category: "error",
     },
   ],
   files: [
@@ -222,9 +249,11 @@ const speakReducer: Reducer<SpeakState, Actions> = (
     }
     case ActionTypes.FOLDER_ADD: {
       const newFolders: Fold = {
-        folderId: action.payload.id + 1,
+        folderId: state.folders.length + 1,
         name: action.payload.name,
         opened: false,
+        count: 0,
+        category: action.payload.category,
       };
       return {
         ...state,

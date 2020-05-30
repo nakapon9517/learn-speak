@@ -15,6 +15,10 @@ import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
+import Fab from "@material-ui/core/Fab";
+import TwitterIcon from "@material-ui/icons/Twitter";
+import InstagramIcon from "@material-ui/icons/Instagram";
+import GitHubIcon from "@material-ui/icons/GitHub";
 
 const styles = (theme: Theme): StyleRules => ({
   root: {
@@ -100,6 +104,60 @@ const Header: FC<Props> = ({ classes, changeSearch }) => {
           <Typography className={classes.title} variant="h6" noWrap>
             Learn-Speak
           </Typography>
+          <Fab
+            color="primary"
+            aria-label="Open Twitter"
+            size="small"
+            onClick={() => {}}
+          >
+            <TwitterIcon
+              color="action"
+              onClick={() => {
+                if (
+                  window.confirm("Twitterを開きます。\nよろしいでしょうか？")
+                ) {
+                  document.location.href = "https://twitter.com/nakapooooon";
+                }
+              }}
+            />
+          </Fab>
+          <Fab
+            color="primary"
+            aria-label="Open Instagram"
+            size="small"
+            onClick={() => {}}
+          >
+            <InstagramIcon
+              color="action"
+              onClick={() => {
+                if (
+                  window.confirm("Instagramを開きます。\nよろしいでしょうか？")
+                ) {
+                  alert("b");
+                  // document.location.href = "https://twitter.com/nakapooooon";
+                }
+              }}
+            />
+          </Fab>
+          <Fab
+            color="primary"
+            aria-label="Open GitHub"
+            size="small"
+            onClick={() => {}}
+          >
+            <GitHubIcon
+              color="action"
+              onClick={() => {
+                if (
+                  window.confirm(
+                    "GitHubのページへ遷移します。\nよろしいでしょうか？"
+                  )
+                ) {
+                  document.location.href = "https://github.com/nakapon9517";
+                }
+              }}
+            />
+          </Fab>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />

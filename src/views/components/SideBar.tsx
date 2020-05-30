@@ -15,16 +15,19 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import Folder from "@material-ui/icons/Folder";
-// import NavigateNext from "@material-ui/icons/NavigateNext";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Input from "@material-ui/core/Input";
+import InputAdornment from "@material-ui/core/InputAdornment";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
-import Grow from "@material-ui/core/Grow";
-import { AddFolderDialog } from "./Dialog";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 
 const styles = (theme: Theme): StyleRules => ({
   root: {
     maxWidth: 360,
-    // backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.background.paper,
     display: "block",
   },
   listText: {
@@ -40,7 +43,7 @@ const styles = (theme: Theme): StyleRules => ({
 interface OwnProps {
   folders: Fold[];
   clickFolder: (id: string, opened: boolean) => void;
-  folderAdd: (id: number, name: string) => void;
+  folderAdd: (name: string, category: string) => void;
 }
 
 type Props = WithStyles<typeof styles> & OwnProps;
@@ -48,17 +51,94 @@ type Props = WithStyles<typeof styles> & OwnProps;
 const SideBar: FC<Props> = ({ classes, folders, clickFolder, folderAdd }) => {
   const [openBox, setOpenBox] = React.useState(true);
   const [openModal, setOpenModal] = React.useState(false);
+  const [folderName, setFolderName] = React.useState("");
+  const [folderCategory, setFolderCategory] = React.useState("action");
 
   useEffect(() => {
     setOpenModal(openModal);
   }, [openModal]);
 
-  const handleFolderDialog = () => {
-    setOpenModal(true);
+  const handleFolderAdd = (name: string, category: string) => {
+    if (!name || name === "") {
+      alert("name is required");
+    } else {
+      folderAdd(name, category);
+      setFolderName("");
+      setFolderCategory("");
+      alert("登録しました。");
+    }
+  };
+
+  const handleFolderNameChange = (
+    event: React.ChangeEvent<{ value: unknown }>
+  ) => {
+    setFolderCategory(event.target.value as string);
   };
 
   return (
     <React.Fragment>
+      <FormControl
+        style={{
+          marginTop: "12px",
+          marginLeft: "20px",
+          marginRight: "20px",
+          display: "inline-block",
+        }}
+      >
+        <InputLabel htmlFor="input-with-icon-adornment">
+          Add Sound Box
+        </InputLabel>
+        <Input
+          id="input-with-icon-adornment"
+          value={folderName}
+          // startAdornment={
+          //   <InputAdornment
+          //     position="start"
+          //     disablePointerEvents={true}
+          //   ></InputAdornment>
+          // }
+          endAdornment={
+            <span style={{ display: "inline" }}>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={folderCategory}
+                onChange={handleFolderNameChange}
+              >
+                <MenuItem value="action">
+                  <Folder color="action" />
+                </MenuItem>
+                <MenuItem value="disabled">
+                  <Folder color="disabled" />
+                </MenuItem>
+                <MenuItem value="primary">
+                  <Folder color="primary" />
+                </MenuItem>
+                <MenuItem value="secondary">
+                  <Folder color="secondary" />
+                </MenuItem>
+                <MenuItem value="error">
+                  <Folder color="error" />
+                </MenuItem>
+              </Select>
+            </span>
+          }
+          onChange={(event) => {
+            setFolderName(event.target.value);
+          }}
+        />
+        <Fab
+          color="inherit"
+          aria-label="add"
+          size="small"
+          style={{ margin: "10px" }}
+          onClick={() => {
+            handleFolderAdd(folderName, folderCategory);
+          }}
+        >
+          <AddIcon />
+        </Fab>
+      </FormControl>
       <List
         component="nav"
         aria-labelledby="nested-list-subheader"
@@ -73,63 +153,54 @@ const SideBar: FC<Props> = ({ classes, folders, clickFolder, folderAdd }) => {
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
-          <ListItemText primary="Inbox" />
+          <ListItemText primary="Sound Box" />
           {openBox ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={openBox} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             {folders.map((folder, index) => (
               <React.Fragment key={folder.folderId + folder.name}>
-                <Grow
-                  in={true}
-                  style={{ transformOrigin: "0 0 0" }}
-                  {...(true ? { timeout: index * 50 + 300 } : {})}
+                <ListItem
+                  button
+                  style={
+                    folder.opened
+                      ? { backgroundColor: "#c6e4ff", marginLeft: "20px" }
+                      : { marginLeft: "20px" }
+                  }
+                  onClick={() => {
+                    clickFolder(folder.folderId, folder.opened);
+                  }}
                 >
-                  <ListItem
-                    button
-                    style={
-                      folder.opened
-                        ? { backgroundColor: "#c6e4ff", marginLeft: "20px" }
-                        : { marginLeft: "20px" }
-                    }
-                    onClick={() => {
-                      clickFolder(folder.folderId, folder.opened);
-                    }}
-                  >
-                    <ListItemIcon>
-                      <Folder />
-                    </ListItemIcon>
-                    <ListItemText
-                      className={classes.listText}
-                      primary={folder.name}
-                    ></ListItemText>
-                    {/* {folder.opened ? <NavigateNext /> : ""} */}
-                  </ListItem>
-                </Grow>
+                  <ListItemIcon>{getFolderIcon(folder.category)}</ListItemIcon>
+                  <ListItemText
+                    className={classes.listText}
+                    primary={folder.name}
+                  ></ListItemText>
+                </ListItem>
               </React.Fragment>
             ))}
           </List>
         </Collapse>
-        <div style={{ textAlign: "right" }}>
-          <Fab
-            color="primary"
-            aria-label="add"
-            size="small"
-            style={{ margin: "10px" }}
-            onClick={handleFolderDialog}
-          >
-            <AddIcon />
-          </Fab>
-        </div>
       </List>
-      <AddFolderDialog
-        classes={classes}
-        isOpen={openModal}
-        folders={folders}
-        folderAdd={folderAdd}
-      />
     </React.Fragment>
   );
+};
+
+const getFolderIcon = (type: string) => {
+  switch (type) {
+    case "inherit":
+      return <Folder color="inherit" />;
+    case "action":
+      return <Folder color="action" />;
+    case "disabled":
+      return <Folder color="disabled" />;
+    case "primary":
+      return <Folder color="primary" />;
+    case "error":
+      return <Folder color="error" />;
+    default:
+      return <Folder />;
+  }
 };
 
 export default withStyles(styles)(SideBar);

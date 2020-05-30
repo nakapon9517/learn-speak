@@ -3,6 +3,8 @@ declare module "speak" {
     folderId: int;
     name: string;
     opened: boolean;
+    count: number;
+    category: string;
   }
   export interface File {
     folderId: int;

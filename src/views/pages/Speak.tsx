@@ -42,7 +42,7 @@ type Props = WithStyles<typeof styles> & {
   clickPlay: (folderId: number, fileId: number, playBefore: boolean) => void;
   clickFile: (folderId: number, fileId: number, checked: boolean) => void;
   clickAll: (checked: boolean) => void;
-  folderAdd: (id: number, name: string) => void;
+  folderAdd: (name: string, category: string) => void;
 };
 
 const Speak: FC<Props> = ({
