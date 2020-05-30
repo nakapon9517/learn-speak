@@ -1,11 +1,10 @@
 export async function execute(text) {
   if ("SpeechSynthesisUtterance" in window) {
-    var voices = window.speechSynthesis.getVoices();
+    // var voices = window.speechSynthesis.getVoices();
 
     let options = new SpeechSynthesisUtterance(text);
-    // options.lang = "ja-JP";
-    options.lang = "en-GB";
-    options.voice = voices[1];
+    options.lang = "ja-JP";
+    // options.voice = voices[7];
     options.rate = 1.0;
     options.pitch = 1.0;
 

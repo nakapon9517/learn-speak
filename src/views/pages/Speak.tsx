@@ -57,7 +57,7 @@ const Speak: FC<Props> = ({
   folderAdd,
 }) => {
   return (
-    <div>
+    <React.Fragment>
       <Header changeSearch={changeSearch} />
       <div className={classes.flex}>
         <Paper className={classes.sidebar}>
@@ -80,7 +80,7 @@ const Speak: FC<Props> = ({
       <div className={classes.foot}>
         <Footer />
       </div>
-    </div>
+    </React.Fragment>
   );
 };
 

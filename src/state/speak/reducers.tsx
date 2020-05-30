@@ -222,7 +222,7 @@ const speakReducer: Reducer<SpeakState, Actions> = (
     }
     case ActionTypes.FOLDER_ADD: {
       const newFolders: Fold = {
-        folderId: action.payload.id,
+        folderId: action.payload.id + 1,
         name: action.payload.name,
         opened: false,
       };
