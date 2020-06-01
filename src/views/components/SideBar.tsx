@@ -18,7 +18,6 @@ import Folder from "@material-ui/icons/Folder";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
-import InputAdornment from "@material-ui/core/InputAdornment";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
@@ -179,14 +178,14 @@ const SideBar: FC<Props> = ({ classes, folders, clickFolder, folderAdd }) => {
 
 const getFolderIcon = (type: string) => {
   switch (type) {
-    case "inherit":
-      return <Folder color="inherit" />;
     case "action":
       return <Folder color="action" />;
     case "disabled":
       return <Folder color="disabled" />;
     case "primary":
       return <Folder color="primary" />;
+    case "secondary":
+      return <Folder color="secondary" />;
     case "error":
       return <Folder color="error" />;
     default:

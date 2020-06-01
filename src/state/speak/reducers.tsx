@@ -14,7 +14,7 @@ export const initialState: SpeakState = {
       name: "果物",
       opened: true,
       count: 0,
-      category: "inherit",
+      category: "secondary",
     },
     {
       folderId: 2,

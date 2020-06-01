@@ -4,7 +4,6 @@ import {
   withStyles,
   WithStyles,
   StyleRules,
-  Theme,
   createMuiTheme,
   MuiThemeProvider,
   ThemeProvider,
@@ -13,12 +12,11 @@ import Paper from "@material-ui/core/Paper";
 import Header from "../components/Header";
 import SideBar from "../components/SideBar";
 import Body from "../components/Body";
-import Footer from "../components/Footer";
+// import Footer from "../components/Footer";
 // import { theme } from "./theme";
 
 const styles = (): StyleRules => ({
   flex: {
-    backgroundColor: theme.palette.background.default,
     display: "flex",
   },
   sidebar: {
@@ -53,12 +51,6 @@ type Props = WithStyles<typeof styles> & {
   folderAdd: (name: string, category: string) => void;
 };
 
-const theme = createMuiTheme({
-  palette: {
-    type: "dark",
-  },
-});
-
 const Speak: FC<Props> = ({
   classes,
   folders,
@@ -70,6 +62,13 @@ const Speak: FC<Props> = ({
   clickAll,
   folderAdd,
 }) => {
+  const [mode, setMode] = React.useState("dark");
+  const theme = createMuiTheme({
+    palette: {
+      type: mode == "dark" ? "dark" : "light",
+    },
+  });
+
   return (
     <React.Fragment>
       <ThemeProvider theme={theme}>
