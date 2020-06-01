@@ -5,6 +5,7 @@ import { Actions, ActionTypes } from "./actions";
 export type SpeakState = {
   folders: Fold[];
   files: File[];
+  type: string;
 };
 
 export const initialState: SpeakState = {
@@ -162,6 +163,7 @@ export const initialState: SpeakState = {
       indicate: true,
     },
   ],
+  type: "light",
 };
 
 const speakReducer: Reducer<SpeakState, Actions> = (
@@ -169,6 +171,12 @@ const speakReducer: Reducer<SpeakState, Actions> = (
   action
 ) => {
   switch (action.type) {
+    case ActionTypes.CHANGE_TYPE: {
+      state.type = action.payload.type;
+      return {
+        ...state,
+      };
+    }
     case ActionTypes.CHANGE_SEARCH: {
       if (action.payload.text) {
         state.files

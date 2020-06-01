@@ -1,6 +1,7 @@
 import { ActionType } from "redux-actions-type";
 
 export const ActionTypes = {
+  CHANGE_TYPE: "speak/CHANGE_TYPE",
   CHANGE_SEARCH: "speak/CHANGE_SEARCH",
   CLICK_FOLDER: "speak/CLICK_FOLDER",
   CLICK_PLAY: "speak/CLICK_PLAY",
@@ -19,6 +20,12 @@ export const ActionTypes = {
 } as const;
 
 const actions = {
+  changeType(type: string) {
+    return {
+      type: ActionTypes.CHANGE_TYPE,
+      payload: { type },
+    };
+  },
   changeSearch(text: string) {
     return {
       type: ActionTypes.CHANGE_SEARCH,

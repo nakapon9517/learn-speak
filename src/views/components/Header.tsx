@@ -19,6 +19,7 @@ import Fab from "@material-ui/core/Fab";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import GitHubIcon from "@material-ui/icons/GitHub";
+import Switch from "@material-ui/core/Switch";
 
 const styles = (theme: Theme): StyleRules => ({
   root: {
@@ -84,11 +85,18 @@ const styles = (theme: Theme): StyleRules => ({
 
 interface OwnProps {
   changeSearch: (text: string) => void;
+  changeType: (type: string) => void;
 }
 
 type Props = WithStyles<typeof styles> & OwnProps;
 
-const Header: FC<Props> = ({ classes, changeSearch }) => {
+const Header: FC<Props> = ({ classes, changeSearch, changeType }) => {
+  const [isType, setType] = React.useState(true);
+  const handleType = () => {
+    setType(!isType);
+    changeType(isType ? "light" : "dark");
+  };
+
   return (
     <AppBar position="static">
       <Toolbar>
@@ -103,6 +111,13 @@ const Header: FC<Props> = ({ classes, changeSearch }) => {
         <Typography className={classes.title} variant="h6" noWrap>
           Learn-Speak
         </Typography>
+        <Switch
+          defaultChecked
+          color="default"
+          inputProps={{ "aria-label": "checkbox with default color" }}
+          checked={isType}
+          onChange={handleType}
+        />
         <Fab
           color="primary"
           aria-label="Open Twitter"

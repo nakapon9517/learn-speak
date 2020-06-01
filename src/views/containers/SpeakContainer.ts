@@ -7,10 +7,14 @@ import Component from "../pages/Speak";
 const mapStateToProps = (state: AppState) => ({
   folders: [...state.speak.folders],
   files: [...state.speak.files],
+  type: state.speak.type,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
+    changeType(changeType: string) {
+      dispatch(operations.changeType(changeType));
+    },
     changeSearch(text: string) {
       dispatch(operations.changeSearch(text));
     },

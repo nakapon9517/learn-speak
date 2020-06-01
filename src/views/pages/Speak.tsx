@@ -43,6 +43,8 @@ const styles = (): StyleRules => ({
 type Props = WithStyles<typeof styles> & {
   folders: Fold[];
   files: File[];
+  type: string;
+  changeType: (type: string) => void;
   changeSearch: (text: string) => void;
   clickFolder: (id: string, opened: boolean) => void;
   clickPlay: (folderId: number, fileId: number, playBefore: boolean) => void;
@@ -55,6 +57,8 @@ const Speak: FC<Props> = ({
   classes,
   folders,
   files,
+  type,
+  changeType,
   changeSearch,
   clickFolder,
   clickPlay,
@@ -62,10 +66,28 @@ const Speak: FC<Props> = ({
   clickAll,
   folderAdd,
 }) => {
-  const [mode, setMode] = React.useState("dark");
   const theme = createMuiTheme({
     palette: {
-      type: mode == "dark" ? "dark" : "light",
+      type: type === "dark" ? "dark" : "light",
+      background: {
+        default: "#000fff",
+      },
+    },
+    typography: {
+      button: {
+        textTransform: "none",
+      },
+      fontSize: 12,
+    },
+    mixins: {
+      toolbar: {
+        minHeight: 56,
+      },
+    },
+    props: {
+      MuiList: {
+        dense: true,
+      },
     },
   });
 
@@ -73,28 +95,36 @@ const Speak: FC<Props> = ({
     <React.Fragment>
       <ThemeProvider theme={theme}>
         <MuiThemeProvider theme={theme}>
-          <Header changeSearch={changeSearch} />
-          <div className={classes.flex}>
-            <Paper className={classes.sidebar}>
-              <SideBar
-                folders={folders}
-                clickFolder={clickFolder}
-                folderAdd={folderAdd}
-              />
-            </Paper>
-            <Paper className={classes.body}>
-              <Body
-                folders={folders}
-                files={files}
-                clickPlay={clickPlay}
-                clickFile={clickFile}
-                clickAll={clickAll}
-              />
-            </Paper>
-          </div>
-          {/* <div className={classes.foot}>
+          <div
+            style={
+              type === "dark"
+                ? { backgroundColor: "#424242" }
+                : { backgroundColor: "#fff" }
+            }
+          >
+            <Header changeSearch={changeSearch} changeType={changeType} />
+            <div className={classes.flex}>
+              <Paper className={classes.sidebar}>
+                <SideBar
+                  folders={folders}
+                  clickFolder={clickFolder}
+                  folderAdd={folderAdd}
+                />
+              </Paper>
+              <Paper className={classes.body}>
+                <Body
+                  folders={folders}
+                  files={files}
+                  clickPlay={clickPlay}
+                  clickFile={clickFile}
+                  clickAll={clickAll}
+                />
+              </Paper>
+            </div>
+            {/* <div className={classes.foot}>
             <Footer />
           </div> */}
+          </div>
         </MuiThemeProvider>
       </ThemeProvider>
     </React.Fragment>
