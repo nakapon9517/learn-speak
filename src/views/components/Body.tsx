@@ -188,7 +188,7 @@ const Body: FC<Props> = ({
                   inputProps={{
                     "aria-labelledby": `checkbox-list-label-${file.fileId}`,
                   }}
-                  color="primary"
+                  color="default"
                 />
               </ListItemIcon>
               <ListItemText

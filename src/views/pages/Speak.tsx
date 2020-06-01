@@ -13,7 +13,6 @@ import Header from "../components/Header";
 import SideBar from "../components/SideBar";
 import Body from "../components/Body";
 // import Footer from "../components/Footer";
-// import { theme } from "./theme";
 
 const styles = (): StyleRules => ({
   flex: {
@@ -22,14 +21,14 @@ const styles = (): StyleRules => ({
   sidebar: {
     width: "40%",
     height: "100%",
-    minHeight: "calc(100vh - 150px)",
+    minHeight: "calc(100vh - 70px)",
     border: "0.8px solid gray",
     margin: "5px",
   },
   body: {
     width: "100%",
     height: "100%",
-    minHeight: "calc(100vh - 150px)",
+    minHeight: "calc(100vh - 70px)",
     margin: "5px 5px 5px 0px",
     border: "0.8px solid gray",
   },
