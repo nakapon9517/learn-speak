@@ -67,14 +67,16 @@ const actions = {
       type: ActionTypes.FOLDER_DEL,
     };
   },
-  fileAdd() {
+  fileAdd(folderId: number, name: string, text: string) {
     return {
       type: ActionTypes.FILE_ADD,
+      payload: { folderId, name, text },
     };
   },
-  fileDel() {
+  fileDel(folderId: number, fileId: number) {
     return {
       type: ActionTypes.FILE_DEL,
+      payload: { folderId, fileId },
     };
   },
   musicStart() {

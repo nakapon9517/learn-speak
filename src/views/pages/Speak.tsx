@@ -50,6 +50,8 @@ type Props = WithStyles<typeof styles> & {
   clickFile: (folderId: number, fileId: number, checked: boolean) => void;
   clickAll: (checked: boolean) => void;
   folderAdd: (name: string, category: string) => void;
+  fileAdd: (folderId: number, name: string, text: string) => void;
+  fileDel: (folderId: number, fileId: number) => void;
 };
 
 const Speak: FC<Props> = ({
@@ -64,6 +66,8 @@ const Speak: FC<Props> = ({
   clickFile,
   clickAll,
   folderAdd,
+  fileAdd,
+  fileDel,
 }) => {
   const theme = createMuiTheme({
     palette: {
@@ -117,6 +121,8 @@ const Speak: FC<Props> = ({
                   clickPlay={clickPlay}
                   clickFile={clickFile}
                   clickAll={clickAll}
+                  fileAdd={fileAdd}
+                  fileDel={fileDel}
                 />
               </Paper>
             </div>

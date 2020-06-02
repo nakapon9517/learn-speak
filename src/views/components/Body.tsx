@@ -25,7 +25,6 @@ import { execute } from "./voice";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
-import TextField from "@material-ui/core/TextField";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 
@@ -64,6 +63,8 @@ interface OwnProps {
   clickPlay: (folderId: number, fileId: number, playBefore: boolean) => void;
   clickFile: (folderId: number, fileId: number, checked: boolean) => void;
   clickAll: (checked: boolean) => void;
+  fileAdd: (folderId: number, name: string, text: string) => void;
+  fileDel: (folderId: number, fileId: number) => void;
 }
 
 type Props = WithStyles<typeof styles> & OwnProps;
@@ -75,11 +76,13 @@ const Body: FC<Props> = ({
   clickPlay,
   clickFile,
   clickAll,
+  fileAdd,
+  fileDel,
 }) => {
   const [allCheck, setAllCheck] = React.useState(false);
-  const [folderCategory, setFolderCategory] = React.useState(
-    folders[0].folderId
-  );
+  const [inputName, setInputName] = React.useState("");
+  const [inputText, setInputText] = React.useState("");
+  const [inputCategory, setInputCategory] = React.useState(folders[0].folderId);
 
   const targetFoldersId = folders
     .filter((fold) => fold.opened)
@@ -122,8 +125,37 @@ const Body: FC<Props> = ({
     }
   };
 
-  const handleFolderChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setFolderCategory(event.target.value as number);
+  const handleInputNameChange = (
+    event: React.ChangeEvent<{ value: unknown }>
+  ) => {
+    setInputName(event.target.value as string);
+  };
+  const handleInputTextChange = (
+    event: React.ChangeEvent<{ value: unknown }>
+  ) => {
+    setInputText(event.target.value as string);
+  };
+  const handleCategoryChange = (
+    event: React.ChangeEvent<{ value: unknown }>
+  ) => {
+    setInputCategory(event.target.value as number);
+  };
+
+  const handleFileAdd = () => {
+    if (!inputName || inputName === "") {
+      alert("Nameを入力してください。");
+      return;
+    } else if (!inputText || inputText === "") {
+      alert("Textを入力してください。");
+      return;
+    } else {
+      fileAdd(inputCategory, inputName, inputText);
+      setInputName("");
+      setInputText("");
+      setInputCategory(folders[0].folderId);
+      alert("登録しました。");
+      return;
+    }
   };
 
   return (
@@ -165,6 +197,9 @@ const Body: FC<Props> = ({
           <Input
             id="input-with-icon-adornment"
             style={{ width: "280px" }}
+            value={inputName}
+            onChange={handleInputNameChange}
+            autoComplete={"false"}
           ></Input>
         </FormControl>
         {/* Text入力 */}
@@ -178,6 +213,9 @@ const Body: FC<Props> = ({
           <Input
             id="input-with-icon-adornment"
             style={{ width: "200px" }}
+            value={inputText}
+            onChange={handleInputTextChange}
+            autoComplete={"false"}
           ></Input>
         </FormControl>
         {/* フォルダ選択 */}
@@ -190,8 +228,8 @@ const Body: FC<Props> = ({
           <Select
             // id="demo-simple-select"
             style={{ width: "160px", height: "30px", marginTop: "18px" }}
-            value={folderCategory}
-            onChange={handleFolderChange}
+            value={inputCategory}
+            onChange={handleCategoryChange}
           >
             {folders.map((folder) => (
               <MenuItem
@@ -217,7 +255,7 @@ const Body: FC<Props> = ({
             aria-label="add"
             size="small"
             style={{ margin: "10px" }}
-            onClick={() => {}}
+            onClick={handleFileAdd}
           >
             <AddIcon />
           </Fab>
@@ -245,9 +283,6 @@ const Body: FC<Props> = ({
               dense
               button
               divider={true}
-              onClick={() => {
-                clickFile(file.folderId, file.fileId, file.checked);
-              }}
             >
               <ListItemIcon>
                 <Checkbox
@@ -259,6 +294,9 @@ const Body: FC<Props> = ({
                     "aria-labelledby": `checkbox-list-label-${file.fileId}`,
                   }}
                   color="default"
+                  onClick={() => {
+                    clickFile(file.folderId, file.fileId, file.checked);
+                  }}
                 />
               </ListItemIcon>
               <ListItemText
@@ -317,6 +355,8 @@ const Body: FC<Props> = ({
                   className={classes.iconButton}
                   onClick={() => {
                     // handlerSpeak(file.text);
+                    fileDel(file.folderId, file.fileId);
+                    alert("削除しました。");
                   }}
                 >
                   <DeleteIcon />

@@ -276,14 +276,32 @@ const speakReducer: Reducer<SpeakState, Actions> = (
     }
 
     case ActionTypes.FILE_ADD: {
-      alert("file.add");
+      const targetFiles = state.files.filter(
+        (file) => file.folderId === action.payload.folderId
+      );
+      const newFiles: File = {
+        folderId: action.payload.folderId,
+        fileId: targetFiles.length + 1,
+        name: action.payload.name,
+        text: action.payload.text,
+        checked: false,
+        listening: false,
+        indicate: true,
+      };
       return {
         ...state,
+        files: [...state.files, newFiles],
       };
     }
 
     case ActionTypes.FILE_DEL: {
-      alert("file.del");
+      state.files = state.files.filter(
+        (file) =>
+          !(
+            file.folderId === action.payload.folderId &&
+            file.fileId === action.payload.fileId
+          )
+      );
       return {
         ...state,
       };

@@ -36,11 +36,11 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     folderDel() {
       dispatch(operations.folderDel());
     },
-    fileAdd() {
-      dispatch(operations.fileAdd());
+    fileAdd(folderId: number, name: string, text: string) {
+      dispatch(operations.fileAdd(folderId, name, text));
     },
-    fileDel() {
-      dispatch(operations.fileDel());
+    fileDel(folderId: number, fileId: number) {
+      dispatch(operations.fileDel(folderId, fileId));
     },
     musicStart() {
       dispatch(operations.musicStart());

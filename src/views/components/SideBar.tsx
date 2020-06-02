@@ -57,7 +57,7 @@ const SideBar: FC<Props> = ({ classes, folders, clickFolder, folderAdd }) => {
 
   const handleFolderAdd = (name: string, category: string) => {
     if (!name || name === "") {
-      alert("name is required");
+      alert("フォルダ名を入力してください。");
     } else {
       folderAdd(name, category);
       setFolderName("");
