@@ -28,10 +28,6 @@ const styles = (theme: Theme): StyleRules => ({
     display: "block",
     paddingRight: "10px",
   },
-  list: {
-    marginLeft: "10px",
-    borderBottom: "solid 1px #cce4ff",
-  },
   title: {
     width: "30%",
     whiteSpace: "nowrap",
@@ -165,16 +161,16 @@ const Body: FC<Props> = ({
       </div>
       <List component="nav" className={classes.root}>
         {targetFiles.map((file, index) => (
-          <div
+          <React.Fragment
             key={String(file.folderId) + "-" + String(file.fileId)}
-            className={classes.list}
           >
             <ListItem
               key={file.fileId}
               role={undefined}
-              style={{ transformOrigin: "0 0 0" }}
+              // style={{ transformOrigin: "0 0 0" }}
               dense
               button
+              divider={true}
               onClick={() => {
                 clickFile(file.folderId, file.fileId, file.checked);
               }}
@@ -263,7 +259,7 @@ const Body: FC<Props> = ({
                 </IconButton>
               </div>
             </ListItem>
-          </div>
+          </React.Fragment>
         ))}
       </List>
     </React.Fragment>

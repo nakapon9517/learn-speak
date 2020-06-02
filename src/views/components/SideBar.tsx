@@ -30,9 +30,6 @@ const styles = (theme: Theme): StyleRules => ({
     backgroundColor: theme.palette.background.paper,
     display: "block",
   },
-  listText: {
-    fontSize: "0.2em",
-  },
   formControl: {
     margin: theme.spacing(1),
     minWidth: 300,
@@ -92,30 +89,28 @@ const SideBar: FC<Props> = ({ classes, folders, clickFolder, folderAdd }) => {
           style={{ width: "240px" }}
           value={folderName}
           endAdornment={
-            <span style={{ display: "inline" }}>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={folderCategory}
-                onChange={handleFolderNameChange}
-              >
-                <MenuItem value="action">
-                  <Folder color="action" />
-                </MenuItem>
-                <MenuItem value="disabled">
-                  <Folder color="disabled" />
-                </MenuItem>
-                <MenuItem value="primary">
-                  <Folder color="primary" />
-                </MenuItem>
-                <MenuItem value="secondary">
-                  <Folder color="secondary" />
-                </MenuItem>
-                <MenuItem value="error">
-                  <Folder color="error" />
-                </MenuItem>
-              </Select>
-            </span>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={folderCategory}
+              onChange={handleFolderNameChange}
+            >
+              <MenuItem value="action">
+                <Folder color="action" />
+              </MenuItem>
+              <MenuItem value="disabled">
+                <Folder color="disabled" />
+              </MenuItem>
+              <MenuItem value="primary">
+                <Folder color="primary" />
+              </MenuItem>
+              <MenuItem value="secondary">
+                <Folder color="secondary" />
+              </MenuItem>
+              <MenuItem value="error">
+                <Folder color="error" />
+              </MenuItem>
+            </Select>
           }
           onChange={(event) => {
             setFolderName(event.target.value);
@@ -139,6 +134,7 @@ const SideBar: FC<Props> = ({ classes, folders, clickFolder, folderAdd }) => {
         className={classes.root}
       >
         <ListItem
+          style={{ width: "330px" }}
           button
           onClick={() => {
             setOpenBox(!openBox);
@@ -155,6 +151,7 @@ const SideBar: FC<Props> = ({ classes, folders, clickFolder, folderAdd }) => {
             {folders.map((folder, index) => (
               <React.Fragment key={folder.folderId + folder.name}>
                 <ListItem
+                  style={{ width: "300px" }}
                   button
                   onClick={() => {
                     clickFolder(folder.folderId, folder.opened);
@@ -162,7 +159,7 @@ const SideBar: FC<Props> = ({ classes, folders, clickFolder, folderAdd }) => {
                 >
                   <ListItemIcon>{getFolderIcon(folder.category)}</ListItemIcon>
                   <ListItemText
-                    className={classes.listText}
+                    style={{ fontSize: "0.2em", overflow: "hidden" }}
                     primary={folder.name}
                   ></ListItemText>
                   {folder.opened ? <KeyboardArrowRight /> : ""}

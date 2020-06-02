@@ -29,7 +29,7 @@ const styles = (): StyleRules => ({
     width: "100%",
     height: "100%",
     minHeight: "calc(100vh - 70px)",
-    margin: "5px 5px 5px 0px",
+    margin: "4px 4px 4px 0px",
     border: "0.8px solid gray",
   },
   foot: {
