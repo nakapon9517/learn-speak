@@ -76,7 +76,7 @@ const Speak: FC<Props> = ({
       button: {
         textTransform: "none",
       },
-      fontSize: 12,
+      fontSize: 11,
     },
     mixins: {
       toolbar: {

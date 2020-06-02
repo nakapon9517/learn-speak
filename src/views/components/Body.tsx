@@ -18,9 +18,16 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import PlayCircleOutline from "@material-ui/icons/PlayCircleOutline";
 import Fab from "@material-ui/core/Fab";
+import Folder from "@material-ui/icons/Folder";
 import AddIcon from "@material-ui/icons/Add";
 import Spinner from "react-spinkit";
 import { execute } from "./voice";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Input from "@material-ui/core/Input";
+import TextField from "@material-ui/core/TextField";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 
 const styles = (theme: Theme): StyleRules => ({
   root: {
@@ -70,6 +77,9 @@ const Body: FC<Props> = ({
   clickAll,
 }) => {
   const [allCheck, setAllCheck] = React.useState(false);
+  const [folderCategory, setFolderCategory] = React.useState(
+    folders[0].folderId
+  );
 
   const targetFoldersId = folders
     .filter((fold) => fold.opened)
@@ -112,31 +122,105 @@ const Body: FC<Props> = ({
     }
   };
 
+  const handleFolderChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setFolderCategory(event.target.value as number);
+  };
+
   return (
     <React.Fragment>
-      <div
+      <FormControl
         style={{
-          width: "94%",
-          // minHeight: "88px",
-          marginLeft: "26px",
+          width: "96%",
+          marginLeft: "16px",
           display: "inline-block",
         }}
       >
-        <Checkbox
-          edge="start"
-          checked={allCheck}
-          tabIndex={-1}
-          onClick={() => {
-            const check = !allCheck;
-            setAllCheck(check);
-            clickAll(check);
+        <FormControl
+          style={{
+            // display: "inline-block",
+            // marginLeft: "24px",
+            height: "24px",
+            marginTop: "11px",
           }}
-        />
-        <div
+        >
+          <Checkbox
+            edge="start"
+            checked={allCheck}
+            tabIndex={-1}
+            onClick={() => {
+              const check = !allCheck;
+              setAllCheck(check);
+              clickAll(check);
+            }}
+          />
+        </FormControl>
+        {/* Name入力 */}
+        <FormControl
+          style={{
+            display: "inline-block",
+            marginLeft: "24px",
+          }}
+        >
+          <InputLabel>Name</InputLabel>
+          <Input
+            id="input-with-icon-adornment"
+            style={{ width: "280px" }}
+          ></Input>
+        </FormControl>
+        {/* Text入力 */}
+        <FormControl
+          style={{
+            display: "inline-block",
+            marginLeft: "12px",
+          }}
+        >
+          <InputLabel>Text</InputLabel>
+          <Input
+            id="input-with-icon-adornment"
+            style={{ width: "200px" }}
+          ></Input>
+        </FormControl>
+        {/* フォルダ選択 */}
+        <FormControl
+          style={{
+            display: "inline-block",
+            marginLeft: "12px",
+          }}
+        >
+          <Select
+            // id="demo-simple-select"
+            style={{ width: "160px", height: "30px", marginTop: "18px" }}
+            value={folderCategory}
+            onChange={handleFolderChange}
+          >
+            {folders.map((folder) => (
+              <MenuItem
+                value={folder.folderId}
+                key={folder.folderId + folder.name}
+              >
+                <ListItem style={{ height: "24px" }}>
+                  {getFolderIcon(folder.category)}
+                  {"　"}
+                  <ListItemText primary={folder.name}></ListItemText>
+                </ListItem>
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <span
           style={{
             float: "right",
           }}
         >
+          <Fab
+            color="default"
+            aria-label="add"
+            size="small"
+            style={{ margin: "10px" }}
+            onClick={() => {}}
+          >
+            <AddIcon />
+          </Fab>
           <Button
             variant="contained"
             color="secondary"
@@ -148,17 +232,8 @@ const Body: FC<Props> = ({
           >
             Play
           </Button>
-          <Fab
-            color="default"
-            aria-label="add"
-            size="small"
-            style={{ margin: "10px" }}
-            onClick={() => {}}
-          >
-            <AddIcon />
-          </Fab>
-        </div>
-      </div>
+        </span>
+      </FormControl>
       <List component="nav" className={classes.root}>
         {targetFiles.map((file, index) => (
           <React.Fragment
@@ -167,7 +242,6 @@ const Body: FC<Props> = ({
             <ListItem
               key={file.fileId}
               role={undefined}
-              // style={{ transformOrigin: "0 0 0" }}
               dense
               button
               divider={true}
@@ -264,6 +338,23 @@ const Body: FC<Props> = ({
       </List>
     </React.Fragment>
   );
+};
+
+const getFolderIcon = (type: string) => {
+  switch (type) {
+    case "action":
+      return <Folder color="action" style={{ fontSize: "20px" }} />;
+    case "disabled":
+      return <Folder color="disabled" style={{ fontSize: "20px" }} />;
+    case "primary":
+      return <Folder color="primary" style={{ fontSize: "20px" }} />;
+    case "secondary":
+      return <Folder color="secondary" style={{ fontSize: "20px" }} />;
+    case "error":
+      return <Folder color="error" style={{ fontSize: "20px" }} />;
+    default:
+      return <Folder />;
+  }
 };
 
 export default withStyles(styles)(Body);
