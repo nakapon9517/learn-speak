@@ -144,17 +144,14 @@ const Body: FC<Props> = ({
   const handleFileAdd = () => {
     if (!inputName || inputName === "") {
       alert("Nameを入力してください。");
-      return;
     } else if (!inputText || inputText === "") {
       alert("Textを入力してください。");
-      return;
     } else {
       fileAdd(inputCategory, inputName, inputText);
       setInputName("");
       setInputText("");
       setInputCategory(folders[0].folderId);
       alert("登録しました。");
-      return;
     }
   };
 
