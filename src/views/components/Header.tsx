@@ -50,7 +50,7 @@ const styles = (theme: Theme): StyleRules => ({
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
     marginLeft: 0,
-    width: "100%",
+    width: "50%",
     [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(1),
       width: "auto",
@@ -127,7 +127,11 @@ const Header: FC<Props> = ({ classes, changeSearch, changeType }) => {
           <TwitterIcon
             color="action"
             onClick={() => {
-              if (window.confirm("Twitterを開きます。\nよろしいでしょうか？")) {
+              if (
+                window.confirm(
+                  "開発者のTwitterを開きます。\nよろしいでしょうか？"
+                )
+              ) {
                 document.location.href = "https://twitter.com/nakapooooon";
               }
             }}
@@ -143,10 +147,12 @@ const Header: FC<Props> = ({ classes, changeSearch, changeType }) => {
             color="action"
             onClick={() => {
               if (
-                window.confirm("Instagramを開きます。\nよろしいでしょうか？")
+                window.confirm(
+                  "開発者のInstagramを開きます。\nよろしいでしょうか？"
+                )
               ) {
-                alert("b");
-                // document.location.href = "https://twitter.com/nakapooooon";
+                document.location.href =
+                  "https://www.instagram.com/nakapooooon/?hl=ja";
               }
             }}
           />
@@ -162,10 +168,11 @@ const Header: FC<Props> = ({ classes, changeSearch, changeType }) => {
             onClick={() => {
               if (
                 window.confirm(
-                  "GitHubのページへ遷移します。\nよろしいでしょうか？"
+                  "GitHubの開発リポジトリへ遷移します。\nよろしいでしょうか？"
                 )
               ) {
-                document.location.href = "https://github.com/nakapon9517";
+                document.location.href =
+                  "https://github.com/nakapon9517/learn-speak";
               }
             }}
           />

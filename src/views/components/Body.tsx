@@ -35,14 +35,13 @@ const styles = (theme: Theme): StyleRules => ({
     paddingRight: "10px",
   },
   title: {
-    width: "30%",
-    whiteSpace: "nowrap",
+    width: "20%",
     overflow: "hidden",
     textOverflow: "ellipsis",
   },
   text: {
     width: "40%",
-    whiteSpace: "nowrap",
+    marginLeft: "8px",
     overflow: "hidden",
     textOverflow: "ellipsis",
   },
@@ -166,8 +165,6 @@ const Body: FC<Props> = ({
       >
         <FormControl
           style={{
-            // display: "inline-block",
-            // marginLeft: "24px",
             height: "24px",
             marginTop: "11px",
           }}
@@ -186,6 +183,7 @@ const Body: FC<Props> = ({
         {/* Name入力 */}
         <FormControl
           style={{
+            width: "25%",
             display: "inline-block",
             marginLeft: "24px",
           }}
@@ -193,7 +191,7 @@ const Body: FC<Props> = ({
           <InputLabel>Name</InputLabel>
           <Input
             id="input-with-icon-adornment"
-            style={{ width: "280px" }}
+            style={{ width: "100%" }}
             value={inputName}
             onChange={handleInputNameChange}
             autoComplete={"false"}
@@ -202,6 +200,7 @@ const Body: FC<Props> = ({
         {/* Text入力 */}
         <FormControl
           style={{
+            width: "34%",
             display: "inline-block",
             marginLeft: "12px",
           }}
@@ -209,7 +208,7 @@ const Body: FC<Props> = ({
           <InputLabel>Text</InputLabel>
           <Input
             id="input-with-icon-adornment"
-            style={{ width: "200px" }}
+            style={{ width: "100%" }}
             value={inputText}
             onChange={handleInputTextChange}
             autoComplete={"false"}
@@ -218,13 +217,18 @@ const Body: FC<Props> = ({
         {/* フォルダ選択 */}
         <FormControl
           style={{
+            width: "16%",
             display: "inline-block",
             marginLeft: "12px",
           }}
         >
           <Select
             // id="demo-simple-select"
-            style={{ width: "160px", height: "30px", marginTop: "18px" }}
+            style={{
+              width: "100%",
+              height: "30px",
+              marginTop: "18px",
+            }}
             value={inputCategory}
             onChange={handleCategoryChange}
           >
@@ -233,7 +237,13 @@ const Body: FC<Props> = ({
                 value={folder.folderId}
                 key={folder.folderId + folder.name}
               >
-                <ListItem style={{ height: "24px" }}>
+                <ListItem
+                  style={{
+                    height: "24px",
+                    overflow: "hidden",
+                    fontSize: "8px",
+                  }}
+                >
                   {getFolderIcon(folder.category)}
                   {"　"}
                   <ListItemText primary={folder.name}></ListItemText>
@@ -260,6 +270,7 @@ const Body: FC<Props> = ({
             variant="contained"
             color="secondary"
             size="small"
+            style={{ marginRight: "8px" }}
             endIcon={<PlayCircleOutline />}
             onClick={() => {
               handlerSpeak(0, 0, "", "");
