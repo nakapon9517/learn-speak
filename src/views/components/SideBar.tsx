@@ -8,7 +8,6 @@ import {
 } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Collapse from "@material-ui/core/Collapse";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
@@ -20,9 +19,9 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
-import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import Check from "@material-ui/icons/Check";
 
 const styles = (theme: Theme): StyleRules => ({
   root: {
@@ -77,56 +76,82 @@ const SideBar: FC<Props> = ({ classes, folders, clickFolder, folderAdd }) => {
       <FormControl
         style={{
           width: "100%",
-          marginLeft: "20px",
+          marginLeft: "16px",
           display: "inline-block",
         }}
       >
-        <InputLabel htmlFor="input-with-icon-adornment">
-          Add Sound Box
-        </InputLabel>
-        <Input
-          id="input-with-icon-adornment"
-          style={{ width: "240px" }}
-          value={folderName}
-          endAdornment={
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={folderCategory}
-              onChange={handleFolderNameChange}
-            >
-              <MenuItem value="action">
-                <Folder color="action" />
-              </MenuItem>
-              <MenuItem value="disabled">
-                <Folder color="disabled" />
-              </MenuItem>
-              <MenuItem value="primary">
-                <Folder color="primary" />
-              </MenuItem>
-              <MenuItem value="secondary">
-                <Folder color="secondary" />
-              </MenuItem>
-              <MenuItem value="error">
-                <Folder color="error" />
-              </MenuItem>
-            </Select>
-          }
-          onChange={(event) => {
-            setFolderName(event.target.value);
-          }}
-        />
-        <Fab
-          color="default"
-          aria-label="add"
-          size="small"
-          style={{ margin: "10px" }}
-          onClick={() => {
-            handleFolderAdd(folderName, folderCategory);
+        <FormControl
+          style={{
+            width: "60%",
+            display: "inline-block",
           }}
         >
-          <AddIcon />
-        </Fab>
+          <InputLabel htmlFor="input-with-icon-adornment">
+            Add Sound Box
+          </InputLabel>
+          <Input
+            id="input-with-icon-adornment"
+            style={{ width: "100%" }}
+            value={folderName}
+            onChange={(event) => {
+              setFolderName(event.target.value);
+            }}
+          />
+        </FormControl>
+        <FormControl
+          style={{
+            width: "16%",
+            display: "inline-block",
+            marginLeft: "12px",
+            marginTop: "18px",
+          }}
+        >
+          <Select
+            id="demo-simple-select"
+            labelId="demo-simple-select-label"
+            style={{
+              width: "100%",
+              height: "30px",
+            }}
+            value={folderCategory}
+            onChange={handleFolderNameChange}
+          >
+            <MenuItem value="action">
+              <Folder color="action" />
+            </MenuItem>
+            <MenuItem value="disabled">
+              <Folder color="disabled" />
+            </MenuItem>
+            <MenuItem value="primary">
+              <Folder color="primary" />
+            </MenuItem>
+            <MenuItem value="secondary">
+              <Folder color="secondary" />
+            </MenuItem>
+            <MenuItem value="error">
+              <Folder color="error" />
+            </MenuItem>
+          </Select>
+        </FormControl>
+        <span
+          style={{
+            float: "right",
+            marginRight: "28px",
+            marginTop: "12px",
+            marginBottom: "4px",
+          }}
+        >
+          <Fab
+            color="default"
+            aria-label="add"
+            size="small"
+            onClick={() => {
+              handleFolderAdd(folderName, folderCategory);
+            }}
+          >
+            <AddIcon />
+          </Fab>
+        </span>
       </FormControl>
       <List
         component="nav"
@@ -134,35 +159,37 @@ const SideBar: FC<Props> = ({ classes, folders, clickFolder, folderAdd }) => {
         className={classes.root}
       >
         <ListItem
-          style={{ width: "330px" }}
+          style={{ width: "80%" }}
           button
           onClick={() => {
             setOpenBox(!openBox);
           }}
         >
-          <ListItemIcon>
+          <span style={{ marginRight: "12px" }}>
             <InboxIcon />
-          </ListItemIcon>
+          </span>
           <ListItemText primary="Sound Box" />
           {openBox ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={openBox} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding style={{ marginLeft: "16px" }}>
+          <List component="div" disablePadding style={{ marginLeft: "20px" }}>
             {folders.map((folder, index) => (
               <React.Fragment key={folder.folderId + folder.name}>
                 <ListItem
-                  style={{ width: "300px" }}
+                  style={{ width: "90%" }}
                   button
                   onClick={() => {
                     clickFolder(folder.folderId, folder.opened);
                   }}
                 >
-                  <ListItemIcon>{getFolderIcon(folder.category)}</ListItemIcon>
+                  <span style={{ marginRight: "12px" }}>
+                    {getFolderIcon(folder.category)}
+                  </span>
                   <ListItemText
-                    style={{ fontSize: "0.2em", overflow: "hidden" }}
+                    style={{ overflow: "hidden" }}
                     primary={folder.name}
                   ></ListItemText>
-                  {folder.opened ? <KeyboardArrowRight /> : ""}
+                  {folder.opened ? <Check /> : ""}
                 </ListItem>
               </React.Fragment>
             ))}

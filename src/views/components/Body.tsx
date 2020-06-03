@@ -9,12 +9,11 @@ import {
 import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import IconButton from "@material-ui/core/IconButton";
 import Checkbox from "@material-ui/core/Checkbox";
 import MusicNote from "@material-ui/icons/MusicNote";
-import EditIcon from "@material-ui/icons/Edit";
+// import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import PlayCircleOutline from "@material-ui/icons/PlayCircleOutline";
 import Fab from "@material-ui/core/Fab";
@@ -114,7 +113,7 @@ const Body: FC<Props> = ({
           execute(file.text);
         });
       } else {
-        alert("Not Check");
+        alert("1つ以上チェックしてください。");
       }
     } else {
       (async () => {
@@ -183,9 +182,8 @@ const Body: FC<Props> = ({
         {/* Name入力 */}
         <FormControl
           style={{
-            width: "25%",
+            width: "28%",
             display: "inline-block",
-            marginLeft: "24px",
           }}
         >
           <InputLabel>Name</InputLabel>
@@ -256,13 +254,18 @@ const Body: FC<Props> = ({
           style={{
             float: "right",
             marginRight: "4px",
+            marginTop: "8px",
           }}
         >
           <Fab
             color="default"
             aria-label="add"
             size="small"
-            style={{ margin: "4px 4px 4px 0px" }}
+            style={{
+              marginLeft: "4px",
+              marginRight: "8px",
+              marginBottom: "4px",
+            }}
             onClick={handleFileAdd}
           >
             <AddIcon />
@@ -292,21 +295,19 @@ const Body: FC<Props> = ({
               button
               divider={true}
             >
-              <ListItemIcon>
-                <Checkbox
-                  edge="start"
-                  checked={file.checked}
-                  tabIndex={-1}
-                  disableRipple
-                  inputProps={{
-                    "aria-labelledby": `checkbox-list-label-${file.fileId}`,
-                  }}
-                  color="default"
-                  onClick={() => {
-                    clickFile(file.folderId, file.fileId, file.checked);
-                  }}
-                />
-              </ListItemIcon>
+              <Checkbox
+                edge="start"
+                checked={file.checked}
+                tabIndex={-1}
+                disableRipple
+                inputProps={{
+                  "aria-labelledby": `checkbox-list-label-${file.fileId}`,
+                }}
+                color="default"
+                onClick={() => {
+                  clickFile(file.folderId, file.fileId, file.checked);
+                }}
+              />
               <ListItemText
                 id={`checkbox-list-name-${file.fileId}`}
                 primary={file.name}
@@ -354,22 +355,15 @@ const Body: FC<Props> = ({
                   size="small"
                   className={classes.iconButton}
                   onClick={() => {
-                    // handlerSpeak(file.text);
-                  }}
-                ></IconButton>
-                <IconButton
-                  edge="end"
-                  size="small"
-                  className={classes.iconButton}
-                  onClick={() => {
-                    // handlerSpeak(file.text);
-                    fileDel(file.folderId, file.fileId);
-                    alert("削除しました。");
+                    if (window.confirm("削除してもよろしいでしょうか？")) {
+                      fileDel(file.folderId, file.fileId);
+                      alert("削除しました。");
+                    }
                   }}
                 >
                   <DeleteIcon />
                 </IconButton>
-                <IconButton
+                {/* <IconButton
                   edge="end"
                   size="small"
                   className={classes.iconButton}
@@ -378,7 +372,7 @@ const Body: FC<Props> = ({
                   }}
                 >
                   <EditIcon />
-                </IconButton>
+                </IconButton> */}
               </div>
             </ListItem>
           </React.Fragment>

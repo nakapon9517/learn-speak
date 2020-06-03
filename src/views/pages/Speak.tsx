@@ -9,6 +9,7 @@ import {
   ThemeProvider,
 } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
+import Login from "../components/Login";
 import Header from "../components/Header";
 import SideBar from "../components/SideBar";
 import Body from "../components/Body";
@@ -17,6 +18,10 @@ import Body from "../components/Body";
 const styles = (): StyleRules => ({
   flex: {
     display: "flex",
+  },
+  login: {
+    width: "100vw",
+    height: "100vh",
   },
   sidebar: {
     width: "40%",
@@ -43,6 +48,8 @@ type Props = WithStyles<typeof styles> & {
   folders: Fold[];
   files: File[];
   type: string;
+  loginAuth: boolean;
+  loginAction: (id: string, pw: string) => void;
   changeType: (type: string) => void;
   changeSearch: (text: string) => void;
   clickFolder: (id: string, opened: boolean) => void;
@@ -59,6 +66,8 @@ const Speak: FC<Props> = ({
   folders,
   files,
   type,
+  loginAuth,
+  loginAction,
   changeType,
   changeSearch,
   clickFolder,
@@ -81,6 +90,16 @@ const Speak: FC<Props> = ({
         textTransform: "none",
       },
       fontSize: 11,
+      fontFamily: [
+        "Montserrat",
+        "游ゴシック",
+        "YuGothic",
+        "ヒラギノ角ゴ ProN W3",
+        "Hiragino Kaku Gothic ProN",
+        "メイリオ",
+        "Meiryo",
+        "sans - serif",
+      ].join(","),
     },
     mixins: {
       toolbar: {
@@ -105,30 +124,38 @@ const Speak: FC<Props> = ({
                 : { backgroundColor: "#fff" }
             }
           >
-            <Header changeSearch={changeSearch} changeType={changeType} />
-            <div className={classes.flex}>
-              <Paper className={classes.sidebar}>
-                <SideBar
-                  folders={folders}
-                  clickFolder={clickFolder}
-                  folderAdd={folderAdd}
-                />
-              </Paper>
-              <Paper className={classes.body}>
-                <Body
-                  folders={folders}
-                  files={files}
-                  clickPlay={clickPlay}
-                  clickFile={clickFile}
-                  clickAll={clickAll}
-                  fileAdd={fileAdd}
-                  fileDel={fileDel}
-                />
-              </Paper>
-            </div>
-            {/* <div className={classes.foot}>
+            {false ? (
+              <React.Fragment>
+                <Header changeSearch={changeSearch} changeType={changeType} />
+                <div className={classes.flex}>
+                  <Paper className={classes.sidebar}>
+                    <SideBar
+                      folders={folders}
+                      clickFolder={clickFolder}
+                      folderAdd={folderAdd}
+                    />
+                  </Paper>
+                  <Paper className={classes.body}>
+                    <Body
+                      folders={folders}
+                      files={files}
+                      clickPlay={clickPlay}
+                      clickFile={clickFile}
+                      clickAll={clickAll}
+                      fileAdd={fileAdd}
+                      fileDel={fileDel}
+                    />
+                  </Paper>
+                </div>
+                {/* <div className={classes.foot}>
             <Footer />
           </div> */}
+              </React.Fragment>
+            ) : (
+              <Paper className={classes.login}>
+                <Login loginAction={loginAction} />
+              </Paper>
+            )}
           </div>
         </MuiThemeProvider>
       </ThemeProvider>

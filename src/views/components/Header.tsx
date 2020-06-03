@@ -109,7 +109,7 @@ const Header: FC<Props> = ({ classes, changeSearch, changeType }) => {
           <MenuIcon />
         </IconButton>
         <Typography className={classes.title} variant="h6" noWrap>
-          Learn-Speak
+          Learn Speak
         </Typography>
         <Switch
           defaultChecked
@@ -122,60 +122,53 @@ const Header: FC<Props> = ({ classes, changeSearch, changeType }) => {
           color="primary"
           aria-label="Open Twitter"
           size="small"
-          onClick={() => {}}
+          style={{ marginRight: "4px" }}
+          onClick={() => {
+            if (
+              window.confirm(
+                "開発者のTwitterを開きます。\nよろしいでしょうか？"
+              )
+            ) {
+              document.location.href = "https://twitter.com/nakapooooon";
+            }
+          }}
         >
-          <TwitterIcon
-            color="action"
-            onClick={() => {
-              if (
-                window.confirm(
-                  "開発者のTwitterを開きます。\nよろしいでしょうか？"
-                )
-              ) {
-                document.location.href = "https://twitter.com/nakapooooon";
-              }
-            }}
-          />
+          <TwitterIcon color="action" style={{ color: "#CCCCCC" }} />
         </Fab>
         <Fab
           color="primary"
           aria-label="Open Instagram"
           size="small"
-          onClick={() => {}}
+          style={{ marginRight: "4px" }}
+          onClick={() => {
+            if (
+              window.confirm(
+                "開発者のInstagramを開きます。\nよろしいでしょうか？"
+              )
+            ) {
+              document.location.href =
+                "https://www.instagram.com/nakapooooon/?hl=ja";
+            }
+          }}
         >
-          <InstagramIcon
-            color="action"
-            onClick={() => {
-              if (
-                window.confirm(
-                  "開発者のInstagramを開きます。\nよろしいでしょうか？"
-                )
-              ) {
-                document.location.href =
-                  "https://www.instagram.com/nakapooooon/?hl=ja";
-              }
-            }}
-          />
+          <InstagramIcon color="action" style={{ color: "#CCCCCC" }} />
         </Fab>
         <Fab
           color="primary"
           aria-label="Open GitHub"
           size="small"
-          onClick={() => {}}
+          onClick={() => {
+            if (
+              window.confirm(
+                "GitHubの開発リポジトリへ遷移します。\nよろしいでしょうか？"
+              )
+            ) {
+              document.location.href =
+                "https://github.com/nakapon9517/learn-speak";
+            }
+          }}
         >
-          <GitHubIcon
-            color="action"
-            onClick={() => {
-              if (
-                window.confirm(
-                  "GitHubの開発リポジトリへ遷移します。\nよろしいでしょうか？"
-                )
-              ) {
-                document.location.href =
-                  "https://github.com/nakapon9517/learn-speak";
-              }
-            }}
-          />
+          <GitHubIcon color="action" style={{ color: "#CCCCCC" }} />
         </Fab>
         <div className={classes.search}>
           <div className={classes.searchIcon}>

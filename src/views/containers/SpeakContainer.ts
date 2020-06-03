@@ -8,10 +8,14 @@ const mapStateToProps = (state: AppState) => ({
   folders: [...state.speak.folders],
   files: [...state.speak.files],
   type: state.speak.type,
+  loginAuth: state.speak.loginAuth,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
+    loginAction(id: string, pw: string) {
+      dispatch(operations.loginAction(id, pw));
+    },
     changeType(changeType: string) {
       dispatch(operations.changeType(changeType));
     },

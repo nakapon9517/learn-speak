@@ -1,6 +1,7 @@
 import actions from "./actions";
 
 export default {
+  loginAction: actions.loginAction,
   changeType: actions.changeType,
   changeSearch: actions.changeSearch,
   clickFolder: actions.clickFolder,

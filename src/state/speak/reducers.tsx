@@ -6,6 +6,7 @@ export type SpeakState = {
   folders: Fold[];
   files: File[];
   type: string;
+  loginAuth: boolean;
 };
 
 export const initialState: SpeakState = {
@@ -164,6 +165,7 @@ export const initialState: SpeakState = {
     },
   ],
   type: "light",
+  loginAuth: false,
 };
 
 const speakReducer: Reducer<SpeakState, Actions> = (
@@ -171,6 +173,14 @@ const speakReducer: Reducer<SpeakState, Actions> = (
   action
 ) => {
   switch (action.type) {
+    case ActionTypes.LOGIN_ACTION: {
+      const id = action.payload.id;
+      const pw = action.payload.pw;
+      state.loginAuth = true;
+      return {
+        ...state,
+      };
+    }
     case ActionTypes.CHANGE_TYPE: {
       state.type = action.payload.type;
       return {

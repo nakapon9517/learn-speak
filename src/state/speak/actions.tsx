@@ -1,8 +1,10 @@
 import { ActionType } from "redux-actions-type";
 
 export const ActionTypes = {
+  LOGIN_ACTION: "speak/LOGIN_ACTION",
   CHANGE_TYPE: "speak/CHANGE_TYPE",
   CHANGE_SEARCH: "speak/CHANGE_SEARCH",
+
   CLICK_FOLDER: "speak/CLICK_FOLDER",
   CLICK_PLAY: "speak/CLICK_PLAY",
   CLICK_FILE: "speak/CLICK_FILE",
@@ -20,6 +22,12 @@ export const ActionTypes = {
 } as const;
 
 const actions = {
+  loginAction(id: string, pw: string) {
+    return {
+      type: ActionTypes.LOGIN_ACTION,
+      payload: { id, pw },
+    };
+  },
   changeType(type: string) {
     return {
       type: ActionTypes.CHANGE_TYPE,
