@@ -91,7 +91,7 @@ interface OwnProps {
 type Props = WithStyles<typeof styles> & OwnProps;
 
 const Header: FC<Props> = ({ classes, changeSearch, changeType }) => {
-  const [isType, setType] = React.useState(true);
+  const [isType, setType] = React.useState(false);
   const handleType = () => {
     setType(!isType);
     changeType(isType ? "light" : "dark");

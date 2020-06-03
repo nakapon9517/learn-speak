@@ -223,7 +223,7 @@ const Body: FC<Props> = ({
           }}
         >
           <Select
-            // id="demo-simple-select"
+            id="demo-simple-select"
             style={{
               width: "100%",
               height: "30px",
@@ -255,13 +255,14 @@ const Body: FC<Props> = ({
         <span
           style={{
             float: "right",
+            marginRight: "4px",
           }}
         >
           <Fab
             color="default"
             aria-label="add"
             size="small"
-            style={{ margin: "10px" }}
+            style={{ margin: "4px 4px 4px 0px" }}
             onClick={handleFileAdd}
           >
             <AddIcon />
@@ -270,7 +271,6 @@ const Body: FC<Props> = ({
             variant="contained"
             color="secondary"
             size="small"
-            style={{ marginRight: "8px" }}
             endIcon={<PlayCircleOutline />}
             onClick={() => {
               handlerSpeak(0, 0, "", "");
