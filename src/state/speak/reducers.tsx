@@ -164,7 +164,7 @@ export const initialState: SpeakState = {
       indicate: true,
     },
   ],
-  type: "light",
+  type: "dark",
   loginAuth: false,
 };
 
