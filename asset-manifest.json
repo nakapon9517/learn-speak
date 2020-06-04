@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/learn-speak/static/css/main.9900741b.chunk.css",
+    "main.js": "/learn-speak/static/js/main.666d950c.chunk.js",
+    "main.js.map": "/learn-speak/static/js/main.666d950c.chunk.js.map",
+    "runtime-main.js": "/learn-speak/static/js/runtime-main.4b15a5fe.js",
+    "runtime-main.js.map": "/learn-speak/static/js/runtime-main.4b15a5fe.js.map",
+    "static/css/2.98a57b59.chunk.css": "/learn-speak/static/css/2.98a57b59.chunk.css",
+    "static/js/2.fae76d6f.chunk.js": "/learn-speak/static/js/2.fae76d6f.chunk.js",
+    "static/js/2.fae76d6f.chunk.js.map": "/learn-speak/static/js/2.fae76d6f.chunk.js.map",
+    "index.html": "/learn-speak/index.html",
+    "precache-manifest.12291bc3a6cbb6b642ea5460817a901c.js": "/learn-speak/precache-manifest.12291bc3a6cbb6b642ea5460817a901c.js",
+    "service-worker.js": "/learn-speak/service-worker.js",
+    "static/css/2.98a57b59.chunk.css.map": "/learn-speak/static/css/2.98a57b59.chunk.css.map",
+    "static/css/main.9900741b.chunk.css.map": "/learn-speak/static/css/main.9900741b.chunk.css.map",
+    "static/js/2.fae76d6f.chunk.js.LICENSE.txt": "/learn-speak/static/js/2.fae76d6f.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4b15a5fe.js",
+    "static/css/2.98a57b59.chunk.css",
+    "static/js/2.fae76d6f.chunk.js",
+    "static/css/main.9900741b.chunk.css",
+    "static/js/main.666d950c.chunk.js"
+  ]
+}
