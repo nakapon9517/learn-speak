@@ -19,7 +19,10 @@ import Fab from "@material-ui/core/Fab";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import GitHubIcon from "@material-ui/icons/GitHub";
+import ExitToApp from "@material-ui/icons/ExitToApp";
 import Switch from "@material-ui/core/Switch";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 
 const styles = (theme: Theme): StyleRules => ({
   root: {
@@ -84,14 +87,38 @@ const styles = (theme: Theme): StyleRules => ({
 });
 
 interface OwnProps {
+  type: string;
+  loginAction: (id: string, pw: string) => void;
   changeSearch: (text: string) => void;
   changeType: (type: string) => void;
 }
 
 type Props = WithStyles<typeof styles> & OwnProps;
 
-const Header: FC<Props> = ({ classes, changeSearch, changeType }) => {
-  const [isType, setType] = React.useState(false);
+const Header: FC<Props> = ({
+  classes,
+  type,
+  loginAction,
+  changeSearch,
+  changeType,
+}) => {
+  const [isType, setType] = React.useState(type === "dark");
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+  const handleLogout = () => {
+    if (window.confirm("ログアウトします。\nよろしいでしょうか？")) {
+      loginAction("", "");
+    }
+  };
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const handleType = () => {
     setType(!isType);
     changeType(isType ? "light" : "dark");
@@ -105,9 +132,22 @@ const Header: FC<Props> = ({ classes, changeSearch, changeType }) => {
           className={classes.menuButton}
           color="inherit"
           aria-label="open drawer"
+          onClick={handleClick}
         >
           <MenuIcon />
         </IconButton>
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={handleLogout}>
+            ログアウト
+            <ExitToApp />
+          </MenuItem>
+        </Menu>
         <Typography className={classes.title} variant="h6" noWrap>
           Learn Speak
         </Typography>
@@ -187,6 +227,21 @@ const Header: FC<Props> = ({ classes, changeSearch, changeType }) => {
             }}
           />
         </div>
+        {/* <Badge
+          overlap="circle"
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "right",
+          }}
+          style={{ marginLeft: "8px" }}
+          badgeContent={<KeyboardArrowDown />}
+        >
+          <Avatar
+            alt="created by nakapon"
+            src="./web-designer.jpg"
+            variant="circle"
+          />
+        </Badge> */}
       </Toolbar>
     </AppBar>
   );

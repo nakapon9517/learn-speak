@@ -86,11 +86,9 @@ const SideBar: FC<Props> = ({ classes, folders, clickFolder, folderAdd }) => {
             display: "inline-block",
           }}
         >
-          <InputLabel htmlFor="input-with-icon-adornment">
-            Add Sound Box
-          </InputLabel>
+          <InputLabel htmlFor="input-folder">Add Sound Box</InputLabel>
           <Input
-            id="input-with-icon-adornment"
+            id="input-folder"
             style={{ width: "100%" }}
             value={folderName}
             onChange={(event) => {

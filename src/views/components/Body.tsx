@@ -188,7 +188,7 @@ const Body: FC<Props> = ({
         >
           <InputLabel>Name</InputLabel>
           <Input
-            id="input-with-icon-adornment"
+            id="input-name"
             style={{ width: "100%" }}
             value={inputName}
             onChange={handleInputNameChange}
@@ -205,7 +205,7 @@ const Body: FC<Props> = ({
         >
           <InputLabel>Text</InputLabel>
           <Input
-            id="input-with-icon-adornment"
+            id="input-text"
             style={{ width: "100%" }}
             value={inputText}
             onChange={handleInputTextChange}

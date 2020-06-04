@@ -124,9 +124,14 @@ const Speak: FC<Props> = ({
                 : { backgroundColor: "#fff" }
             }
           >
-            {false ? (
+            {loginAuth ? (
               <React.Fragment>
-                <Header changeSearch={changeSearch} changeType={changeType} />
+                <Header
+                  type={type}
+                  loginAction={loginAction}
+                  changeSearch={changeSearch}
+                  changeType={changeType}
+                />
                 <div className={classes.flex}>
                   <Paper className={classes.sidebar}>
                     <SideBar
@@ -153,7 +158,7 @@ const Speak: FC<Props> = ({
               </React.Fragment>
             ) : (
               <Paper className={classes.login}>
-                <Login loginAction={loginAction} />
+                <Login loginAction={loginAction} loginAuth={loginAuth} />
               </Paper>
             )}
           </div>

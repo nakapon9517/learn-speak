@@ -174,9 +174,11 @@ const speakReducer: Reducer<SpeakState, Actions> = (
 ) => {
   switch (action.type) {
     case ActionTypes.LOGIN_ACTION: {
-      const id = action.payload.id;
-      const pw = action.payload.pw;
-      state.loginAuth = true;
+      if (action.payload.id && action.payload.pw) {
+        state.loginAuth = true;
+      } else {
+        state.loginAuth = false;
+      }
       return {
         ...state,
       };

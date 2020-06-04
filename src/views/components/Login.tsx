@@ -11,6 +11,7 @@ import Link from "@material-ui/core/Link";
 import FormControl from "@material-ui/core/FormControl";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import Grow from "@material-ui/core/Grow";
 
 const styles = (theme: Theme): StyleRules => ({
   root: {
@@ -33,41 +34,77 @@ const styles = (theme: Theme): StyleRules => ({
 });
 
 interface OwnProps {
+  loginAuth: boolean;
   loginAction: (id: string, pw: string) => void;
 }
 
 type Props = WithStyles<typeof styles> & OwnProps;
 
-const Login: FC<Props> = ({ classes, loginAction }) => {
-  const preventDefault = (event: React.SyntheticEvent) =>
-    event.preventDefault();
+const Login: FC<Props> = ({ classes, loginAuth, loginAction }) => {
+  const [mail, setMail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  const handleLogin = () => {
+    if ((mail === "" || password === "") && !loginAuth) {
+      alert("入力したメールアドレス、もしくはパスワードが間違っています。");
+    } else {
+      loginAction(mail, password);
+    }
+  };
 
   return (
     <React.Fragment>
       <Paper className={classes.root}>
         {/* <Paper elevation={3} className={classes.inputZone}> */}
         <div className={classes.inputZone}>
-          <Typography variant="h2" component="h2">
-            Learn Speak
-          </Typography>
+          <Grow
+            in={true}
+            // style={{ transformOrigin: "50px 50px" }}
+            {...{ timeout: 2000 }}
+            disableStrictModeCompat={true}
+          >
+            <Typography variant="h1" component="h2">
+              Learn Speak
+            </Typography>
+          </Grow>
           <FormControl>
-            <TextField id="mail-address" label="メールアドレス" />
-            <TextField id="password" label="パスワード" />
-            <Link
-              href="#"
-              onClick={preventDefault}
-              style={{ fontSize: "16px", marginTop: "8px" }}
-            >
-              ログインに困った場合
-            </Link>
-
+            <TextField
+              id="mail-address"
+              label="メールアドレス"
+              type="mail-address"
+              style={{ marginTop: "12px" }}
+              value={mail}
+              onChange={(event) => {
+                setMail(event.target.value);
+              }}
+            />
+            <TextField
+              id="password"
+              label="パスワード"
+              type="password"
+              style={{ marginTop: "12px" }}
+              value={password}
+              onChange={(event) => {
+                setPassword(event.target.value);
+              }}
+            />
             <Button
               variant="contained"
               color="secondary"
               style={{ marginTop: "24px" }}
+              onClick={handleLogin}
             >
               ログイン
             </Button>
+            <Link
+              href="#"
+              onClick={() => {
+                alert("ヒント：両方に入力してみよう！");
+              }}
+              style={{ fontSize: "14px", marginTop: "8px" }}
+            >
+              ログインに困った場合
+            </Link>
           </FormControl>
         </div>
         {/* </Paper> */}
