@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { Fold } from "speak";
 import {
   // makeStyles,
   // createStyles,
@@ -23,6 +24,8 @@ import ExitToApp from "@material-ui/icons/ExitToApp";
 import Switch from "@material-ui/core/Switch";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import Drawer from "@material-ui/core/Drawer";
+import SideBar from "./SideBar";
 
 const styles = (theme: Theme): StyleRules => ({
   root: {
@@ -91,6 +94,9 @@ interface OwnProps {
   loginAction: (id: string, pw: string) => void;
   changeSearch: (text: string) => void;
   changeType: (type: string) => void;
+  folders: Fold[];
+  clickFolder: (id: string, opened: boolean) => void;
+  folderAdd: (name: string, category: string) => void;
 }
 
 type Props = WithStyles<typeof styles> & OwnProps;
@@ -101,7 +107,11 @@ const Header: FC<Props> = ({
   loginAction,
   changeSearch,
   changeType,
+  folders,
+  clickFolder,
+  folderAdd,
 }) => {
+  const [isOpen, setOpen] = React.useState(false);
   const [isType, setType] = React.useState(type === "dark");
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -110,19 +120,57 @@ const Header: FC<Props> = ({
       loginAction("", "");
     }
   };
-
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
+    setOpen(true);
   };
-
   const handleClose = () => {
     setAnchorEl(null);
   };
-
   const handleType = () => {
     setType(!isType);
     changeType(isType ? "light" : "dark");
   };
+
+  const toggleDrawer = (open: boolean) => (
+    event: React.KeyboardEvent | React.MouseEvent
+  ) => {
+    if (event.type === "keydown") {
+      return;
+    } else {
+      setOpen(false);
+    }
+  };
+
+  const drawer = (
+    <div
+      // className={}
+      style={{ width: "30%", minWidth: "360px" }}
+      role="presentation"
+      onClick={toggleDrawer(false)}
+      // onKeyDown={toggleDrawer(false)}
+    >
+      {
+        <SideBar
+          folders={folders}
+          clickFolder={clickFolder}
+          folderAdd={folderAdd}
+        />
+      }
+      {/* <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={handleLogout}>
+          ログアウト
+          <ExitToApp />
+        </MenuItem>
+      </Menu> */}
+    </div>
+  );
 
   return (
     <AppBar position="static">
@@ -136,18 +184,9 @@ const Header: FC<Props> = ({
         >
           <MenuIcon />
         </IconButton>
-        <Menu
-          id="simple-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-        >
-          <MenuItem onClick={handleLogout}>
-            ログアウト
-            <ExitToApp />
-          </MenuItem>
-        </Menu>
+        <Drawer anchor={"left"} open={isOpen}>
+          {drawer}
+        </Drawer>
         <Typography className={classes.title} variant="h6" noWrap>
           Learn Speak
         </Typography>

@@ -63,7 +63,7 @@ const Login: FC<Props> = ({ classes, loginAuth, loginAction }) => {
             {...{ timeout: 2000 }}
             disableStrictModeCompat={true}
           >
-            <Typography variant="h1" component="h2">
+            <Typography variant="h2" component="h2">
               Learn Speak
             </Typography>
           </Grow>
@@ -74,6 +74,7 @@ const Login: FC<Props> = ({ classes, loginAuth, loginAction }) => {
               type="mail-address"
               style={{ marginTop: "12px" }}
               value={mail}
+              autoComplete={"off"}
               onChange={(event) => {
                 setMail(event.target.value);
               }}
@@ -84,6 +85,7 @@ const Login: FC<Props> = ({ classes, loginAuth, loginAction }) => {
               type="password"
               style={{ marginTop: "12px" }}
               value={password}
+              autoComplete={"off"}
               onChange={(event) => {
                 setPassword(event.target.value);
               }}

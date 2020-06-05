@@ -131,15 +131,18 @@ const Speak: FC<Props> = ({
                   loginAction={loginAction}
                   changeSearch={changeSearch}
                   changeType={changeType}
+                  folders={folders}
+                  clickFolder={clickFolder}
+                  folderAdd={folderAdd}
                 />
                 <div className={classes.flex}>
-                  <Paper className={classes.sidebar}>
+                  {/* <Paper className={classes.sidebar}>
                     <SideBar
                       folders={folders}
                       clickFolder={clickFolder}
                       folderAdd={folderAdd}
                     />
-                  </Paper>
+                  </Paper> */}
                   <Paper className={classes.body}>
                     <Body
                       folders={folders}
