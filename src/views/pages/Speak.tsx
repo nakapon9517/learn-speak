@@ -11,7 +11,7 @@ import {
 import Paper from "@material-ui/core/Paper";
 import Login from "../components/Login";
 import Header from "../components/Header";
-import SideBar from "../components/SideBar";
+// import SideBar from "../components/SideBar";
 import Body from "../components/Body";
 // import Footer from "../components/Footer";
 

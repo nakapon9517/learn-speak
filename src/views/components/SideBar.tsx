@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Fold } from "speak";
 import {
   withStyles,
@@ -22,6 +22,8 @@ import AddIcon from "@material-ui/icons/Add";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Check from "@material-ui/icons/Check";
+import IconButton from "@material-ui/core/IconButton";
+import Alert from "@material-ui/lab/Alert";
 
 const styles = (theme: Theme): StyleRules => ({
   root: {
@@ -43,8 +45,12 @@ interface OwnProps {
 }
 
 type Props = WithStyles<typeof styles> & OwnProps;
+type AlertType = "success" | "error" | "warning" | "info";
 
 const SideBar: FC<Props> = ({ classes, folders, clickFolder, folderAdd }) => {
+  const [alertType, setErrorType] = useState<AlertType>("success");
+  const [isErrorOpen, setErrorOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [openBox, setOpenBox] = React.useState(true);
   const [openModal, setOpenModal] = React.useState(false);
   const [folderName, setFolderName] = React.useState("");
@@ -54,16 +60,25 @@ const SideBar: FC<Props> = ({ classes, folders, clickFolder, folderAdd }) => {
     setOpenModal(openModal);
   }, [openModal]);
 
+  function setInit() {
+    setFolderName("");
+    setFolderCategory("");
+  }
+
   const handleFolderAdd = (name: string, category: string) => {
     if (!name || name === "") {
-      alert("フォルダ名を入力してください。");
+      setError("error", true, "フォルダ名を入力してください。");
     } else {
       folderAdd(name, category);
-      setFolderName("");
-      setFolderCategory("");
-      alert("登録しました。");
+      setInit();
+      setError("success", true, "登録しました。");
     }
   };
+  function setError(alertType: AlertType, isError: boolean, message: string) {
+    setErrorType(alertType);
+    setErrorOpen(isError);
+    setErrorMessage(message);
+  }
 
   const handleFolderNameChange = (
     event: React.ChangeEvent<{ value: unknown }>
@@ -73,10 +88,24 @@ const SideBar: FC<Props> = ({ classes, folders, clickFolder, folderAdd }) => {
 
   return (
     <React.Fragment>
+      <Collapse in={isErrorOpen}>
+        <Alert
+          severity={alertType}
+          onClick={() => {
+            setErrorOpen(false);
+          }}
+          action={
+            <IconButton aria-label="close" color="primary" size="small">
+              {/* <CloseIcon fontSize="inherit" /> */}
+            </IconButton>
+          }
+        >
+          {errorMessage}
+        </Alert>
+      </Collapse>
       <FormControl
         style={{
           width: "100%",
-          marginLeft: "16px",
           display: "inline-block",
         }}
       >
@@ -84,9 +113,10 @@ const SideBar: FC<Props> = ({ classes, folders, clickFolder, folderAdd }) => {
           style={{
             width: "60%",
             display: "inline-block",
+            marginLeft: "16px",
           }}
         >
-          <InputLabel htmlFor="input-folder">Add Sound Box</InputLabel>
+          <InputLabel htmlFor="input-folder">Folder Name</InputLabel>
           <Input
             id="input-folder"
             style={{ width: "100%" }}
@@ -134,9 +164,9 @@ const SideBar: FC<Props> = ({ classes, folders, clickFolder, folderAdd }) => {
         <span
           style={{
             float: "right",
-            marginRight: "28px",
+            marginRight: "12px",
             marginTop: "12px",
-            marginBottom: "4px",
+            marginBottom: "8px",
           }}
         >
           <Fab

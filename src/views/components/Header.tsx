@@ -1,8 +1,7 @@
 import React, { FC } from "react";
 import { Fold } from "speak";
+import SideBar from "./SideBar";
 import {
-  // makeStyles,
-  // createStyles,
   fade,
   withStyles,
   WithStyles,
@@ -22,10 +21,14 @@ import InstagramIcon from "@material-ui/icons/Instagram";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import ExitToApp from "@material-ui/icons/ExitToApp";
 import Switch from "@material-ui/core/Switch";
-import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Drawer from "@material-ui/core/Drawer";
-import SideBar from "./SideBar";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 const styles = (theme: Theme): StyleRules => ({
   root: {
@@ -111,64 +114,52 @@ const Header: FC<Props> = ({
   clickFolder,
   folderAdd,
 }) => {
-  const [isOpen, setOpen] = React.useState(false);
+  const [isLinkOpen, setLinkOpen] = React.useState(false);
+  const [linkMessage, setLinkMessage] = React.useState("");
+  const [link, setLink] = React.useState("");
+  const [isLoginDialogOpen, setLoginDialogOpen] = React.useState(false);
+  const [isDrawerOpen, setDrawerOpen] = React.useState(true);
   const [isType, setType] = React.useState(type === "dark");
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-  const handleLogout = () => {
-    if (window.confirm("ログアウトします。\nよろしいでしょうか？")) {
-      loginAction("", "");
-    }
+  const useHandleLogout = () => {
+    setLoginDialogOpen(true);
   };
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
+    // setAnchorEl(event.currentTarget);
+    setDrawerOpen(true);
   };
   const handleType = () => {
     setType(!isType);
     changeType(isType ? "light" : "dark");
   };
 
+  const handleLink = (message: string, link: string) => {
+    setLinkOpen(true);
+    setLinkMessage(message);
+    setLink(link);
+  };
+
   const toggleDrawer = (open: boolean) => (
     event: React.KeyboardEvent | React.MouseEvent
   ) => {
-    if (event.type === "keydown") {
+    if (
+      event.type === "keydown" &&
+      ((event as React.KeyboardEvent).key === "Tab" ||
+        (event as React.KeyboardEvent).key === "Shift")
+    ) {
       return;
     } else {
-      setOpen(false);
+      setDrawerOpen(false);
     }
   };
 
   const drawer = (
-    <div
-      // className={}
-      style={{ width: "30%", minWidth: "360px" }}
-      role="presentation"
-      onClick={toggleDrawer(false)}
-      // onKeyDown={toggleDrawer(false)}
-    >
-      {
-        <SideBar
-          folders={folders}
-          clickFolder={clickFolder}
-          folderAdd={folderAdd}
-        />
-      }
-      {/* <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuItem onClick={handleLogout}>
-          ログアウト
-          <ExitToApp />
-        </MenuItem>
-      </Menu> */}
+    <div style={{ minWidth: "380px" }} role="presentation">
+      <SideBar
+        folders={folders}
+        clickFolder={clickFolder}
+        folderAdd={folderAdd}
+      />
     </div>
   );
 
@@ -184,7 +175,11 @@ const Header: FC<Props> = ({
         >
           <MenuIcon />
         </IconButton>
-        <Drawer anchor={"left"} open={isOpen}>
+        <Drawer
+          anchor={"left"}
+          open={isDrawerOpen}
+          onClose={toggleDrawer(false)}
+        >
           {drawer}
         </Drawer>
         <Typography className={classes.title} variant="h6" noWrap>
@@ -203,13 +198,10 @@ const Header: FC<Props> = ({
           size="small"
           style={{ marginRight: "4px" }}
           onClick={() => {
-            if (
-              window.confirm(
-                "開発者のTwitterを開きます。\nよろしいでしょうか？"
-              )
-            ) {
-              document.location.href = "https://twitter.com/nakapooooon";
-            }
+            handleLink(
+              "開発者のTwitterを開きます。",
+              "https://twitter.com/nakapooooon"
+            );
           }}
         >
           <TwitterIcon color="action" style={{ color: "#CCCCCC" }} />
@@ -220,14 +212,10 @@ const Header: FC<Props> = ({
           size="small"
           style={{ marginRight: "4px" }}
           onClick={() => {
-            if (
-              window.confirm(
-                "開発者のInstagramを開きます。\nよろしいでしょうか？"
-              )
-            ) {
-              document.location.href =
-                "https://www.instagram.com/nakapooooon/?hl=ja";
-            }
+            handleLink(
+              "開発者のInstagramを開きます。",
+              "https://www.instagram.com/nakapooooon/?hl=ja"
+            );
           }}
         >
           <InstagramIcon color="action" style={{ color: "#CCCCCC" }} />
@@ -237,18 +225,38 @@ const Header: FC<Props> = ({
           aria-label="Open GitHub"
           size="small"
           onClick={() => {
-            if (
-              window.confirm(
-                "GitHubの開発リポジトリへ遷移します。\nよろしいでしょうか？"
-              )
-            ) {
-              document.location.href =
-                "https://github.com/nakapon9517/learn-speak";
-            }
+            handleLink(
+              "開発者のGitHubを開きます。",
+              "https://github.com/nakapon9517/learn-speak"
+            );
           }}
         >
           <GitHubIcon color="action" style={{ color: "#CCCCCC" }} />
         </Fab>
+        <Dialog
+          open={isLinkOpen}
+          onClose={() => setLinkOpen(false)}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {linkMessage + "よろしいでしょうか？"}
+          </DialogTitle>
+          <DialogTitle id="alert-dialog-title"></DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description"></DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={() => {
+                document.location.href = link;
+              }}
+              color="primary"
+            >
+              はい
+            </Button>
+          </DialogActions>
+        </Dialog>
         <div className={classes.search}>
           <div className={classes.searchIcon}>
             <SearchIcon />
@@ -266,21 +274,27 @@ const Header: FC<Props> = ({
             }}
           />
         </div>
-        {/* <Badge
-          overlap="circle"
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "right",
-          }}
-          style={{ marginLeft: "8px" }}
-          badgeContent={<KeyboardArrowDown />}
+        <MenuItem onClick={useHandleLogout} style={{ marginLeft: "8px" }}>
+          <ExitToApp />
+        </MenuItem>
+        <Dialog
+          open={isLoginDialogOpen}
+          onClose={() => setLoginDialogOpen(false)}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
         >
-          <Avatar
-            alt="created by nakapon"
-            src="./web-designer.jpg"
-            variant="circle"
-          />
-        </Badge> */}
+          <DialogTitle id="alert-dialog-title">
+            ログアウトしてもよろしいでしょうか？
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description"></DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => loginAction("", "")} color="primary">
+              はい
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Toolbar>
     </AppBar>
   );

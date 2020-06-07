@@ -190,16 +190,15 @@ const speakReducer: Reducer<SpeakState, Actions> = (
       };
     }
     case ActionTypes.CHANGE_SEARCH: {
+      state.files.forEach((file) => {
+        file.indicate = true;
+      });
       if (action.payload.text) {
         state.files
-          .filter((file) => file.text.includes(action.payload.text))
+          .filter((file) => !file.text.includes(action.payload.text))
           .forEach((file) => {
             file.indicate = false;
           });
-      } else {
-        state.files.forEach((file) => {
-          file.indicate = true;
-        });
       }
       return {
         ...state,

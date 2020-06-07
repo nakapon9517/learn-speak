@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, ChangeEvent, useState } from "react";
 import { Fold, File } from "speak";
 import {
   withStyles,
@@ -26,6 +26,8 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import Alert from "@material-ui/lab/Alert";
+import Collapse from "@material-ui/core/Collapse";
 
 const styles = (theme: Theme): StyleRules => ({
   root: {
@@ -66,6 +68,7 @@ interface OwnProps {
 }
 
 type Props = WithStyles<typeof styles> & OwnProps;
+type AlertType = "success" | "error" | "warning" | "info";
 
 const Body: FC<Props> = ({
   classes,
@@ -77,10 +80,13 @@ const Body: FC<Props> = ({
   fileAdd,
   fileDel,
 }) => {
-  const [allCheck, setAllCheck] = React.useState(false);
-  const [inputName, setInputName] = React.useState("");
-  const [inputText, setInputText] = React.useState("");
-  const [inputCategory, setInputCategory] = React.useState(folders[0].folderId);
+  const [alertType, setErrorType] = useState<AlertType>("success");
+  const [isErrorOpen, setErrorOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [allCheck, setAllCheck] = useState(false);
+  const [inputName, setInputName] = useState("");
+  const [inputText, setInputText] = useState("");
+  const [inputCategory, setInputCategory] = useState(folders[0].folderId);
 
   const targetFoldersId = folders
     .filter((fold) => fold.opened)
@@ -113,7 +119,7 @@ const Body: FC<Props> = ({
           execute(file.text);
         });
       } else {
-        alert("1つ以上チェックしてください。");
+        setError("warning", true, "1つ以上チェックしてください。");
       }
     } else {
       (async () => {
@@ -123,48 +129,67 @@ const Body: FC<Props> = ({
     }
   };
 
-  const handleInputNameChange = (
-    event: React.ChangeEvent<{ value: unknown }>
-  ) => {
+  const handleInputNameChange = (event: ChangeEvent<{ value: unknown }>) => {
     setInputName(event.target.value as string);
   };
-  const handleInputTextChange = (
-    event: React.ChangeEvent<{ value: unknown }>
-  ) => {
+  const handleInputTextChange = (event: ChangeEvent<{ value: unknown }>) => {
     setInputText(event.target.value as string);
   };
-  const handleCategoryChange = (
-    event: React.ChangeEvent<{ value: unknown }>
-  ) => {
+  const handleCategoryChange = (event: ChangeEvent<{ value: unknown }>) => {
     setInputCategory(event.target.value as number);
   };
 
-  const handleFileAdd = () => {
+  function setInit() {
+    setInputName("");
+    setInputText("");
+    setInputCategory(folders[0].folderId);
+  }
+
+  function useHandleFileAdd() {
     if (!inputName || inputName === "") {
-      alert("Nameを入力してください。");
+      setError("error", true, "File Nameを入力してください。");
     } else if (!inputText || inputText === "") {
-      alert("Textを入力してください。");
+      setError("error", true, "File Textを入力してください。");
     } else {
       fileAdd(inputCategory, inputName, inputText);
-      setInputName("");
-      setInputText("");
-      setInputCategory(folders[0].folderId);
-      alert("登録しました。");
+      setInit();
+      setError("success", true, "登録しました。");
     }
-  };
+  }
+
+  function setError(alertType: AlertType, isError: boolean, message: string) {
+    setErrorType(alertType);
+    setErrorOpen(isError);
+    setErrorMessage(message);
+  }
 
   return (
     <React.Fragment>
+      <Collapse in={isErrorOpen}>
+        <Alert
+          severity={alertType}
+          onClick={() => {
+            setErrorOpen(false);
+          }}
+          action={
+            <IconButton aria-label="close" color="primary" size="small">
+              {/* <CloseIcon fontSize="inherit" /> */}
+            </IconButton>
+          }
+        >
+          {errorMessage}
+        </Alert>
+      </Collapse>
       <FormControl
         style={{
           width: "96%",
-          marginLeft: "16px",
           display: "inline-block",
         }}
       >
         <FormControl
           style={{
             height: "24px",
+            marginLeft: "16px",
             marginTop: "11px",
           }}
         >
@@ -182,11 +207,11 @@ const Body: FC<Props> = ({
         {/* Name入力 */}
         <FormControl
           style={{
-            width: "28%",
+            width: "30%",
             display: "inline-block",
           }}
         >
-          <InputLabel>Name</InputLabel>
+          <InputLabel>File Name</InputLabel>
           <Input
             id="input-name"
             style={{ width: "100%" }}
@@ -198,12 +223,12 @@ const Body: FC<Props> = ({
         {/* Text入力 */}
         <FormControl
           style={{
-            width: "34%",
+            width: "36%",
             display: "inline-block",
             marginLeft: "12px",
           }}
         >
-          <InputLabel>Text</InputLabel>
+          <InputLabel>File Text</InputLabel>
           <Input
             id="input-text"
             style={{ width: "100%" }}
@@ -250,38 +275,41 @@ const Body: FC<Props> = ({
             ))}
           </Select>
         </FormControl>
-        <span
+        <FormControl
           style={{
-            float: "right",
+            // width: "16%",
+            // display: "inline-block",
             marginRight: "4px",
             marginTop: "8px",
           }}
         >
-          <Fab
-            color="default"
-            aria-label="add"
-            size="small"
-            style={{
-              marginLeft: "4px",
-              marginRight: "8px",
-              marginBottom: "4px",
-            }}
-            onClick={handleFileAdd}
-          >
-            <AddIcon />
-          </Fab>
-          <Button
-            variant="contained"
-            color="secondary"
-            size="small"
-            endIcon={<PlayCircleOutline />}
-            onClick={() => {
-              handlerSpeak(0, 0, "", "");
-            }}
-          >
-            Play
-          </Button>
-        </span>
+          <div style={{ display: "inline-block" }}>
+            <Fab
+              color="default"
+              aria-label="add"
+              size="small"
+              style={{
+                marginLeft: "4px",
+                marginRight: "8px",
+                marginBottom: "8px",
+              }}
+              onClick={useHandleFileAdd}
+            >
+              <AddIcon />
+            </Fab>
+            <Button
+              variant="contained"
+              color="secondary"
+              size="medium"
+              endIcon={<PlayCircleOutline />}
+              onClick={() => {
+                handlerSpeak(0, 0, "", "");
+              }}
+            >
+              Play
+            </Button>
+          </div>
+        </FormControl>
       </FormControl>
       <List component="nav" className={classes.root}>
         {targetFiles.map((file, index) => (
@@ -294,6 +322,9 @@ const Body: FC<Props> = ({
               dense
               button
               divider={true}
+              onClick={() => {
+                clickFile(file.folderId, file.fileId, file.checked);
+              }}
             >
               <Checkbox
                 edge="start"
@@ -304,9 +335,6 @@ const Body: FC<Props> = ({
                   "aria-labelledby": `checkbox-list-label-${file.fileId}`,
                 }}
                 color="default"
-                onClick={() => {
-                  clickFile(file.folderId, file.fileId, file.checked);
-                }}
               />
               <ListItemText
                 id={`checkbox-list-name-${file.fileId}`}
