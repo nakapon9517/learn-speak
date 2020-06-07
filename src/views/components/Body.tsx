@@ -28,6 +28,11 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Alert from "@material-ui/lab/Alert";
 import Collapse from "@material-ui/core/Collapse";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 const styles = (theme: Theme): StyleRules => ({
   root: {
@@ -80,6 +85,10 @@ const Body: FC<Props> = ({
   fileAdd,
   fileDel,
 }) => {
+  const [isDialogOpen, setDialogOpen] = useState(false);
+  const [dialogMessage, setDialogMessage] = React.useState("");
+  const [deleteFolderId, setDeleteFolderId] = React.useState(0);
+  const [deleteFileId, setDeleteFileId] = React.useState(0);
   const [alertType, setErrorType] = useState<AlertType>("success");
   const [isErrorOpen, setErrorOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -383,28 +392,49 @@ const Body: FC<Props> = ({
                   size="small"
                   className={classes.iconButton}
                   onClick={() => {
-                    if (window.confirm("削除してもよろしいでしょうか？")) {
-                      fileDel(file.folderId, file.fileId);
-                      alert("削除しました。");
-                    }
+                    setDialogOpen(true);
+                    setDialogMessage("削除してもよろしいでしょうか？");
+                    setDeleteFolderId(file.folderId);
+                    setDeleteFileId(file.fileId);
                   }}
                 >
                   <DeleteIcon />
                 </IconButton>
-                {/* <IconButton
-                  edge="end"
-                  size="small"
-                  className={classes.iconButton}
-                  onClick={() => {
-                    // handlerSpeak(file.text);
-                  }}
-                >
-                  <EditIcon />
-                </IconButton> */}
               </div>
             </ListItem>
           </React.Fragment>
         ))}
+        <Dialog
+          open={isDialogOpen}
+          onClose={() => setDialogOpen(false)}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{dialogMessage}</DialogTitle>
+          <DialogTitle id="alert-dialog-title"></DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description"></DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={() => {
+                fileDel(deleteFolderId, deleteFileId);
+                setDialogOpen(false);
+              }}
+              color="primary"
+            >
+              はい
+            </Button>
+            <Button
+              onClick={() => {
+                setDialogOpen(false);
+              }}
+              color="primary"
+            >
+              いいえ
+            </Button>
+          </DialogActions>
+        </Dialog>
       </List>
     </React.Fragment>
   );
