@@ -25,6 +25,7 @@
     "react-redux": "^7.2.0",
     "react-scripts": "3.4.1",
     "react-scroll": "^1.7.16",
+    "react-simple-animate": "^3.3.8",
     "react-speech": "^1.0.2",
     "react-speech-recognition": "^2.0.4",
     "react-spinkit": "^3.0.0",

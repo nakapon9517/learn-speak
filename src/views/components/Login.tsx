@@ -11,9 +11,7 @@ import Link from "@material-ui/core/Link";
 import FormControl from "@material-ui/core/FormControl";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import Grow from "@material-ui/core/Grow";
-import Fade from "@material-ui/core/Fade";
-import { Transition } from "react-transition-group";
+import { AnimateKeyframes } from "react-simple-animate";
 
 const styles = (theme: Theme): StyleRules => ({
   root: {
@@ -45,7 +43,6 @@ type Props = WithStyles<typeof styles> & OwnProps;
 const Login: FC<Props> = ({ classes, loginAuth, loginAction }) => {
   const [mail, setMail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const target = React.createRef();
 
   const handleLogin = () => {
     if ((mail === "" || password === "") && !loginAuth) {
@@ -60,32 +57,23 @@ const Login: FC<Props> = ({ classes, loginAuth, loginAction }) => {
       <Paper className={classes.root}>
         {/* <Paper elevation={3} className={classes.inputZone}> */}
         <div className={classes.inputZone}>
-          {/* <Grow
-            in={true}
-            style={{ transformOrigin: "0px 0px" }}
-            {...{ timeout: 2000 }}
-            disableStrictModeCompat={true}
-          > */}
-          {/* <animated.div
-            style={{
-              ...props,
-              backgroundColor: "#000",
-              width: 300,
-              height: 300,
-            }}
-            role="presentation"
-          />
-          {/* </Grow> */}
-          {/* <Fade
-            in={true}
-            timeout={3000}
-            ref={target}
-            children={
-            }
-          ></Fade> */}
-          <Typography variant="h2" component="h2">
-            Learn Speak
-          </Typography>
+          <AnimateKeyframes
+            play={true}
+            pause={false}
+            iterationCount="1"
+            direction="alternate"
+            duration={3}
+            keyframes={[
+              "opacity: 0",
+              "opacity: 1",
+              // "transform: translateY(40px)",
+              // "transform: translateY(20px)",
+            ]}
+          >
+            <Typography variant="h2" component="h2">
+              Learn Speak
+            </Typography>
+          </AnimateKeyframes>
           <FormControl>
             <TextField
               id="mail-address"
