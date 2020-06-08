@@ -24,6 +24,13 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Check from "@material-ui/icons/Check";
 import IconButton from "@material-ui/core/IconButton";
 import Alert from "@material-ui/lab/Alert";
+import DeleteIcon from "@material-ui/icons/Delete";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Button from "@material-ui/core/Button";
 
 const styles = (theme: Theme): StyleRules => ({
   root: {
@@ -42,12 +49,22 @@ interface OwnProps {
   folders: Fold[];
   clickFolder: (id: string, opened: boolean) => void;
   folderAdd: (name: string, category: string) => void;
+  folderDel: (folderId: number) => void;
 }
 
 type Props = WithStyles<typeof styles> & OwnProps;
 type AlertType = "success" | "error" | "warning" | "info";
 
-const SideBar: FC<Props> = ({ classes, folders, clickFolder, folderAdd }) => {
+const SideBar: FC<Props> = ({
+  classes,
+  folders,
+  clickFolder,
+  folderAdd,
+  folderDel,
+}) => {
+  const [isDialogOpen, setDialogOpen] = useState(false);
+  const [delFolderId, setDelFolderId] = useState(0);
+  const [confirmMessage, setConfirmMessage] = useState("");
   const [alertType, setErrorType] = useState<AlertType>("success");
   const [isErrorOpen, setErrorOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -201,7 +218,7 @@ const SideBar: FC<Props> = ({ classes, folders, clickFolder, folderAdd }) => {
         </ListItem>
         <Collapse in={openBox} timeout="auto" unmountOnExit>
           <List component="div" disablePadding style={{ marginLeft: "20px" }}>
-            {folders.map((folder, index) => (
+            {folders.map((folder) => (
               <React.Fragment key={folder.folderId + folder.name}>
                 <ListItem
                   style={{ width: "90%" }}
@@ -218,9 +235,57 @@ const SideBar: FC<Props> = ({ classes, folders, clickFolder, folderAdd }) => {
                     primary={folder.name}
                   ></ListItemText>
                   {folder.opened ? <Check /> : ""}
+                  <IconButton
+                    edge="end"
+                    size="small"
+                    onClick={() => {
+                      setDialogOpen(true);
+                      setConfirmMessage(
+                        "「" +
+                          folder.name +
+                          "」を削除してもよろしいでしょうか？"
+                      );
+                      setDelFolderId(folder.folderId);
+                    }}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
                 </ListItem>
               </React.Fragment>
             ))}
+            <Dialog
+              open={isDialogOpen}
+              onClose={() => setDialogOpen(false)}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">
+                {confirmMessage}
+              </DialogTitle>
+              <DialogTitle id="alert-dialog-title"></DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-description"></DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button
+                  onClick={() => {
+                    folderDel(delFolderId);
+                    setDialogOpen(false);
+                  }}
+                  color="primary"
+                >
+                  はい
+                </Button>
+                <Button
+                  onClick={() => {
+                    setDialogOpen(false);
+                  }}
+                  color="primary"
+                >
+                  いいえ
+                </Button>
+              </DialogActions>
+            </Dialog>
           </List>
         </Collapse>
       </List>

@@ -37,8 +37,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     folderAdd(name: string, category: string) {
       dispatch(operations.folderAdd(name, category));
     },
-    folderDel() {
-      dispatch(operations.folderDel());
+    folderDel(folderId: number) {
+      dispatch(operations.folderDel(folderId));
     },
     fileAdd(folderId: number, name: string, text: string) {
       dispatch(operations.fileAdd(folderId, name, text));

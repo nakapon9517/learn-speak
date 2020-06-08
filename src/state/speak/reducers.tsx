@@ -13,7 +13,7 @@ export const initialState: SpeakState = {
   folders: [
     {
       folderId: 1,
-      name: "果物",
+      name: "英単語",
       opened: true,
       count: 0,
       category: "secondary",
@@ -25,41 +25,13 @@ export const initialState: SpeakState = {
       count: 0,
       category: "action",
     },
-    {
-      folderId: 3,
-      name: "飲み物",
-      opened: false,
-      count: 0,
-      category: "disabled",
-    },
-    {
-      folderId: 4,
-      name: "パスタ",
-      opened: false,
-      count: 0,
-      category: "primary",
-    },
-    {
-      folderId: 5,
-      name: "ラーメン",
-      opened: false,
-      count: 0,
-      category: "secondary",
-    },
-    {
-      folderId: 6,
-      name: "国名",
-      opened: false,
-      count: 0,
-      category: "error",
-    },
   ],
   files: [
     {
       folderId: 1,
       fileId: 1,
-      name: "りんご",
-      text: "apple",
+      name: "ソーシャルディスタンス",
+      text: "social distance",
       checked: false,
       listening: false,
       indicate: true,
@@ -67,8 +39,8 @@ export const initialState: SpeakState = {
     {
       folderId: 1,
       fileId: 2,
-      name: "ぶどう",
-      text: "grape",
+      name: "シューティングスター",
+      text: "shooting star",
       checked: false,
       listening: false,
       indicate: true,
@@ -76,8 +48,8 @@ export const initialState: SpeakState = {
     {
       folderId: 1,
       fileId: 3,
-      name: "シャンパン",
-      text: "Champagne",
+      name: "アウストラロピテクス",
+      text: "Australopithecus",
       checked: false,
       listening: false,
       indicate: true,
@@ -114,51 +86,6 @@ export const initialState: SpeakState = {
       fileId: 3,
       name: "鶏",
       text: "chicken",
-      checked: false,
-      listening: false,
-      indicate: true,
-    },
-    {
-      folderId: 3,
-      fileId: 1,
-      name: "酸辣湯麺",
-      text: "hot and sour noodles",
-      checked: false,
-      listening: false,
-      indicate: true,
-    },
-    {
-      folderId: 3,
-      fileId: 2,
-      name: "トンカツ",
-      text: "pork cutlet",
-      checked: false,
-      listening: false,
-      indicate: true,
-    },
-    {
-      folderId: 3,
-      fileId: 3,
-      name: "ラーメン",
-      text: "ramen",
-      checked: false,
-      listening: false,
-      indicate: true,
-    },
-    {
-      folderId: 3,
-      fileId: 4,
-      name: "日本酒",
-      text: "Japanese sake",
-      checked: false,
-      listening: false,
-      indicate: true,
-    },
-    {
-      folderId: 3,
-      fileId: 5,
-      name: "ワイン",
-      text: "Wine",
       checked: false,
       listening: false,
       indicate: true,
@@ -280,19 +207,28 @@ const speakReducer: Reducer<SpeakState, Actions> = (
     }
 
     case ActionTypes.FOLDER_DEL: {
-      alert("folder.del");
+      state.folders = state.folders.filter(
+        (folder) => !(folder.folderId === action.payload.folderId)
+      );
+      state.files = state.files.filter(
+        (file) => !(file.folderId === action.payload.folderId)
+      );
       return {
         ...state,
       };
     }
 
     case ActionTypes.FILE_ADD: {
+      let maxIndex = 1;
       const targetFiles = state.files.filter(
         (file) => file.folderId === action.payload.folderId
       );
+      targetFiles.forEach((file) => {
+        maxIndex = maxIndex < file.fileId ? file.fileId : maxIndex;
+      });
       const newFiles: File = {
         folderId: action.payload.folderId,
-        fileId: targetFiles.length + 1,
+        fileId: maxIndex + 1,
         name: action.payload.name,
         text: action.payload.text,
         checked: false,

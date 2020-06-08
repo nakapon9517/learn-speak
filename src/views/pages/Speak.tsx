@@ -57,6 +57,7 @@ type Props = WithStyles<typeof styles> & {
   clickFile: (folderId: number, fileId: number, checked: boolean) => void;
   clickAll: (checked: boolean) => void;
   folderAdd: (name: string, category: string) => void;
+  folderDel: (folderId: number) => void;
   fileAdd: (folderId: number, name: string, text: string) => void;
   fileDel: (folderId: number, fileId: number) => void;
 };
@@ -75,6 +76,7 @@ const Speak: FC<Props> = ({
   clickFile,
   clickAll,
   folderAdd,
+  folderDel,
   fileAdd,
   fileDel,
 }) => {
@@ -134,6 +136,7 @@ const Speak: FC<Props> = ({
                   folders={folders}
                   clickFolder={clickFolder}
                   folderAdd={folderAdd}
+                  folderDel={folderDel}
                 />
                 <div className={classes.flex}>
                   {/* <Paper className={classes.sidebar}>

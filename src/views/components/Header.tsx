@@ -100,6 +100,7 @@ interface OwnProps {
   folders: Fold[];
   clickFolder: (id: string, opened: boolean) => void;
   folderAdd: (name: string, category: string) => void;
+  folderDel: (folderId: number) => void;
 }
 
 type Props = WithStyles<typeof styles> & OwnProps;
@@ -113,6 +114,7 @@ const Header: FC<Props> = ({
   folders,
   clickFolder,
   folderAdd,
+  folderDel,
 }) => {
   const [isLinkOpen, setLinkOpen] = React.useState(false);
   const [linkMessage, setLinkMessage] = React.useState("");
@@ -159,6 +161,7 @@ const Header: FC<Props> = ({
         folders={folders}
         clickFolder={clickFolder}
         folderAdd={folderAdd}
+        folderDel={folderDel}
       />
     </div>
   );

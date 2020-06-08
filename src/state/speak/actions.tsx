@@ -70,9 +70,10 @@ const actions = {
       payload: { name, category },
     };
   },
-  folderDel() {
+  folderDel(folderId: number) {
     return {
       type: ActionTypes.FOLDER_DEL,
+      payload: { folderId },
     };
   },
   fileAdd(folderId: number, name: string, text: string) {

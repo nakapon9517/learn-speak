@@ -12,6 +12,8 @@ import FormControl from "@material-ui/core/FormControl";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Grow from "@material-ui/core/Grow";
+import Fade from "@material-ui/core/Fade";
+import { Transition } from "react-transition-group";
 
 const styles = (theme: Theme): StyleRules => ({
   root: {
@@ -43,6 +45,7 @@ type Props = WithStyles<typeof styles> & OwnProps;
 const Login: FC<Props> = ({ classes, loginAuth, loginAction }) => {
   const [mail, setMail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const target = React.createRef();
 
   const handleLogin = () => {
     if ((mail === "" || password === "") && !loginAuth) {
@@ -57,16 +60,32 @@ const Login: FC<Props> = ({ classes, loginAuth, loginAction }) => {
       <Paper className={classes.root}>
         {/* <Paper elevation={3} className={classes.inputZone}> */}
         <div className={classes.inputZone}>
-          <Grow
+          {/* <Grow
             in={true}
-            // style={{ transformOrigin: "50px 50px" }}
+            style={{ transformOrigin: "0px 0px" }}
             {...{ timeout: 2000 }}
             disableStrictModeCompat={true}
-          >
-            <Typography variant="h2" component="h2">
-              Learn Speak
-            </Typography>
-          </Grow>
+          > */}
+          {/* <animated.div
+            style={{
+              ...props,
+              backgroundColor: "#000",
+              width: 300,
+              height: 300,
+            }}
+            role="presentation"
+          />
+          {/* </Grow> */}
+          {/* <Fade
+            in={true}
+            timeout={3000}
+            ref={target}
+            children={
+            }
+          ></Fade> */}
+          <Typography variant="h2" component="h2">
+            Learn Speak
+          </Typography>
           <FormControl>
             <TextField
               id="mail-address"
@@ -101,7 +120,9 @@ const Login: FC<Props> = ({ classes, loginAuth, loginAction }) => {
             <Link
               href="#"
               onClick={() => {
-                alert("ヒント：両方に入力してみよう！");
+                alert(
+                  "ヒント：メールアドレス・パスワードの両方に入力してみよう！"
+                );
               }}
               style={{ fontSize: "14px", marginTop: "8px" }}
             >
