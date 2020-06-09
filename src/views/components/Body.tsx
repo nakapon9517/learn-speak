@@ -81,6 +81,7 @@ const Body: FC<Props> = ({
   fileAdd,
   fileDel,
 }) => {
+  const DEFAULT_CATEGORY = 999;
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [dialogMessage, setDialogMessage] = React.useState("");
   const [deleteFolderId, setDeleteFolderId] = React.useState(0);
@@ -91,7 +92,7 @@ const Body: FC<Props> = ({
   const [allCheck, setAllCheck] = useState(false);
   const [inputName, setInputName] = useState("");
   const [inputText, setInputText] = useState("");
-  const [inputCategory, setInputCategory] = useState(folders[0].folderId);
+  const [inputCategory, setInputCategory] = useState(DEFAULT_CATEGORY);
 
   const targetFoldersId = folders
     .filter((fold) => fold.opened)
@@ -152,9 +153,11 @@ const Body: FC<Props> = ({
 
   function useHandleFileAdd() {
     if (!inputName || inputName === "") {
-      setError("error", true, "File Nameを入力してください。");
+      setError("error", true, "ファイル名を入力してください。");
     } else if (!inputText || inputText === "") {
-      setError("error", true, "File Textを入力してください。");
+      setError("error", true, "テキストを入力してください。");
+    } else if (inputCategory === DEFAULT_CATEGORY) {
+      setError("error", true, "フォルダを選択してください。");
     } else {
       fileAdd(inputCategory, inputName, inputText);
       setInit();
@@ -211,7 +214,7 @@ const Body: FC<Props> = ({
             display: "inline-block",
           }}
         >
-          <InputLabel>File Name</InputLabel>
+          <InputLabel>ファイル名</InputLabel>
           <Input
             id="input-name"
             style={{ width: "100%" }}
@@ -228,7 +231,7 @@ const Body: FC<Props> = ({
             marginLeft: "12px",
           }}
         >
-          <InputLabel>File Text</InputLabel>
+          <InputLabel>テキスト</InputLabel>
           <Input
             id="input-text"
             style={{ width: "100%" }}

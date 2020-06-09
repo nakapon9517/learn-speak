@@ -129,7 +129,7 @@ const SideBar: FC<Props> = ({
             marginLeft: "16px",
           }}
         >
-          <InputLabel htmlFor="input-folder">Folder Name</InputLabel>
+          <InputLabel htmlFor="input-folder">フォルダ名</InputLabel>
           <Input
             id="input-folder"
             style={{ width: "100%" }}

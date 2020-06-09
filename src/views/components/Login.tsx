@@ -12,6 +12,8 @@ import FormControl from "@material-ui/core/FormControl";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { AnimateKeyframes } from "react-simple-animate";
+import Alert from "@material-ui/lab/Alert";
+import Collapse from "@material-ui/core/Collapse";
 
 const styles = (theme: Theme): StyleRules => ({
   root: {
@@ -39,10 +41,14 @@ interface OwnProps {
 }
 
 type Props = WithStyles<typeof styles> & OwnProps;
+type AlertType = "success" | "error" | "warning" | "info";
 
 const Login: FC<Props> = ({ classes, loginAuth, loginAction }) => {
   const [mail, setMail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [alertType, setErrorType] = React.useState<AlertType>("success");
+  const [isErrorOpen, setErrorOpen] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState("");
 
   const handleLogin = () => {
     if ((mail === "" || password === "") && !loginAuth) {
@@ -54,6 +60,16 @@ const Login: FC<Props> = ({ classes, loginAuth, loginAction }) => {
 
   return (
     <React.Fragment>
+      <Collapse in={isErrorOpen}>
+        <Alert
+          severity={alertType}
+          onClick={() => {
+            setErrorOpen(false);
+          }}
+        >
+          {errorMessage}
+        </Alert>
+      </Collapse>
       <Paper className={classes.root}>
         <div className={classes.inputZone}>
           <AnimateKeyframes
