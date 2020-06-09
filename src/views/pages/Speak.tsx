@@ -139,13 +139,6 @@ const Speak: FC<Props> = ({
                   folderDel={folderDel}
                 />
                 <div className={classes.flex}>
-                  {/* <Paper className={classes.sidebar}>
-                    <SideBar
-                      folders={folders}
-                      clickFolder={clickFolder}
-                      folderAdd={folderAdd}
-                    />
-                  </Paper> */}
                   <Paper className={classes.body}>
                     <Body
                       folders={folders}
@@ -158,9 +151,6 @@ const Speak: FC<Props> = ({
                     />
                   </Paper>
                 </div>
-                {/* <div className={classes.foot}>
-            <Footer />
-          </div> */}
               </React.Fragment>
             ) : (
               <Paper className={classes.login}>

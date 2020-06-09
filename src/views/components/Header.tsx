@@ -119,6 +119,7 @@ const Header: FC<Props> = ({
   const [isLoginDialogOpen, setLoginDialogOpen] = React.useState(false);
   const [isDrawerOpen, setDrawerOpen] = React.useState(true);
   const [isType, setType] = React.useState(type === "dark");
+  const drawerRef = React.createRef();
 
   const useHandleLogout = () => {
     setLoginDialogOpen(true);
@@ -252,73 +253,76 @@ const Header: FC<Props> = ({
   );
 
   return (
-    <AppBar position="static">
-      <Toolbar>
-        <IconButton
-          edge="start"
-          color="inherit"
-          aria-label="open drawer"
-          onClick={handleClick}
-        >
-          <MenuIcon />
-        </IconButton>
-        <Drawer
-          anchor={"left"}
-          open={isDrawerOpen}
-          onClose={toggleDrawer(false)}
-        >
-          {drawer}
-        </Drawer>
-        <Typography className={classes.title} variant="h6" noWrap>
-          Learn Speak
-        </Typography>
-        <Switch
-          defaultChecked
-          color="default"
-          inputProps={{ "aria-label": "checkbox with default color" }}
-          checked={isType}
-          onChange={handleType}
-        />
-        <div className={classes.search}>
-          <div className={classes.searchIcon}>
-            <SearchIcon />
-          </div>
-          <InputBase
-            placeholder="検索…"
-            classes={{
-              root: classes.inputRoot,
-              input: classes.inputInput,
-            }}
-            inputProps={{ "aria-label": "search" }}
-            onChange={(event) => {
-              changeSearch(event.target.value);
-            }}
+    <React.Fragment>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleClick}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Drawer
+            ref={drawerRef}
+            anchor={"left"}
+            open={isDrawerOpen}
+            onClose={toggleDrawer(false)}
+          >
+            {drawer}
+          </Drawer>
+          <Typography className={classes.title} variant="h6" noWrap>
+            Learn Speak
+          </Typography>
+          <Switch
+            defaultChecked
+            color="default"
+            inputProps={{ "aria-label": "checkbox with default color" }}
+            checked={isType}
+            onChange={handleType}
           />
-        </div>
-        <MenuItem
-          onClick={useHandleLogout}
-          style={{ marginLeft: "4px", padding: "0 4px 0 4px" }}
-        >
-          <ExitToApp />
-        </MenuItem>
-        <Dialog
-          open={isLoginDialogOpen}
-          onClose={() => setLoginDialogOpen(false)}
-        >
-          <DialogTitle id="alert-dialog-title">
-            ログアウトしてもよろしいでしょうか？
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText></DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => loginAction("", "")} color="primary">
-              はい
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </Toolbar>
-    </AppBar>
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder="検索…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              inputProps={{ "aria-label": "search" }}
+              onChange={(event) => {
+                changeSearch(event.target.value);
+              }}
+            />
+          </div>
+          <MenuItem
+            onClick={useHandleLogout}
+            style={{ marginLeft: "4px", padding: "0 4px 0 4px" }}
+          >
+            <ExitToApp />
+          </MenuItem>
+          <Dialog
+            open={isLoginDialogOpen}
+            onClose={() => setLoginDialogOpen(false)}
+          >
+            <DialogTitle id="alert-dialog-title">
+              ログアウトしてもよろしいでしょうか？
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText></DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={() => loginAction("", "")} color="primary">
+                はい
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </Toolbar>
+      </AppBar>
+    </React.Fragment>
   );
 };
 
