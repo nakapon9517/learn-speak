@@ -5,12 +5,9 @@ import {
   createStyles,
   // fade,
 } from "@material-ui/core/styles";
-
 import TwitterIcon from "@material-ui/icons/Twitter";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import GitHubIcon from "@material-ui/icons/GitHub";
-// import CircularProgress from "@material-ui/core/CircularProgress";
-// import { url } from "inspector";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,7 +22,6 @@ const Footer: React.FC = () => {
 
   return (
     <div className={classes.root}>
-      {/* <CircularProgress style={{ fontSize: "30px" }} /> */}
       <TwitterIcon
         color="action"
         onClick={() => {

@@ -1,4 +1,3 @@
-// import { Store } from "redux";
 import {
   createStore as reduxCreateStore,
   combineReducers,
@@ -15,12 +14,6 @@ export type AppState = {
 const reducer: Reducer = combineReducers({
   speak: speakReducer,
 });
-
-// export default function createStore() {
-//   const a = compose(persistState())(reduxCreateStore)(reducer);
-//   console.log(a);
-//   return a;
-// }
 
 const store: any = compose(persistState())(reduxCreateStore)(reducer);
 

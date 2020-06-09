@@ -37,6 +37,7 @@ const styles = (theme: Theme): StyleRules => ({
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
     display: "block",
+    position: "relative",
   },
   formControl: {
     margin: theme.spacing(1),
@@ -111,11 +112,6 @@ const SideBar: FC<Props> = ({
           onClick={() => {
             setErrorOpen(false);
           }}
-          action={
-            <IconButton aria-label="close" color="primary" size="small">
-              {/* <CloseIcon fontSize="inherit" /> */}
-            </IconButton>
-          }
         >
           {errorMessage}
         </Alert>
@@ -128,7 +124,7 @@ const SideBar: FC<Props> = ({
       >
         <FormControl
           style={{
-            width: "60%",
+            width: "50%",
             display: "inline-block",
             marginLeft: "16px",
           }}

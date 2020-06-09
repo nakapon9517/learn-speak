@@ -17,19 +17,19 @@ const styles = (theme: Theme): StyleRules => ({
   root: {
     width: "100%",
     height: "100%",
+    paddingTop: "12px",
+    alignItems: "center",
+    justifyContent: "center",
   },
   inputZone: {
-    width: "60%",
-    height: "60%",
+    width: "90%",
+    height: "70%",
     paddingTop: "60px",
     textAlign: "center",
     margin: "0 auto",
     border: "2px solid #666666",
     borderRadius: "12px",
     boxShadow: "3px 3px 3px #666666",
-  },
-  media: {
-    height: 140,
   },
 });
 
@@ -55,7 +55,6 @@ const Login: FC<Props> = ({ classes, loginAuth, loginAction }) => {
   return (
     <React.Fragment>
       <Paper className={classes.root}>
-        {/* <Paper elevation={3} className={classes.inputZone}> */}
         <div className={classes.inputZone}>
           <AnimateKeyframes
             play={true}
@@ -63,12 +62,7 @@ const Login: FC<Props> = ({ classes, loginAuth, loginAction }) => {
             iterationCount="1"
             direction="alternate"
             duration={3}
-            keyframes={[
-              "opacity: 0",
-              "opacity: 1",
-              // "transform: translateY(40px)",
-              // "transform: translateY(20px)",
-            ]}
+            keyframes={["opacity: 0", "opacity: 1"]}
           >
             <Typography variant="h2" component="h2">
               Learn Speak
@@ -118,7 +112,6 @@ const Login: FC<Props> = ({ classes, loginAuth, loginAction }) => {
             </Link>
           </FormControl>
         </div>
-        {/* </Paper> */}
       </Paper>
     </React.Fragment>
   );

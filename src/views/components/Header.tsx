@@ -40,12 +40,9 @@ const styles = (theme: Theme): StyleRules => ({
   nested: {
     paddingLeft: theme.spacing(4),
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
   title: {
     flexGrow: 1,
-    display: "none",
+    width: "30%",
     textAlign: "left",
     [theme.breakpoints.up("sm")]: {
       display: "block",
@@ -59,14 +56,14 @@ const styles = (theme: Theme): StyleRules => ({
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
     marginLeft: 0,
-    width: "50%",
+    width: "30%",
     [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(1),
       width: "auto",
     },
   },
   searchIcon: {
-    padding: theme.spacing(0, 2),
+    padding: theme.spacing(0, 1),
     height: "100%",
     position: "absolute",
     pointerEvents: "none",
@@ -156,50 +153,31 @@ const Header: FC<Props> = ({
   };
 
   const drawer = (
-    <div style={{ minWidth: "380px" }} role="presentation">
+    <div
+      style={{
+        minWidth: "30%",
+        width: "100%",
+        height: "100%",
+        position: "relative",
+      }}
+      role="presentation"
+    >
       <SideBar
         folders={folders}
         clickFolder={clickFolder}
         folderAdd={folderAdd}
         folderDel={folderDel}
       />
-    </div>
-  );
-
-  return (
-    <AppBar position="static">
-      <Toolbar>
-        <IconButton
-          edge="start"
-          className={classes.menuButton}
-          color="inherit"
-          aria-label="open drawer"
-          onClick={handleClick}
-        >
-          <MenuIcon />
-        </IconButton>
-        <Drawer
-          anchor={"left"}
-          open={isDrawerOpen}
-          onClose={toggleDrawer(false)}
-        >
-          {drawer}
-        </Drawer>
-        <Typography className={classes.title} variant="h6" noWrap>
-          Learn Speak
-        </Typography>
-        <Switch
-          defaultChecked
-          color="default"
-          inputProps={{ "aria-label": "checkbox with default color" }}
-          checked={isType}
-          onChange={handleType}
-        />
+      <div style={{ position: "absolute", bottom: "12px", right: "12px" }}>
         <Fab
-          color="primary"
+          color="inherit"
           aria-label="Open Twitter"
           size="small"
-          style={{ marginRight: "4px" }}
+          style={
+            type === "dark"
+              ? { backgroundColor: "#424242", marginRight: "4px" }
+              : { backgroundColor: "#fff", marginRight: "4px" }
+          }
           onClick={() => {
             handleLink(
               "開発者のTwitterを開きます。",
@@ -210,10 +188,14 @@ const Header: FC<Props> = ({
           <TwitterIcon color="action" style={{ color: "#CCCCCC" }} />
         </Fab>
         <Fab
-          color="primary"
+          color="default"
           aria-label="Open Instagram"
           size="small"
-          style={{ marginRight: "4px" }}
+          style={
+            type === "dark"
+              ? { backgroundColor: "#424242", marginRight: "4px" }
+              : { backgroundColor: "#fff", marginRight: "4px" }
+          }
           onClick={() => {
             handleLink(
               "開発者のInstagramを開きます。",
@@ -227,6 +209,11 @@ const Header: FC<Props> = ({
           color="primary"
           aria-label="Open GitHub"
           size="small"
+          style={
+            type === "dark"
+              ? { backgroundColor: "#424242" }
+              : { backgroundColor: "#fff" }
+          }
           onClick={() => {
             handleLink(
               "開発者のGitHubを開きます。",
@@ -260,12 +247,44 @@ const Header: FC<Props> = ({
             </Button>
           </DialogActions>
         </Dialog>
+      </div>
+    </div>
+  );
+
+  return (
+    <AppBar position="static">
+      <Toolbar>
+        <IconButton
+          edge="start"
+          color="inherit"
+          aria-label="open drawer"
+          onClick={handleClick}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Drawer
+          anchor={"left"}
+          open={isDrawerOpen}
+          onClose={toggleDrawer(false)}
+        >
+          {drawer}
+        </Drawer>
+        <Typography className={classes.title} variant="h6" noWrap>
+          Learn Speak
+        </Typography>
+        <Switch
+          defaultChecked
+          color="default"
+          inputProps={{ "aria-label": "checkbox with default color" }}
+          checked={isType}
+          onChange={handleType}
+        />
         <div className={classes.search}>
           <div className={classes.searchIcon}>
             <SearchIcon />
           </div>
           <InputBase
-            placeholder="Search…"
+            placeholder="検索…"
             classes={{
               root: classes.inputRoot,
               input: classes.inputInput,
@@ -273,24 +292,24 @@ const Header: FC<Props> = ({
             inputProps={{ "aria-label": "search" }}
             onChange={(event) => {
               changeSearch(event.target.value);
-              // console.log();
             }}
           />
         </div>
-        <MenuItem onClick={useHandleLogout} style={{ marginLeft: "8px" }}>
+        <MenuItem
+          onClick={useHandleLogout}
+          style={{ marginLeft: "4px", padding: "0 4px 0 4px" }}
+        >
           <ExitToApp />
         </MenuItem>
         <Dialog
           open={isLoginDialogOpen}
           onClose={() => setLoginDialogOpen(false)}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
         >
           <DialogTitle id="alert-dialog-title">
             ログアウトしてもよろしいでしょうか？
           </DialogTitle>
           <DialogContent>
-            <DialogContentText id="alert-dialog-description"></DialogContentText>
+            <DialogContentText></DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button onClick={() => loginAction("", "")} color="primary">

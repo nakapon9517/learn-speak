@@ -56,10 +56,6 @@ const styles = (theme: Theme): StyleRules => ({
     textAlign: "right",
     display: "inline-block",
   },
-  iconButton: {
-    // width: "25%",
-    // height: "25%",
-  },
 });
 
 interface OwnProps {
@@ -180,11 +176,6 @@ const Body: FC<Props> = ({
           onClick={() => {
             setErrorOpen(false);
           }}
-          action={
-            <IconButton aria-label="close" color="primary" size="small">
-              {/* <CloseIcon fontSize="inherit" /> */}
-            </IconButton>
-          }
         >
           {errorMessage}
         </Alert>
@@ -232,7 +223,7 @@ const Body: FC<Props> = ({
         {/* Text入力 */}
         <FormControl
           style={{
-            width: "36%",
+            width: "30%",
             display: "inline-block",
             marginLeft: "12px",
           }}
@@ -286,8 +277,6 @@ const Body: FC<Props> = ({
         </FormControl>
         <FormControl
           style={{
-            // width: "16%",
-            // display: "inline-block",
             marginRight: "4px",
             marginTop: "8px",
           }}
@@ -309,7 +298,7 @@ const Body: FC<Props> = ({
             <Button
               variant="contained"
               color="secondary"
-              size="medium"
+              size="small"
               endIcon={<PlayCircleOutline />}
               onClick={() => {
                 handlerSpeak(0, 0, "", "");
@@ -356,18 +345,9 @@ const Body: FC<Props> = ({
                 className={classes.text}
               />
               <div className={classes.iconButtonGroup}>
-                <IconButton
-                  edge="end"
-                  size="small"
-                  className={classes.iconButton}
-                >
+                <IconButton edge="end" size="small">
                   {file.listening ? (
-                    <Spinner
-                      name="line-scale"
-                      color="gray"
-                      fadeIn="none"
-                      className={classes.iconButton}
-                    />
+                    <Spinner name="line-scale" color="gray" fadeIn="none" />
                   ) : (
                     ""
                   )}
@@ -375,7 +355,6 @@ const Body: FC<Props> = ({
                 <IconButton
                   edge="end"
                   size="small"
-                  className={classes.iconButton}
                   onClick={() => {
                     handlerSpeak(
                       file.folderId,
@@ -390,7 +369,6 @@ const Body: FC<Props> = ({
                 <IconButton
                   edge="end"
                   size="small"
-                  className={classes.iconButton}
                   onClick={() => {
                     setDialogOpen(true);
                     setDialogMessage("削除してもよろしいでしょうか？");
