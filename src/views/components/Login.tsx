@@ -52,7 +52,11 @@ const Login: FC<Props> = ({ classes, loginAuth, loginAction }) => {
 
   const handleLogin = () => {
     if ((mail === "" || password === "") && !loginAuth) {
-      alert("入力したメールアドレス、もしくはパスワードが間違っています。");
+      setErrorType("error");
+      setErrorOpen(true);
+      setErrorMessage(
+        "入力したメールアドレス、もしくはパスワードが間違っています。"
+      );
     } else {
       loginAction(mail, password);
     }
