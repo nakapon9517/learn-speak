@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "398d6e7d58058780f689a9ecb9202d6f",
+    "revision": "7409a21fab9283a1408792b7e2bedf13",
     "url": "/learn-speak/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/learn-speak/static/css/2.189e32ee.chunk.css"
   },
   {
-    "revision": "1f202be3a9e6d06b9e92",
+    "revision": "fc9dbc7b6d2eb3a58b3e",
     "url": "/learn-speak/static/css/main.9900741b.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/learn-speak/static/js/2.ee5b1b3d.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "1f202be3a9e6d06b9e92",
-    "url": "/learn-speak/static/js/main.fbc9581c.chunk.js"
+    "revision": "fc9dbc7b6d2eb3a58b3e",
+    "url": "/learn-speak/static/js/main.747363cd.chunk.js"
   },
   {
     "revision": "d74dc0f3e2dc43a33443",
