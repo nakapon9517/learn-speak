@@ -14,6 +14,7 @@ import Button from "@material-ui/core/Button";
 import { AnimateKeyframes } from "react-simple-animate";
 import Alert from "@material-ui/lab/Alert";
 import Collapse from "@material-ui/core/Collapse";
+import { Helmet } from "react-helmet";
 
 const styles = (theme: Theme): StyleRules => ({
   root: {
