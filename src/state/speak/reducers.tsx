@@ -59,7 +59,7 @@ export const initialState: SpeakState = {
       fileId: 1,
       name: "夜に駆ける",
       text:
-        "沈むように溶けてゆくように　二人だけの空が広がる夜に　「さよなら」だけだった　その一言で全てが分かった　日が沈みだした空と君の姿　フェンス越しに重なっていた",
+        "沈むように溶けてゆくように　二人だけの空が広がる夜に　「さよなら」だけだった　その一言で全てが分かった",
       checked: true,
       listening: false,
       indicate: true,
@@ -96,7 +96,11 @@ const speakReducer: Reducer<SpeakState, Actions> = (
       });
       if (action.payload.text) {
         state.files
-          .filter((file) => !file.text.includes(action.payload.text))
+          .filter(
+            (file) =>
+              !file.name.includes(action.payload.text) &&
+              !file.text.includes(action.payload.text)
+          )
           .forEach((file) => {
             file.indicate = false;
           });
